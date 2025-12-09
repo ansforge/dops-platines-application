@@ -1,0 +1,60 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listSystemes" translate>pages.systems.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{id:system.id}" routerLink="./">{{!isNew ? ('pages.systems.system.edit' | translate) : ('pages.systems.system.new' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title">{{!isNew ? ('pages.systems.system.edit' | translate) : ('pages.systems.system.new' | translate)}}</h3>
+      </div>
+      <form #systemForm="ngForm" class="form-horizontal" id="systemForm">
+        <div class="card-body">
+          <div class="composant">
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.systems.system.family"></label>
+              <div class="col-sm-12">
+                <select class="form-control" [(ngModel)]="system.theme.id" #family="ngModel" name="family" id="familleId" required>
+                  <option *ngFor="let family of families" value="{{family.id}}" [selected]="family.id == system.theme.id">{{family.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="systemForm.submitted && family.invalid" translate="pages.systems.system.error_message.family"></span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.systems.system.name"></label>
+              <div class="col-sm-12">
+                <input id="name" type="text" name="name" [(ngModel)]="system.name" #name="ngModel" class="form-control" required maxlength="50">
+                <span class="text-danger" *ngIf="systemForm.submitted && name.invalid" translate="pages.systems.system.error_message.name"></span>
+              </div>
+            </div>
+
+            <div class="col-sm-12 divBtn">
+              <button id="btnRetour" type="button" class="btn btn--default btn--ghost" (click)="back()" translate="commons.actions.back"></button>
+              <button id="btnValider" type="submit" class="btn btn--plain btn--primary" (click)="saveSysteme()" translate="commons.actions.validate"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,231 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="urn:asip:ror:2015">
+   <env:Body xmlns:rpc="http://www.w3.org/2003/05/soap-rpc">
+      <ns1:careServicesResponse>
+         <ns1:result>
+            <ns1:facilityNumber>1</ns1:facilityNumber>
+            <ns1:queryResult>
+               <ns1:organizationDirectory>
+                  <ns1:organization entityID="s_37493">
+                     <ns1:otherID code="" assigningAuthorityName=""/>
+                     <ns1:otherID code="83602013100" assigningAuthorityName="1.2.250.1.71.4.2.1"/>
+                     <ns1:otherID code="407702521" assigningAuthorityName="1.3.2"/>
+                     <ns1:codedType code="01" codingScheme="1.2.250.1.213.1.6.1.44"/>
+                     <ns1:primaryName>STRUCTURE CABINET INDIVIDUEL INFIRMIER RAISON SOCIALE</ns1:primaryName>
+                     <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                        <ns1:location>
+                           <ns1:address>
+                              <ns1:addressLine buildingNumber="145" streetType="CHE" streetName="Du Palyvestre 11" postCode="83800" cityName="HYERES"/>
+                           </ns1:address>
+                           <ns1:cityNumber code="83069" codingScheme="1.2.250.1.213.2.23"/>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extension type="Type1" urn="Urn0">
+                                 <ns1:recognation>37493</ns1:recognation>
+                              </ns1:extension>
+                           </ns1:record>
+                        </ns1:location>
+                     </ns1:extensionHIDDEN>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>37493</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:organization>
+                  <ns1:organization entityID="e_40841">
+                     <ns1:otherID/>
+                     <ns1:otherID code="83602013100" assigningAuthorityName="1.2.250.1.71.4.2.1"/>
+                     <ns1:otherID code="40770252100052" assigningAuthorityName="1.3.2"/>
+                     <ns1:codedType code="SA07" codingScheme="1.2.250.1.213.1.6.1.8"/>
+                     <ns1:codedType code="109" codingScheme="1.2.250.1.213.1.6.1.45"/>
+                     <ns1:primaryName>ETABLISSEMENT CABINET INDIVIDUEL INFIRMIER RAISON SOCIALE</ns1:primaryName>
+                     <ns1:parent entityID="s_37493"/>
+                     <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                        <ns1:contact>
+                           <ns1:name>Standard</ns1:name>
+                           <ns1:nature code="06" codingScheme="1.2.250.1.213.3.3.67"/>
+                           <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                           <ns1:contactPoint>
+                              <ns1:codedType code="2" codingScheme="1.2.250.1.213.3.3.1"/>
+                              <ns1:equipment>+33 4 94 08 00 80</ns1:equipment>
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                                 <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                                    <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                       <ns1:recognation>40841</ns1:recognation>
+                                    </ns1:extensionHIDDEN>
+                                 </ns1:record>
+                              </ns1:extensionHIDDEN>
+                           </ns1:contactPoint>
+                           <ns1:contactPoint>
+                              <ns1:codedType code="3" codingScheme="1.2.250.1.213.3.3.1"/>
+                              <ns1:equipment>public@test.com</ns1:equipment>
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                                 <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                                    <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                       <ns1:recognation>40841</ns1:recognation>
+                                    </ns1:extensionHIDDEN>
+                                 </ns1:record>
+                              </ns1:extensionHIDDEN>
+                           </ns1:contactPoint>
+                           <ns1:contactPoint>
+                              <ns1:codedType code="6" codingScheme="1.2.250.1.213.3.3.1"/>
+                              <ns1:equipment>+33 4 94 08 00 83</ns1:equipment>
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                                 <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                                    <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                       <ns1:recognation>40841</ns1:recognation>
+                                    </ns1:extensionHIDDEN>
+                                 </ns1:record>
+                              </ns1:extensionHIDDEN>
+                           </ns1:contactPoint>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>40841</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:contact>
+                        <ns1:location>
+                           <ns1:address>
+                              <ns1:addressLine buildingNumber="145" streetType="CHE" streetName="Du Palyvestre 39" postCode="83800" cityName="HYERES"/>
+                           </ns1:address>
+                           <ns1:cityNumber code="83069" codingScheme="1.2.250.1.213.2.23"/>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>40841</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:location>
+                     </ns1:extensionHIDDEN>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>40841</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:organization>
+               </ns1:organizationDirectory>
+               <ns1:serviceDirectory>
+                  <ns1:service entityID="47045_001">
+                     <ns1:codedType code="001" codingScheme="1.2.250.1.213.3.3.12"/>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>47045</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:service>
+                  <ns1:service entityID="47045_003">
+                     <ns1:codedType code="003" codingScheme="1.2.250.1.213.3.3.12"/>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>47045</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:service>
+               </ns1:serviceDirectory>
+               <ns1:facilityDirectory>
+                  <ns1:facility entityID="47045">
+                     <ns1:codedType code="4" codingScheme="1.2.250.1.213.3.3.8"/>
+                     <ns1:primaryName>UNITÉ CABINET INDIVIDUEL INFIRMIER</ns1:primaryName>
+                     <ns1:organizations>
+                        <ns1:organization entityID="e_40841">
+                           <ns1:service entityID="47045_001"/>
+                           <ns1:service entityID="47045_003"/>
+                        </ns1:organization>
+                     </ns1:organizations>
+                     <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                        <ns1:contact>
+                           <ns1:name>Secrétariat</ns1:name>
+                           <ns1:nature code="01" codingScheme="1.2.250.1.213.3.3.67"/>
+                           <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                           <ns1:contactPoint>
+                              <ns1:codedType code="2" codingScheme="1.2.250.1.213.3.3.1"/>
+                              <ns1:equipment>+33 4 94 08 00 95</ns1:equipment>
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:confidentialityLevel code="1" codingScheme="1.2.250.1.213.1.1.4.344"/>
+                                 <ns1:record created="2021-01-07T16:26:13+01:00" updated="2021-01-07T16:26:13+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                                    <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                       <ns1:recognation>43711</ns1:recognation>
+                                    </ns1:extensionHIDDEN>
+                                 </ns1:record>
+                              </ns1:extensionHIDDEN>
+                           </ns1:contactPoint>
+                           <ns1:record created="2021-01-07T16:26:13+01:00" updated="2021-01-07T16:26:13+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>43711</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:contact>
+                        <ns1:creationDate>2021-01-07</ns1:creationDate>
+                        <ns1:typeActivity code="05" codingScheme="1.2.250.1.213.3.3.17"/>
+                        <ns1:careMode code="29" codingScheme="1.2.250.1.213.3.3.13"/>
+                        <ns1:patientsType>
+                           <ns1:patientTypeAgeMin>
+                              <ns1:value>18</ns1:value>
+                              <ns1:unit code="a" codingScheme="2.16.840.1.113883.6.8"/>
+                           </ns1:patientTypeAgeMin>
+                           <ns1:patientTypeAgeMax>
+                              <ns1:value>65</ns1:value>
+                              <ns1:unit code="a" codingScheme="2.16.840.1.113883.6.8"/>
+                           </ns1:patientTypeAgeMax>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>47045</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:patientsType>
+                        <ns1:accommodationCapacity>
+                           <ns1:beds total="26" updateDate="2021-01-07T16:17:29+01:00"/>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>47045</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:accommodationCapacity>
+                        <ns1:residentialCapactity>
+                           <ns1:residentialType code="02" codingScheme="1.2.250.1.213.3.3.35"/>
+                           <ns1:residentialNumber>6</ns1:residentialNumber>
+                           <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                              <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                                 <ns1:recognation>47045</ns1:recognation>
+                              </ns1:extensionHIDDEN>
+                           </ns1:record>
+                        </ns1:residentialCapactity>
+                        <ns1:resourcesSkills>
+                           <ns1:profession code="60" codingScheme="1.2.250.1.71.1.2.7"/>
+                        </ns1:resourcesSkills>
+                        <ns1:sensitiveUnit>false</ns1:sensitiveUnit>
+                     </ns1:extensionHIDDEN>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>47045</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:facility>
+               </ns1:facilityDirectory>
+               <ns1:providerDirectory>
+                  <ns1:provider entityID="84266">
+                     <ns1:codedType code="60" codingScheme="1.2.250.1.71.1.2.7"/>
+                     <ns1:demographic>
+                        <ns1:name>
+                           <ns1:commonName>INFIMIER</ns1:commonName>
+                           <ns1:forename>SA-07/08</ns1:forename>
+                        </ns1:name>
+                     </ns1:demographic>
+                     <ns1:record created="2021-01-07T16:17:29+01:00" updated="2021-01-07T16:17:29+01:00" status="Ok" sourceDirectory="https://ror-preprod.sante-paca.fr">
+                        <ns1:extensionHIDDEN type="Type1" urn="Urn0">
+                           <ns1:recognation>84266</ns1:recognation>
+                        </ns1:extensionHIDDEN>
+                     </ns1:record>
+                  </ns1:provider>
+               </ns1:providerDirectory>
+               <ns1:deviceDirectory/>
+            </ns1:queryResult>
+         </ns1:result>
+      </ns1:careServicesResponse>
+   </env:Body>
+</env:Envelope>

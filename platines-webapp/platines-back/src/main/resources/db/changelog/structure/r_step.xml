@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="modifyDataType-r_step-erreurs">
+		<modifyDataType columnName="erreurs"
+			newDataType="LONGTEXT" tableName="r_step" />
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="modifyDataType-r_step-description">
+		<modifyDataType columnName="description"
+			newDataType="TEXT" tableName="r_step" />
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="add_column_request_table_r_step">
+		<addColumn tableName="r_step">
+			<column name="request" type="LONGTEXT"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="add_column_response_table_r_step">
+		<addColumn tableName="r_step">
+			<column name="response" type="LONGTEXT"></column>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,107 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate>pages.compatibility.title</a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate>pages.compatibility.title</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" class="form-control">
+          <div class="form-group row">
+            <label class="col-sm-6 control-label label-modif" translate>pages.compatibility.choose_family</label>
+            <label class="col-sm-6 control-label label-modif" translate>pages.compatibility.choose_service</label>
+          </div>
+          <div class="form-group row">
+
+            <select #familySelect (change)="refreshSysteme()" class="col-sm-5 form-control select-modif" formControlName="familleId">
+              <option translate value="">pages.compatibility.family_select</option>
+              <option *ngFor="let famille of familles" value="{{famille.id}}">{{famille.name}}</option>
+            </select>
+
+            <select (change)="getVersions()" class="col-sm-5 form-control select-modif" formControlName="systemeId">
+              <option *ngIf="systemes?.length<1 && familySelect.value" translate value="">pages.compatibility.no_systems_found</option>
+              <option *ngIf="systemes?.length<1 && !familySelect.value" translate value="">pages.compatibility.please_select_theme</option>
+              <option *ngIf="systemes?.length>0" translate value="">pages.compatibility.system_select</option>
+              <option *ngFor="let systeme of systemes" [ngValue]="systeme.id">{{systeme.name}}</option>
+            </select>
+
+          </div>
+          <div class="form-group versions-list">
+            <label *ngIf="versionsSelectedSysteme" class="col-sm-12 control-label label-listeVersion">Versions du web service :</label>
+            <ul style="padding-left: 40px">
+              <li *ngIf="versionsSelectedSysteme?.length===0" class="is-invalid">
+                <span translate>pages.compatibility.no_versions</span>
+              </li>
+              <li *ngFor="let version of versionsSelectedSysteme">
+                <span>{{version.label}}</span>
+              </li>
+            </ul>
+          </div>
+        </form>
+        <div class="responsive-table">
+          <table aria-label="Tableaux de compatibilité" class="table">
+            <tbody>
+              <tr>
+                <th>
+                  <div class="form-group row">
+                    <div class="list-title">
+                      <label style="margin-top: 5px" translate>pages.compatibility.test_list</label>
+                    </div>
+
+                    <div class="col-sm-10">
+                      <div class="radio">
+                        <div>
+                          <div style="display:flex">
+                            <mat-radio-group [(ngModel)]="this.role" class="custom-radio-group">
+                              <mat-radio-button (change)="onRadioChange($event)" [value]="'SERVER'" name="typeSysteme">
+                                <span translate>commons.labels.role_server</span>
+                              </mat-radio-button>
+                              <mat-radio-button (change)="onRadioChange($event)" [value]="'CLIENT'" name="typeSysteme">
+                                <span translate>commons.labels.role_client</span>
+                              </mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                        <div>
+                          <div style="float:left">
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th *ngFor="let version of versionsSelectedSysteme">{{version.label}}</th>
+              </tr>
+              <tr *ngFor="let projet of projets">
+                <td>{{projet.name}}</td>
+                <td *ngFor="let version of versionsSelectedSysteme" class="tdCheckBox">
+                  <label class="checkbox-inline custom-checkbox nowrap">
+                    <div class="custom-control text-center custom-checkbox">
+                      <input (click)="majAssociation(version.id, projet.id)" [checked]="boolean(projet.id, version.id)" class="custom-control-input" id="squaredFour" type="checkbox" value="version.id">
+                    </div>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

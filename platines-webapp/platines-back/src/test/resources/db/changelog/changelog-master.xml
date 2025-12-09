@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<include file="features/init-database-test.xml"
+		relativeToChangelogFile="true" />
+	<include file="h2-structure/acl_sid.xml"
+		relativeToChangelogFile="true" />
+	<include file="h2-structure/acl_class.xml"
+		relativeToChangelogFile="true" />
+	<include file="h2-structure/acl_object_identity.xml"
+		relativeToChangelogFile="true" />
+	<include file="h2-structure/acl_entry.xml"
+		relativeToChangelogFile="true" />
+        <include file="h2-structure/utilisateur.xml"
+		relativeToChangelogFile="true" />
+
+        <!-- 
+            Pas de raison de distinguer le contenu de cette table de référentiel
+            d'un test à l'autre, donc on l'insère ici (c'est la seule)
+        -->
+	<include file="test-data/acl_class.xml"
+		relativeToChangelogFile="true" />
+</databaseChangeLog>

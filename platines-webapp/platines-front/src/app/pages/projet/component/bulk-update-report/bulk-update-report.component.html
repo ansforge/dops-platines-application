@@ -1,0 +1,107 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li *ngIf="!isDryRun" class="breadcrumb-item"><a routerLink="./" translate>pages.projects.bulk-report.title</a></li>
+          <li *ngIf="isDryRun" class="breadcrumb-item"><a routerLink="./" translate>pages.projects.bulk-report.dry-run</a></li>
+        </ol>
+      </nav>
+      
+      <div class="card-header clearfix">
+        <h3 *ngIf="!isDryRun" class="card-title" translate>pages.projects.bulk-report.title</h3>
+        <h3 *ngIf="isDryRun" class="card-title" translate>pages.projects.bulk-report.dry-run</h3>
+      </div>
+      <div class="card-body">
+            <div class="table-responsive">
+              <table [dataSource]="tableDatasource" aria-label="Rapport de mise à jour" class="mat-elevation-z8" mat-table matSort matSortActive="filename" matSortDirection="asc">
+                <ng-container matColumnDef="filename">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.filename</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell>{{element.filename}}</td>
+                </ng-container>
+                <ng-container matColumnDef="previousName">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.previousName</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell>{{element.previousName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="newName">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.newName</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell>{{element.newName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="lastUpdateDate">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.lastUpdateDate</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell>{{element.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.status</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell>
+                    <svg *ngIf="element.status==='OK'" aria-hidden="true" class="session-tree-icon svg-icon svg-check" focusable="false">
+                      <use xlink:href="svg-icons/icon-sprite.svg#check"></use>
+                    </svg>
+                    <svg *ngIf="element.status==='WARNING'" aria-hidden="true" class="session-tree-icon svg-icon svg-warning" focusable="false">
+                      <use xlink:href="svg-icons/icon-sprite.svg#warning"></use>
+                    </svg>
+                    <svg *ngIf="element.status==='REJECTED'" aria-hidden="true" class="session-tree-icon svg-icon svg-circle-cross" focusable="false">
+                      <use xlink:href="svg-icons/icon-sprite.svg#circle-cross"></use>
+                    </svg>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="statusMessage">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                    <span translate>pages.projects.bulk-report.statusMessage</span>
+                  </th>
+                  <td *matCellDef="let element" mat-cell><pre>{{element.statusMessage}}</pre></td>
+                </ng-container>
+                
+                <tr *matNoDataRow>
+                  <td class="text-center" colspan="100%">
+                    <span *ngIf="report===null" translate>pages.projects.bulk-report.awaitingReport</span>
+                    <span *ngIf="report!==null" translate>pages.projects.bulk-report.emptyReport</span>
+                  </td>
+                </tr>
+                <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+                <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+              </table>
+            </div>
+      </div>
+      <div id="dryRunCommands" *ngIf="isDryRun && report && archiveId===report.archiveId">
+        <button class="btn btn--plain btn--primary" (click)="onBulkConfirm()">
+              <span translate>pages.projects.bulk-report.confirm</span>
+        </button>
+        <button class="btn btn--ghost btn--default" [routerLink]="['..','listProjets']">
+              <span translate>commons.actions.cancel</span>
+        </button>
+        <button class="btn btn--plain btn--primary" (click)="onReportDownload()">
+              <span translate>commons.actions.download</span>
+        </button>
+      </div>
+      <div id="reportCommands" *ngIf="!isDryRun && report && archiveId===report.archiveId">
+        <button class="btn btn--plain btn--primary" (click)="onReportDownload()">
+              <span translate>commons.actions.download</span>
+        </button>
+      </div>
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</div>

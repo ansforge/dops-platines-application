@@ -1,0 +1,115 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate>pages.applications.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate="pages.applications.title"></h3>
+      </div>
+      <div class="form-group row search">
+        <div class="col-sm-3 col-search flex-row form-group-wrap form-group-wrap--right">
+          <input #search class="form-control zone-search"
+                 [ngModel]="this.contextStateService.filters.get(this.metadata.selector)"
+                 (ngModelChange)="this.contextStateService.filters.set(this.metadata.selector, $event)"
+                 (keyup)="applyFilter()" matInput placeholder="{{'commons.labels.search' | translate}}">
+          <svg aria-hidden="true" class="svg-icon svg-search" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#search "></use></svg>
+        </div>
+
+        <div class="col-sm-9 margin-btn">
+          <div class="list-btn-actions">
+            <button [disabled]="selection.selected.length===0" (click)="deleteApplication()" class="btn btn--default btn--ghost" id="deleteApplication" translate="commons.actions.delete" type="submit"></button>
+            <button (click)="createApplication()" class="btn btn--plain btn--primary" id="addApplication" translate="commons.actions.add" type="submit"></button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+            <table aria-label="Liste des applications" (matSortChange)="sortData($event)" matSort [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+
+              <ng-container matColumnDef="name">
+                <th *matHeaderCellDef mat-sort-header mat-header-cell><span translate>{{this.labelsPath}}.name</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate="{{element['name']}}"></span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th *matHeaderCellDef mat-sort-header mat-header-cell><span translate>{{labelsPath}}.role</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate>{{labelsPath}}.roles.{{element['role']}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container *ngFor="let column of autoColumns" [matColumnDef]="column">
+                <th *matHeaderCellDef mat-sort-header mat-header-cell><span translate>{{labelsPath}}.{{ column }}</span></th>
+                <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="user">
+                <th *matHeaderCellDef mat-sort-header mat-header-cell><span translate>{{labelsPath}}.user</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span>{{element['user']['forename']}} {{element['user']['name']}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th *matHeaderCellDef class="text-center" mat-header-cell>Actions</th>
+                <td *matCellDef="let element" class="text-center" mat-cell>
+                <span>
+                  <button
+                    matTooltip="{{'icons.editApplication'|translate}}"
+                    [matTooltipPosition]="'above'"
+                    [matTooltipClass]="'tooltip-inner'"
+                    (click)="onUserRowSelect(element['id'])">
+                    <svg aria-hidden="true"  class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg>
+                  </button>
+                </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="checkbox">
+                <th *matHeaderCellDef mat-header-cell>
+                  <div class="custom-control text-center custom-checkbox">
+                    <input (click)="setAll($event)" [checked]="isAllSelected()" [indeterminate]="!isAllSelected() && selection.hasValue()" class="custom-control-input" type="checkbox">
+                  </div>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <div class="custom-control text-center custom-checkbox">
+                    <input (change)="setRow(element)" [checked]="selection.isSelected(element)" class="custom-control-input" type="checkbox">
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+              <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+            </table>
+
+          </div>
+      </div>
+      <mat-paginator
+        ansPaginatorStyle
+        [length]="dataSource.data.length"
+        [showTotalPages]="5"
+        [pageSizeOptions]="[20, 50, 100]"
+        aria-label="Select page of applications"
+        style="border-radius: 1.4rem"></mat-paginator>
+    </div>
+  </div>
+</div>

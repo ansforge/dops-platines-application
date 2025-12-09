@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<Configuration packages="com.eviware.soapui.support.log">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <ReadyApiFilteredPatternLayout pattern="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <logger name="com.smartbear.ready" level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+        </logger>
+       <logger name="com.eviware.soapui" level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+        </logger>
+
+        <logger name="com.eviware" level="DEBUG" additivity="false">
+            <AppenderRef ref="CONSOLE" level="DEBUG"/>
+        </logger>
+
+        <logger name="com.smartbear" level="DEBUG" additivity="false">
+            <AppenderRef ref="CONSOLE" level="DEBUG"/>
+        </logger>
+        
+        <logger name="org.opensaml" level="DEBUG" additivity="false">
+            <AppenderRef ref="CONSOLE"/>
+        </logger>
+        <root level="DEBUG">
+			<AppenderRef ref="CONSOLE" level="DEBUG"/>
+        </root>
+    </Loggers>
+</Configuration>

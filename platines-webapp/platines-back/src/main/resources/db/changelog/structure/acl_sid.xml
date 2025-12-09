@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="createTableAclSid" author="apierre">
+		<createTable tableName="acl_sid">
+			<column name="id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="sid" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="principal" type="BIT(1)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="addPrimaryKeyAclSid" author="apierre">
+		<addPrimaryKey columnNames="id" tableName="acl_sid" />
+		<addUniqueConstraint columnNames="id, principal" tableName="acl_sid"/>
+	</changeSet>
+		<changeSet id="addAutoIncrementAclSid" author="apierre">
+			<sql>ALTER TABLE acl_sid MODIFY id BIGINT AUTO_INCREMENT</sql>
+			<sql>ALTER TABLE acl_sid AUTO_INCREMENT=1</sql>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,12 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <env:Body>
+      <ns1:careServicesResponse>
+         <ns1:error code="444" message="Non prévu sur la plateforme"/>
+      </ns1:careServicesResponse>
+   </env:Body>
+</env:Envelope>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.ans.platines</groupId>
+    <artifactId>license</artifactId>
+    <version>2.4.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<name>license.current.year</name>
+							<pattern>yyyy</pattern>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>4.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+                                                <phase>initialize</phase>
+					</execution>
+				</executions>
+                                <configuration>
+					<header>src/main/resources/licence-header.txt</header>
+					<aggregate>false</aggregate>
+					<strictCheck>true</strictCheck>
+                                        <properties>
+                                          <!--
+                                            This license current year is computed. If we wanted to rebuild an old version without
+                                            changing license headers, we would just need to add -Dlicense.current.year=XXX to the maven command line.
+                                          -->
+                                            <license.current.year>${license.current.year}</license.current.year>
+                                        </properties>
+                                </configuration>
+                        </plugin>
+                </plugins>
+    </build>
+</project>

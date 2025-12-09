@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="cnader" id="join_table_user_famille">
+		<createTable tableName="user_famille">
+			<column name="User_ID" type="BIGINT" />
+			<column name="FAMILY_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="cnader" id="join_user_to_user_famille">
+		<addForeignKeyConstraint
+			baseColumnNames="User_ID" baseTableName="user_famille"
+			constraintName="user_id_user_id" referencedColumnNames="id"
+			referencedTableName="utilisateur" />
+	</changeSet>
+	<changeSet author="cnader" id="join_famille_to_user_famille">
+		<addForeignKeyConstraint
+			baseColumnNames="FAMILY_ID" baseTableName="user_famille"
+			constraintName="family_id_famille_id" referencedColumnNames="id"
+			referencedTableName="famille" />
+	</changeSet>
+	<changeSet author="cnader" id="user_famille_add_primary_key">
+		<addPrimaryKey columnNames="User_ID, FAMILY_ID" tableName="user_famille"/>
+	</changeSet>
+	
+</databaseChangeLog> 

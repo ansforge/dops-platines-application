@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+  <!-- 
+  En redéfinissant la clef de la propriété ici, elle ne sera pas reconnue, donc la mise à jour
+  devrait être refusée pour "nouvelle propriété"
+  -->
+    <proprietes
+          id="1"
+          cle="hostname.bis"
+          valeur="srvc.example.com"
+          PROJECT_ID="10"
+        >
+        </proprietes>
+</dataset>

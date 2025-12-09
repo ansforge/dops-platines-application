@@ -1,0 +1,133 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listusers" translate>pages.users.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{id:user.id}" routerLink="./">{{!new ? ('pages.users.user.edit' | translate) : ('pages.users.user.new' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" >{{!new ? ('pages.users.user.edit' | translate) : ('pages.users.user.new' | translate)}}</h3>
+      </div>
+      <form #userForm="ngForm" class="form-horizontal" id="formUser">
+        <div class="card-body">
+          <div class="composant">
+            <div [ngClass]="{'is-invalid':userForm.submitted && forename.invalid}" class="form-group row">
+              <label for="inputForename" class="col-sm-2 control-label" translate>pages.users.user.firstname</label>
+              <div class="col-sm-12">
+                <input [ngClass]="{'is-invalid':userForm.submitted && forename.invalid}" [disabled]="!isAdmin" type="text" #forename="ngModel" name="forename" id="inputForename" [(ngModel)]="user.forename" class="form-control"  maxlength="50"
+                  required>
+                <span class="is-invalid" *ngIf="userForm.submitted && forename.invalid">Vous devez renseigner un prénom (50 caractères maximum)</span>
+              </div>
+            </div>
+            <div [ngClass]="{'is-invalid':userForm.submitted && name.invalid}" class="form-group row">
+              <label for="inputName" class="col-sm-2 control-label" translate>commons.labels.name</label>
+              <div class="col-sm-12">
+                <input [ngClass]="{'is-invalid':userForm.submitted && name.invalid}" [disabled]="!isAdmin" type="text" class="form-control" id="inputName" name="name" [(ngModel)]="user.name" #name="ngModel" maxlength="50"
+                  required>
+                <span class="is-invalid" *ngIf="userForm.submitted && name.invalid">Vous devez renseigner un nom (50 caractères maximum)</span>
+              </div>
+            </div>
+            <div [ngClass]="{'is-invalid':userForm.submitted && firm.invalid}" class="form-group row" class="form-group row">
+              <label for="inputFirm" class="col-sm-2 control-label" translate>pages.users.user.firm</label>
+              <div class="col-sm-12">
+                <input [ngClass]="{'is-invalid':userForm.submitted && firm.invalid}" [disabled]="!isAdmin" type="text" #firm="ngModel" name="firm" id="inputFirm" [(ngModel)]="user.firm" class="form-control" maxlength="50"
+                  required>
+                <span class="is-invalid" *ngIf="userForm.submitted && firm.invalid" translate>Vous devez renseigner une entreprise (50 caractères maximum)</span>
+              </div>
+            </div>
+            <div [ngClass]="{'is-invalid':userForm.submitted && mail.invalid}" class="form-group row" class="form-group row">
+              <label for="inputFirm" class="col-sm-2 control-label" translate>pages.users.user.email</label>
+              <div class="col-sm-12">
+                <input [ngClass]="{'is-invalid':userForm.submitted && mail.invalid}" [disabled]="!isAdmin" type="email" #mail="ngModel" name="mail" id="inputMail" [(ngModel)]="user.mail" class="form-control" [email]="true"
+                  maxlength="50" required>
+                <span class="is-invalid" *ngIf="userForm.submitted && mail.invalid" translate="">Vous devez renseigner un email valide (50 caractères maximum)</span>
+              </div>
+            </div>
+            <div [ngClass]="{'is-invalid':userForm.submitted && profile.invalid}" class="form-group row">
+              <label class="col-sm-2 control-label" for="ProfileAdmin" translate>pages.users.user.profile</label>
+              <div class="col-sm-12" >
+                <div class="radio">
+                  <div>
+                    <div style="float:left">
+                      <label class="radio-inline custom-control custom-radio">
+                        <input [disabled]="!isAdmin" type="radio" #profile="ngModel" [(ngModel)]="user.profile.id" [value]="1" name="profile1" [checked]="user.profile?.id === 1"
+                          required id="ProfileAdmin" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description" >Administrateur</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="float:left">
+                      <label class="radio-inline custom-control custom-radio">
+                        <input [disabled]="!isAdmin" type="radio" #profile="ngModel" [(ngModel)]="user.profile.id" [value]="2" name="profile2" [checked]="user.profile?.id === 2"
+                          required id="ProfileUser" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description" >Éditeur</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="float:left">
+                      <label class="radio-inline custom-control custom-radio">
+                        <input [disabled]="!isAdmin" type="radio" #profile="ngModel" [(ngModel)]="user.profile.id" [value]="3" name="profile3" [checked]="user.profile?.id === 3"
+                          required id="ProfileManager" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description" >Gestionnaire de thème</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="col-sm-12 is-invalid profile-error-text" *ngIf="userForm.submitted && profile.invalid" translate="">Vous devez sélectionner un profil</span>
+            </div>
+
+            <div class="form-group row" *ngIf="user.profile.id === 2 || user.profile.id === 3">
+              <label class="col-sm-2 control-label" translate>pages.users.user.theme</label>
+              <div  class="col-sm-12">
+
+                <mat-select [ngClass]="{'disabled':!isAdmin}" [compareWith]="compareThemes" disableOptionCentering panelClass="custom-mat-select-panel"  class="form-control" [(ngModel)]="user.families" name="families" [disabled]="!isAdmin" multiple>
+                  <mat-checkbox [checked]="this.user?.families?.length===this.filteredThemes?.length" [indeterminate]="(this.user.families?.length!=this.filteredThemes?.length) && this.user.families?.length>0" [disableRipple]="true" #selectAll (click)="toggleSelectAll()" > {{'pages.users.user.selectAll' | translate}}</mat-checkbox>
+                  <input type="text" id=themeFilter (keyup)="filterThemes($event.target['value'])" placeholder="{{'pages.users.user.filter' | translate}}" class="form-control">
+                  <mat-option *ngFor="let theme of filteredThemes" [value]="theme">{{theme.name}}</mat-option>
+                </mat-select>
+
+                 <span class="is-invalid" *ngIf="userForm.submitted  && user.families?.length === 0" translate="">Vous devez sélectionner au moins un thème</span>
+              </div>
+            </div>
+
+            <div class="divBtn">
+              <button type="button" class="btn btn--ghost btn--default" routerLink="/pages/users/listusers">
+                <span translate>commons.actions.cancel</span>
+              </button>
+              <button type="submit" class="btn btn--plain btn--primary" (click)="createUser()">
+                <span translate>commons.actions.validate</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

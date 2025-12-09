@@ -1,0 +1,13 @@
+{
+"request": {
+		"method": "DELETE",
+		"url": "/v1/job/1234-5678?purge=true"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"EvalID\": \"1234-5678\",  \"EvalCreateIndex\": 35,  \"JobModifyIndex\": 34}",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}

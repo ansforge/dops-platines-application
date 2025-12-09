@@ -1,0 +1,25 @@
+#*
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ *#
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+
+	<p>
+		Bonjour ${firstName},<br /> Vous venez de d&eacute;marrer une session
+		de test utilisant le mockservice de la plateforme.<br /> Elle se
+		terminera dans ${hourText}.<br /> Le mockservice est accessible
+		${urlText}<br />
+	<ul>
+		#foreach( $url in $urls )
+		<li>$url</li> #end
+	</ul>
+	Vous recevrez une autre notification &agrave; la fin de la session qui
+	vous pr&eacute;viendra de la fermeture du mockservice ${uuid}.
+	</p>
+</body>
+</html>

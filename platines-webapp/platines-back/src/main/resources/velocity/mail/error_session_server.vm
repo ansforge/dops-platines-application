@@ -1,0 +1,12 @@
+#*
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ *#
+<html>
+ 
+<head></head>
+ 
+<body>
+<p>Bonjour</p>
+<p>Une erreur est survenue lors de l&#39;ex&eacute;cution de la session ${uuidSession} appartenant &agrave; ${firstName} cr&eacute;e le ${date}</p>
+</body>
+</html>

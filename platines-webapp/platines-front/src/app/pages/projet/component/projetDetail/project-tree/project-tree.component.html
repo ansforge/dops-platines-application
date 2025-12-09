@@ -1,0 +1,13 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<app-tree
+    (nodeClick)="onNodeClick($event)"
+    treeTitle="Contenu du test"
+    innerHeight="inherit"
+    [dataObs]="projectObs"
+    [loadTree]="loadTree"
+    [activeNodes]="activeNodes"
+></app-tree>

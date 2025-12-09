@@ -1,0 +1,104 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listCertificats" translate>pages.certificates.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item">
+            <a [queryParams]="{id:id}" routerLink="./">{{!this.isNew ? ('pages.certificates.certificate.edit' | translate) : 'pages.certificates.certificate.new' | translate}}
+              <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+            </a></li>
+        </ol>
+      </nav>
+      <div class="card-header clearfix">
+        <h3 class="card-title" >{{!this.isNew ? ('pages.certificates.certificate.edit' | translate) : 'pages.certificates.certificate.new' | translate}}</h3>
+      </div>
+      <form #certifForm="ngForm" class="form-horizontal" id="certifForm">
+        <div class="card-body">
+          <div class="composant">
+            <div class="form-group row">
+              <label class="col-sm-3 control-label" for="fileName" translate="pages.certificates.certificate.name"></label>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <input class="form-control" id="fileName" placeholder="{{certificate.fileName}}" value="{{filename}}">
+                  <input #fileInput (change)="selectFile()" accept=".p12" class="form-control FileUpload" id="file" type="file">
+                </div>
+              </div>
+            </div>
+            <fieldset *ngIf="details" class="fieldSet objetTree">
+              <legend class="legend" translate="pages.certificates.certificate.details"></legend>
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label" for="inputDescription" translate="pages.certificates.certificate.description"></label>
+                    <div class="col-sm-12">
+                      <textarea #description="ngModel" [(ngModel)]="certificate.description" class="form-control" id="inputDescription" name="description" required></textarea>
+                      <span *ngIf="certifForm.submitted && description.invalid" class="text-danger" translate="pages.certificates.certificate.error_message.description"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label" for="state" translate="pages.certificates.certificate.state"></label>
+                    <div class="col-sm-12">
+                      <select #state="ngModel" [(ngModel)]="certificate.state" class="form-control" id="state" name="state" required>
+                        <option *ngFor="let state of certificateStates" [selected]="certificate.state == state.label" id="inputEtat" value="{{state.label}}">{{state.value}}</option>
+                      </select>
+                      <span *ngIf="certifForm.submitted && state.invalid" class="text-danger" translate="pages.certificates.certificate.error_message.state"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label" for="telechargeable" translate="pages.certificates.certificate.downloadable"></label>
+                    <div class="col-sm-12">
+                      <div class="radio">
+                        <div class="col-sm-6">
+                          <div style="float:left; padding-right:1.5rem">
+                            <label class="custom-control custom-radio">
+                              <input #telechargeable="ngModel" [(ngModel)]="certificate.downloadable" [checked]="certificate.downloadable ==='true'" class="custom-control-input" id="telechargeable" name="telechargeable" required type="radio" value="true">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description" translate="commons.labels.yes"></span> </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div style="float:left">
+                            <label class="custom-control custom-radio">
+                              <input #telechargeable="ngModel" [(ngModel)]="certificate.downloadable" [checked]="certificate.downloadable ==='false'" class="custom-control-input" id="telechargeable2" name="telechargeable2" required type="radio" value="false">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description" translate="commons.labels.no"></span> </label>
+                            <span *ngIf="certifForm.submitted && telechargeable.invalid" class="text-danger" translate="pages.certificates.certificate.error_message.downloadable"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 control-label" translate="pages.certificates.certificate.validity"></label>
+                    <div class="col-sm-12">
+                      <p class="validity-date"> {{validityDate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="divBtn">
+              <button (click)="back()" class="btn btn--default btn--ghost" id="btnRetour" translate="commons.actions.back" type="button"></button>
+              <button (click)="saveCertificate()" *ngIf="details" class="btn btn--plain btn--primary" id="btnValider" translate="commons.actions.validate" type="submit"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

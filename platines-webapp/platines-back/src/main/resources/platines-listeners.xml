@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<tns:soapui-listeners xmlns:tns="http://eviware.com/soapui/config">
+
+<tns:listener id="PlatinesListener" listenerClass="fr.asipsante.listener.PlatinesListener"
+   listenerInterface="com.eviware.soapui.model.mock.MockRunListener" />
+</tns:soapui-listeners>

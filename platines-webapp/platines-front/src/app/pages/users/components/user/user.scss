@@ -1,0 +1,27 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+//@import "../../../../theme/sass/conf/conf";
+
+.composant {
+    margin: 20px 10px 10px 20px;
+}
+
+.profile-error-text{
+  margin-left: 10px;
+  padding-left: 15px;
+}
+
+span.is-invalid:not(.profile-error-text){
+  margin-left:10px;
+}
+
+#themeFilter{
+  border-radius: 0;
+  border: solid var(--input-border-color);
+  border-width: 0.1rem 0 0.1rem 0 ;
+}
+
+#themeFilter:focus{
+  box-shadow:unset;
+}

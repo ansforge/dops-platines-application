@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="mfattouch"
+		id="ajoutTableProprietesSession">
+		<createTable tableName="propriete_session">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="cle" type="VARCHAR(50)"></column>
+			<column name="valeur" type="TEXT"></column>
+			<column name="description" type="TEXT"></column>
+			<column name="propertyType" type="VARCHAR(50)"></column>
+			<column name="RPROJET_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="mfattouch"
+		id="ajoutDeLaClePrimaireProprietesSession">
+		<addPrimaryKey columnNames="id"
+			tableName="propriete_session" />
+	</changeSet>
+	<changeSet author="mfattouch" id="ajoutForeignKeyRProjectID">
+		<addForeignKeyConstraint
+			baseColumnNames="RPROJET_ID" baseTableName="propriete_session"
+			constraintName="constraintRProjectIdTableProprietesSession"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="r_projet" />
+	</changeSet>
+
+</databaseChangeLog>

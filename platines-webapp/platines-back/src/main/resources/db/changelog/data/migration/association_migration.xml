@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="insertTableAssociation" author="cnader">
+		<sql>INSERT INTO association (id, association_type)
+			SELECT version.id, 3
+			FROM version
+			ON DUPLICATE KEY UPDATE `association_type` = `association_type`;
+		</sql>
+		<sql>INSERT INTO association (id, association_type)
+			SELECT systeme.id, 2
+			FROM systeme
+			ON DUPLICATE KEY UPDATE `association_type` = `association_type`;
+		</sql>
+		<sql>INSERT INTO association (id, association_type)
+			SELECT famille.id, 1
+			FROM famille
+			ON DUPLICATE KEY UPDATE `association_type` = `association_type`;
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

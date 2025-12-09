@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+        <projet 
+          id="2" 
+          nom="ProjetClientPLATINES" 
+          description="Projet avec role client pour Platines"
+          role="CLIENT"
+          nomFichier="project1_up.readyAPI.xml"
+          date_upload="2023-08-27"
+          visibilite="true"
+        >
+        </projet>
+        <projet 
+          id="3" 
+          nom="ProjetServeurPLATINES" 
+          description="Projet avec role serveur pour Platines"
+          role="CLIENT"
+          nomFichier="project1_up.readyAPI.xml"
+          date_upload="2023-08-28"
+          visibilite="true"
+        >
+        </projet>
+</dataset>

@@ -1,0 +1,167 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item" *ngIf="hiddenTrash"><a routerLink="./" translate>pages.sessions.title
+          </a></li>
+          <li class="breadcrumb-item" *ngIf="!hiddenTrash"><a routerLink="./" translate>pages.sessions.trash
+          </a></li>
+
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" >{{hiddenTrash ? ("pages.sessions.title" | translate) : ("pages.sessions.trash" | translate)}}</h3>
+        </div>
+      <div class="form-group row search">
+        <div class="col-sm-3 col-search flex-row form-group-wrap form-group-wrap--right">
+          <input #search class="form-control zone-search"
+                 [ngModel]="this.contextStateService.filters.get(this.metadata.selector)"
+                 (ngModelChange)="this.contextStateService.filters.set(this.metadata.selector, $event)"
+                 (keyup)="applyFilter()" matInput placeholder="{{'commons.labels.search' | translate}}">
+          <svg aria-hidden="true" class="svg-icon svg-search" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#search "></use></svg>
+        </div>
+        <div class="col-sm-9 margin-btn">
+          <div class="list-btn-actions">
+            <button (click)="getSessionsRecycleBin()" *ngIf="hiddenTrash" class="btn btn--ghost btn--default" id="btn-view-trash" translate type="submit">
+              <span translate="pages.sessions.btn_View_Trash"></span>
+            </button>
+            <button (click)="getSessionsEnabled()" *ngIf="!hiddenTrash" class="btn btn--ghost btn--default" id="btn-exit-trash" translate type="submit">
+              <span translate="pages.sessions.btn_Exit_Trash"></span>
+            </button>
+            <button [disabled]="selection.selected.length===0" (click)="deleteSession()" *ngIf="hiddenTrash" class="btn btn--ghost btn--default" id="btn-delete" translate type="submit">
+              <span translate="commons.actions.delete"></span>
+            </button>
+            <button [disabled]="selection.selected.length===0" (click)="suppressionSession()" *ngIf="!hiddenTrash" class="btn btn--ghost btn--default" id="btn-suppression" translate type="submit">
+              <span translate="commons.actions.suppression"></span>
+            </button>
+            <button (click)="restoreSession()" *ngIf="!hiddenTrash" class="btn btn--plain btn--primary" id="btn-restore" translate type="submit">
+              <span translate="commons.actions.restore"></span>
+            </button>
+            <button (click)="createSession()" *ngIf="hiddenTrash" class="btn btn--plain btn--primary" id="btn-add" translate type="submit">
+              <span translate="commons.actions.add"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+            <table [dataSource]="dataSource" aria-label="Liste des sessions" class="mat-elevation-z8" mat-table matSort>
+
+              <ng-container matColumnDef="user">
+                <th [hidden]="!(isAdmin)" mat-sort-header *matHeaderCellDef mat-header-cell><span translate>{{this.labelsPath}}.user</span></th>
+                <td [hidden]="!(isAdmin)" *matCellDef="let element" mat-cell>
+                  <span >{{element['application']['user']['name']}} {{element['application']['user']['forename']}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="creationDate">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell><span translate>{{this.labelsPath}}.creationDate</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span >{{element['creationDate'] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="applicationName">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell><span translate>{{this.labelsPath}}.applicationName</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span >{{element['application']['name']}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container
+                *ngFor="let column of autoColumns"
+                [matColumnDef]="column"
+              >
+                <th mat-sort-header *matHeaderCellDef mat-header-cell ><span translate>{{this.labelsPath}}.{{ column }}</span></th>
+                <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="rolePlateforme">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell ><span translate>{{this.labelsPath}}.rolePlateforme</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate="{{this.labelsPath}}.roles.{{element.simulatedRole}}"></span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sessionStatus">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell> <span translate>{{this.labelsPath}}.sessionStatus</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate="{{this.labelsPath}}.statuses.{{element['sessionStatus']}}"></span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th [hidden]="!hiddenTrash" class="text-center" *matHeaderCellDef mat-header-cell>Actions</th>
+                <td [hidden]="!hiddenTrash" *matCellDef="let element" mat-cell>
+                  <span class="action-column">
+                    <span class="action-row">
+                      <button
+                        matTooltip="{{'icons.copySession'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        (click)="duplicate(element)"> <svg aria-hidden="true" class="svg-icon svg-duplicate" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#duplicate"></use></svg> </button>
+                      <button
+                        matTooltip="{{'icons.executionDetails'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        *ngIf="((element.application.role === 'SERVER') && (element.sessionStatus === 'FINISHED')) || ((element.application.role === 'SERVER') && (element.sessionStatus === 'PENDING')) || (element.application.role === 'CLIENT' && element.sessionStatus === 'PENDING') || (element.application.role === 'CLIENT' && element.sessionStatus === 'FINISHED')"
+                        (click)="details(element)"> <svg aria-hidden="true" class="svg-icon svg-file-text" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#file-text"></use></svg> </button>
+
+                      <button
+                        matTooltip="{{'icons.executeSession'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        *ngIf="element.sessionStatus === 'NONEXECUTE'"
+                        (click)="executerSession(element)"> <svg aria-hidden="true" class="svg-icon svg-play" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#play "></use></svg> </button>
+                      <button
+                        matTooltip="{{'icons.editSession'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        *ngIf="element.sessionStatus === 'NONEXECUTE'"
+                              (click)="edit(element)"> <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg> </button>
+                    </span>
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="checkbox">
+                <th *matHeaderCellDef mat-header-cell>
+                  <div class="custom-control text-center custom-checkbox">
+                    <input (click)="setAll($event)" [checked]="isAllSelected()" [indeterminate]="!isAllSelected() && selection.hasValue()" class="custom-control-input" type="checkbox">
+                  </div>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <div class="custom-control text-center custom-checkbox">
+                    <input (change)="setRow(element)" [checked]="selection.isSelected(element)" class="custom-control-input" type="checkbox">
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+              <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+            </table>
+          </div>
+      </div>
+      <mat-paginator
+        ansPaginatorStyle
+        [length]="dataSource.data.length"
+        [showTotalPages]="5"
+        [pageSizeOptions]="[20,50,100]"
+        aria-label="Select page of users">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

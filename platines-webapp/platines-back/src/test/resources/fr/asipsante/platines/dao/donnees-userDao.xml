@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+	<!-- universally identify any principle (principle=1 for user) or authority (principle=0 for role) in the system -->
+	<acl_sid id="7" sid="mylimited@user" principal="1" />
+	
+	<!-- stores information for each unique domain object, 
+	OBJECT_ID_CLASS: define the domain object class, links to ACL_CLASS table
+	OBJECT_ID_IDENTITY: domain objects can be stored in many tables depending on the class. Hence, this field store the target object primary key
+	OWNER_SID: ID of the object owner, links to ACL_SID table
+	ENTRIES_INHERITTING: whether ACL Entries of this object inherits from the parent object (ACL Entries are defined in ACL_ENTRY table)
+	 -->
+	<acl_object_identity id="30" object_id_class="21"
+		object_id_identity="7" owner_sid="7" entries_inheriting="0" />
+	<acl_object_identity id="31" object_id_class="22"
+		object_id_identity="1" owner_sid="3" entries_inheriting="0" />
+
+	<!-- ACL_ENTRY store individual permission assigns to each SID on an Object Identity:
+	ACL_OBJECT_IDENTITY: specify the object identity, links to ACL_OBJECT_IDENTITY table
+	ACL_ORDER: the order of current entry in the ACL entries list of corresponding Object Identity
+	SID: the target SID which the permission is granted to or denied from, links to ACL_SID table
+	MASK: the integer bit mask that represents the actual permission being granted or denied (1: read, 2: write, etc...)
+	GRANTING: value 1 means granting, value 0 means denying
+	AUDIT_SUCCESS and AUDIT_FAILURE: for auditing purpose 
+	-->
+	<acl_entry id="30" acl_object_identity="30" ace_order="0"
+		sid="7" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="31" acl_object_identity="30" ace_order="1"
+		sid="7" mask="2" granting="1" audit_success="1" audit_failure="1" />
+
+	<acl_entry id="32" acl_object_identity="31" ace_order="0"
+		sid="7" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="33" acl_object_identity="31" ace_order="1"
+		sid="7" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	
+        <!-- ACL le Thème 1 (famille) du JDD de base pour le user 7 -->
+	<acl_entry id="34" acl_object_identity="6" ace_order="0"
+		sid="7" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="35" acl_object_identity="6" ace_order="1"
+		sid="7" mask="2" granting="1" audit_success="1" audit_failure="1" />
+
+	<!-- The entities -->
+	<utilisateur id="7" dateCreation="2018-02-27 00:00:00" entreprise="asip"
+		mail="mylimited@user" nom="admin" password="1234" prenom="admin"
+		PROFILE_ID="2" />
+</dataset>

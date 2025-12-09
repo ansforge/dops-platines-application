@@ -1,0 +1,30 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<app-tree
+  treeTitle="pages.sessions.detail.test_suite"
+  innerHeight="inherit"
+  [border]="border"
+  [withHeader]="withHeader"
+  [loadTree]="loadTree"
+  [dataObs]="projectObs"
+  [activeNodes]="activeNodes"
+  [frameHeight]="frameHeight"
+  (nodeClick)="onNodeSelection($event)"
+>
+  <ng-template let-hidden="hidden" let-node #nodeIcon>
+    <div [class.invisible-decorator]="node.parent && hidden(node.parent)">
+      <svg *ngIf="node.payload.resultStatus==='SUCCESS'" aria-hidden="true" class="session-tree-icon svg-icon svg-check" focusable="false">
+        <use xlink:href="svg-icons/icon-sprite.svg#check"></use>
+      </svg>
+      <svg *ngIf="node.payload.resultStatus==='NONEXECUTE'" aria-hidden="true" class="session-tree-icon svg-icon svg-warning" focusable="false">
+        <use xlink:href="svg-icons/icon-sprite.svg#warning"></use>
+      </svg>
+      <svg *ngIf="isFailure(node)" aria-hidden="true" class="session-tree-icon svg-icon svg-close" focusable="false">
+        <use xlink:href="svg-icons/icon-sprite.svg#close"></use>
+      </svg>
+    </div>
+  </ng-template>
+</app-tree>

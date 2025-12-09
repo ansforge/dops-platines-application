@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="ajoutTableDonneesFonctionnellesPlatines">
+		<createTable tableName="donnees_fonctionnelles">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="xmlProp" type="LONGBLOB">
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="ajoutClePrimaireDonneesFonctionnellesPlatines">
+		<addPrimaryKey columnNames="id"
+			tableName="donnees_fonctionnelles" />
+	</changeSet>
+
+</databaseChangeLog>

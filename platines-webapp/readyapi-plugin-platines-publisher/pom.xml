@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>fr.ans.platines</groupId>
+		<artifactId>platines-root</artifactId>
+		<version>2.4.0-SNAPSHOT</version>
+	</parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>readyapi-plugin-platines-publisher</artifactId>
+    <name>Ready! API plugin for Platines</name>
+    <description>Plugin permettant la publication des résultats de test dans Platines</description>
+    <url>https://rhodecode.forge.ans.henix.fr/ApplicationsANS/Transverse/platines/application/platines-webapp/</url>
+    <repositories>
+        <repository>
+            <id>SoapUI_M2</id>
+            <name>SoapUI/ReadyAPI maven</name>
+            <url>https://rapi.tools.ops.smartbear.io/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.gmaven.runtime</groupId>
+            <artifactId>gmaven-runtime-1.8</artifactId>
+            <version>1.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.smartbear</groupId>
+            <artifactId>ready-api-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.smartbear</groupId>
+            <artifactId>ready-api-soapui-pro</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.smartbear</groupId>
+            <artifactId>ready-api-projects</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>json</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.2.2-jdk15-fixed</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

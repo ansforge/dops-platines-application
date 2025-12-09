@@ -1,0 +1,113 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+//@import "../../../../theme/sass/conf/conf";
+.divBtn {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 10px;
+}
+
+p, p.description{
+  margin-bottom: 0;
+}
+
+.composant {
+  margin: 20px 10px 10px 20px;
+}
+
+.divBtn i {
+  padding-right: 5px;
+}
+
+.annulSupr button {
+  margin-right: 10px;
+}
+
+.radio {
+  text-align: center;
+}
+
+.FileUpload {
+  opacity: 0;
+
+  position: absolute;
+  z-index: 7000;
+  width: 100%;
+  cursor: pointer;
+}
+
+.addFile {
+  display: none;
+}
+
+.inputPropriete {
+  border: none;
+  width: 100%;
+}
+
+select.form-control {
+
+}
+
+.ptn-xm {
+  float: right;
+}
+
+.actionFile>.form-group>div{
+  min-width: max-content;
+}
+
+.actionFile>.form-group{
+  margin-bottom: 0;
+}
+
+.actionFile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.fileButtons{
+  margin-left: auto;
+}
+
+.description {
+  font-family: inherit;
+  font-size: inherit;
+  overflow-y: scroll;
+
+  overflow-x: hidden;
+  white-space: pre-line;
+  max-height: 400px;
+  height: auto;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+  margin-left: 0;
+  padding-top: 1.1rem;
+
+
+}
+
+.input-group > .custom-select:not(:last-child), .input-group > .form-control:not(:last-child) {
+  border-bottom-right-radius: 1.4rem;
+  border-top-right-radius: 1.4rem;
+}
+
+textarea.description {
+  resize: none;
+  height: 800px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+p.form-control.disabled {
+  background-color: var(--gray-200, #f2f3f7);
+  opacity: 1;
+}
+
+mat-radio-button span{
+  font-weight: 400;
+}

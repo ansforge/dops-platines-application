@@ -1,0 +1,25 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/v1/job/d8226912-7139-4f1d-a2b2-a0ac9d8eecb4/deployment?namespace=default"
+    },
+    "response": {
+        "status": 200,
+        "body": "{\"ID\":\"cbef548b-10b9-9e00-4f0c-0c1f34dd7252\",\"Namespace\":\"default\",\"JobID\":\"94187486-b8cf-4b6b-b7a4-393abf92d67f\",\"JobVersion\":0,\"JobModifyIndex\":1897286,\"JobSpecModifyIndex\":1897286,\"JobCreateIndex\":1897286,\"IsMultiregion\":false,\"TaskGroups\":{\"server-mock\":{\"AutoRevert\":false,\"AutoPromote\":false,\"ProgressDeadline\":600000000000,\"RequireProgressBy\":\"2023-03-06T09:50:14.40629749+01:00\",\"Promoted\":false,\"PlacedCanaries\":null,\"DesiredCanaries\":0,\"DesiredTotal\":1,\"PlacedAllocs\":1,\"HealthyAllocs\":1,\"UnhealthyAllocs\":0}},\"Status\":\"successful\",\"StatusDescription\":\"Deployment completed successfully\",\"CreateIndex\":1897287,\"ModifyIndex\":1897295}",
+        "headers": {
+            "Content-Type": "application/json"
+        }        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

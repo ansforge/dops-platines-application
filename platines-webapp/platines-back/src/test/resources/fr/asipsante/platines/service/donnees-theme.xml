@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+	
+        <!-- 
+             Ici, les règles d'accès n'utilisent pas d'ACL MAIS l'objet doit avoir une identité 
+             sinon spring-sec va partir en erreur.
+        -->
+	<acl_object_identity id="30" object_id_class="3"
+		object_id_identity="254" owner_sid="3" entries_inheriting="0" />
+	<acl_object_identity id="31" object_id_class="3"
+		object_id_identity="11" owner_sid="4" entries_inheriting="0" />
+        <acl_object_identity id="5" object_id_class="3"
+		object_id_identity="1" owner_sid="4" entries_inheriting="0" />
+
+	<association id="11" association_type="1"/>
+	<association id="254" association_type="1"/>
+
+	<famille id="11" nom="ROR" visibilite="1" />
+	<famille id="254" nom="RER" visibilite="1" />
+        
+        <user_famille
+          User_ID="4"
+          FAMILY_ID="254"
+        >
+        </user_famille>
+        <user_famille
+          User_ID="4"
+          FAMILY_ID="1"
+        >
+        </user_famille>
+</dataset>

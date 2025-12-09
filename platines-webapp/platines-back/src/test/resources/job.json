@@ -1,0 +1,200 @@
+{
+  "Affinities": null,
+  "AllAtOnce": false,
+  "Constraints": null,
+  "ConsulNamespace": "",
+  "ConsulToken": "",
+  "CreateIndex": 0,
+  "Datacenters": [],
+  "DispatchIdempotencyToken": null,
+  "Dispatched": false,
+  "ID": "",
+  "JobModifyIndex": 0,
+  "Meta": null,
+  "Migrate": null,
+  "ModifyIndex": 0,
+  "Multiregion": null,
+  "Name": "",
+  "Namespace": "default",
+  "NomadTokenID": "",
+  "ParameterizedJob": null,
+  "ParentID": "",
+  "Payload": null,
+  "Periodic": null,
+  "Priority": 0,
+  "Region": "global",
+  "Reschedule": null,
+  "Spreads": null,
+  "Stable": false,
+  "Status": "",
+  "StatusDescription": "",
+  "Stop": false,
+  "SubmitTime": null,
+  "TaskGroups": [
+    {
+      "Affinities": null,
+      "Constraints": null,
+      "Consul": {
+        "Namespace": ""
+      },
+      "Count": 1,
+      "EphemeralDisk": {
+        "Migrate": false,
+        "SizeMB": 300,
+        "Sticky": false
+      },
+      "MaxClientDisconnect": null,
+      "Meta": null,
+      "Migrate": null,
+      "Name": "",
+      "Networks": null,
+      "ReschedulePolicy": {
+        "Attempts": 1,
+        "Delay": 5000000000,
+        "DelayFunction": "constant",
+        "Interval": 86400000000000,
+        "MaxDelay": 0,
+        "Unlimited": false
+      },
+      "RestartPolicy": {
+        "Attempts": 3,
+        "Delay": 15000000000,
+        "Interval": 86400000000000,
+        "Mode": "fail"
+      },
+      "Scaling": null,
+      "Services": null,
+      "ShutdownDelay": null,
+      "Spreads": null,
+      "StopAfterClientDisconnect": null,
+      "Tasks": [
+        {
+          "Affinities": null,
+          "Artifacts": [
+            {
+              "GetterHeaders": null,
+              "GetterMode": "any",
+              "GetterOptions": null,
+              "GetterSource": "http://repo.proxy-dev-forge.asip.hst.fluxus.net/artifactory/asip-snapshots/fr/asipsante/platines/testdriver/1.2.0-SNAPSHOT/testdriver-1.2.0-SNAPSHOT-dist.zip",
+              "RelativeDest": "local/"
+            }
+          ],
+          "Config": {
+            "args": [
+              "-jar",
+              "/local/testdriver-1.2.0-SNAPSHOT.jar"
+            ],
+            "mount": [
+              {
+                "type": "bind",
+                "target": "/root/soapui-settings.xml",
+                "source": "secrets/soapui-settings.xml",
+                "readonly": false,
+                "bind_options": [
+                  {
+                    "propagation": "rshared"
+                  }
+                ]
+              }
+            ],
+            "image": "eclipse-temurin:17.0.5_8-jre",
+            "command": "java"
+          },
+          "Constraints": null,
+          "DispatchPayload": null,
+          "Driver": "docker",
+          "Env": null,
+          "Identity": null,
+          "KillSignal": "",
+          "KillTimeout": 5000000000,
+          "Kind": "",
+          "Leader": false,
+          "Lifecycle": null,
+          "LogConfig": {
+            "Disabled": false,
+            "Enabled": null,
+            "MaxFileSizeMB": 10,
+            "MaxFiles": 10
+          },
+          "Meta": null,
+          "Name": "readyapi-runner",
+          "Resources": {
+            "CPU": 500,
+            "Cores": 0,
+            "Devices": null,
+            "DiskMB": null,
+            "IOPS": null,
+            "MemoryMB": 2048,
+            "MemoryMaxMB": null,
+            "Networks": null
+          },
+          "RestartPolicy": {
+            "Attempts": 3,
+            "Delay": 15000000000,
+            "Interval": 86400000000000,
+            "Mode": "fail"
+          },
+          "ScalingPolicies": null,
+          "Services": null,
+          "ShutdownDelay": 0,
+          "Templates": [
+            {
+              "ChangeMode": "restart",
+              "ChangeScript": null,
+              "ChangeSignal": "",
+              "DestPath": "secrets/file.env",
+              "EmbeddedTmpl": "JAVA_TOOL_OPTIONS=\"-Xmx1638m -Xms512m -Duser.timezone=Europe/Paris -Dfile.encoding=UTF8 {{with secret \"platines/tomcat\"}}-Dhttp.proxyHost={{.Data.data.proxy_host}} -Dhttp.proxyPort={{.Data.data.proxy_port}} -Dhttps.proxyHost={{.Data.data.proxy_host}} -Dhttps.proxyPort={{.Data.data.proxy_port}}{{end}}\"\n",
+              "Envvars": true,
+              "ErrMissingKey": false,
+              "Gid": null,
+              "LeftDelim": "{{",
+              "Perms": "0644",
+              "RightDelim": "}}",
+              "SourcePath": "",
+              "Splay": 5000000000,
+              "Uid": null,
+              "VaultGrace": 0,
+              "Wait": null
+            },
+            {
+              "ChangeMode": "restart",
+              "ChangeScript": null,
+              "ChangeSignal": "",
+              "DestPath": "secrets/soapui-settings.xml",
+              "EmbeddedTmpl": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<con:soapui-settings xmlns:con=\"http://eviware.com/soapui/config\">\n  <con:setting id=\"ProxySettings@autoProxy\">true</con:setting>\n  <con:setting id=\"ProxySettings@enableProxy\">true</con:setting>\n{{with secret \"platines/tomcat\"}}\n  <con:setting id=\"ProxySettings@host\">{{.Data.data.proxy_host}}</con:setting>\n  <con:setting id=\"ProxySettings@port\">{{.Data.data.proxy_port}}</con:setting>\n{{end}}\n  <con:setting id=\"WsdlSettings@strict-schema-types\">false</con:setting>\n</con:soapui-settings>\n",
+              "Envvars": false,
+              "ErrMissingKey": false,
+              "Gid": null,
+              "LeftDelim": "{{",
+              "Perms": "0644",
+              "RightDelim": "}}",
+              "SourcePath": "",
+              "Splay": 5000000000,
+              "Uid": null,
+              "VaultGrace": 0,
+              "Wait": null
+            }
+          ],
+          "User": "",
+          "Vault": {
+            "ChangeMode": "restart",
+            "ChangeSignal": "SIGHUP",
+            "Env": true,
+            "Namespace": "",
+            "Policies": [
+              "platines"
+            ]
+          },
+          "VolumeMounts": null
+        }
+      ],
+      "Update": null,
+      "Volumes": null
+    }
+  ],
+  "Type": "batch",
+  "Update": null,
+  "VaultNamespace": "",
+  "VaultToken": "",
+  "Version": 0
+}

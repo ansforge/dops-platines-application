@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="ajoutTableFichiersAssocies">
+		<createTable tableName="fichiers_associes">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="fileName" type="VARCHAR(255)"></column>
+			<column name="file" type="LONGBLOB"></column>
+			<column name="PROJECT_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="ajoutDeLaClePrimaireFichierAssocies">
+		<addPrimaryKey columnNames="id"
+			tableName="fichiers_associes" />
+	</changeSet>
+
+	<changeSet author="aboittiaux" id="1503323827126-59">
+		<addForeignKeyConstraint
+			baseColumnNames="PROJECT_ID" baseTableName="fichiers_associes"
+			constraintName="constraintProjectIdTableFichiersAssocies"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="projet" />
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="ajoutDuTypedeFichierAssocies">
+		<addColumn tableName="fichiers_associes">
+			<column name="filetype" type="VARCHAR(50)"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="aboittiaux"
+		id="add-fichiers_associes-date_upload">
+		<addColumn tableName="fichiers_associes">
+			<column name="date_upload" type="datetime"></column>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

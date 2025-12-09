@@ -1,0 +1,715 @@
+{
+  "commons": {
+    "tree": {
+      "multipleSelectionHelp": "Pour sélectionner plusieurs catégories, maintenez la touche CTRL enfoncée"
+    },
+    "breadcrumb": {
+      "listSystemes": "Web services",
+      "listVersions": "Versions des web services"
+    },
+    "actions": {
+      "add": "Ajouter",
+      "back": "Retour",
+      "cancel": "Annuler",
+      "ok": "Ok",
+      "collapse": "Tout replier",
+      "collapse_expand_all": "Tout replier / Tout déplier",
+      "delete": "Supprimer",
+      "edit": "Editer",
+      "expand": "Tout déplier",
+      "restore": "Rétablir",
+      "save": "Enregistrer",
+      "suppression": "Supprimer définitivement",
+      "update": "Modifier",
+      "download": "Télécharger",
+      "validate": "Valider"
+    },
+    "copyright": "© Copyright 2023 | ANS, l'Agence du Numérique en Santé.",
+    "icons": {
+      "configuration": "icon ion-gear-b",
+      "detail": "icon ion-clipboard",
+      "download": "ion-archive",
+      "duplicate": "ion-ios-copy-outline",
+      "execute": "ion-arrow-right-b",
+      "refresh": "fa fa-refresh",
+      "stop": "fa fa-stop-circle-o",
+      "zip": "fa fa-file-zip-o"
+    },
+    "labels": {
+      "parameter": {
+        "key": "Nom",
+        "value": "Valeur par défaut",
+        "description": "Description",
+        "property_type": "Type"
+      },
+      "resource": {
+        "file_name": "Nom",
+        "date_upload": "Date MAJ",
+        "file_type": "Type"
+      },
+      "file": {
+        "types": {
+          "RESOURCE" : "Ressource",
+          "DOCUMENT" : "Documentation",
+          "SINGLE_JAR" : "Single jar",
+          "BUNDLE_JAR" : "Bundle jar"
+        },
+        "file_name": "Nom",
+        "date_upload": "Date MAJ",
+        "file_type": "Type"
+      },
+      "compatible_versions": "Versions Compatibles",
+      "description": "Description",
+      "documentation": "Documentation",
+      "documents": "Documents",
+      "filter": "Filtre ",
+      "loading": "Chargement",
+      "name": "Nom",
+      "no": "Non",
+      "no_match": "Aucun résultat correspondant",
+      "download_impossible": "Téléchargement impossible",
+      "parameters": "Paramètres",
+      "properties": "Propriétés",
+      "role_client": "Test Runner",
+      "role_server": "Mock Service",
+      "search": "Rechercher",
+      "specification": "Spécifications",
+      "upload": "Télécharger",
+      "version": "Version",
+      "yes": "Oui"
+    }
+  },
+  "header": {
+    "title": "PLATINES"
+  },
+  "menu": {
+    "admin_area": {
+      "certificates": "Gestion des certificats",
+      "nomenclatures": "Nomenclatures",
+      "title": "Espace de gestion",
+      "title_abrev": "E. G.",
+      "users": "Gestion des Utilisateurs"
+    },
+    "test_area": {
+      "compatibility": "Compatibilité des tests",
+      "families": "Thèmes",
+      "projects": "Bibliothèque de tests",
+      "simulated_systems": "Web services",
+      "system_version": "Versions",
+      "title": "Offre de tests",
+      "title_abrev": "O. T."
+    },
+    "user_area": {
+      "applications": "Applications Éditeurs",
+      "chains": "Chaines de confiance",
+      "sessions": "Sessions de test",
+      "title": "Espace Éditeur",
+      "title_abrev": "E. E."
+    }
+  },
+  "pages": {
+    "applications": {
+      "tls-requirement": "Une authentification mutuelle TLS est-elle requise ?",
+      "application": {
+        "new": "Ajouter une application",
+        "edit": "Modifier l'application"
+      },
+      "labels": {
+        "errors": {
+          "header": "Erreur lors de la suppression des applications",
+          "400": "Une ou plusieurs applications sélectionnées sont utilisées par des sessions de test. Veuillez supprimer les sessions concernées avant de supprimer les applications.",
+          "500": "Une erreur est survenue lors de la suppression de l'application"
+        },
+        "name": "Nom",
+        "role": "Rôle de l'application Éditeur",
+        "version": "Version",
+        "description": "Description",
+        "user": "Utilisateur",
+        "actions": "Actions",
+        "roles": {
+          "CLIENT": "Consommateur de données",
+          "SERVER": "Fournisseur de données"
+        }
+      },
+      "chain": "Chaine de confiance",
+      "error_message": {
+        "description": "Vous devez saisir une description",
+        "name": "Vous devez saisir un nom (150 caractères maximum)",
+        "role": "Vous devez saisir un rôle",
+        "url": "Vous devez saisir une url (150 caractères maximum)",
+        "version": "Vous devez saisir une version (50 caractères maximum)"
+      },
+      "ip": "IP",
+      "role": "Rôle de l'application éditeur",
+      "title": "Applications",
+      "url": "URL",
+      "version": "Version"
+    },
+    "certificates": {
+      "labels": {
+        "errors": {
+          "get_title": "Erreur lors de la récupération des certificats",
+          "get_msg": "Une erreur est survenue lors de la récupération des certificats",
+          "delete_title": "Erreur lors de la suppression des certificats",
+          "delete_msg_400": "Un ou plusieurs certificats sélectionnés sont utilisés par des projets de test. Veuillez supprimer les projets concernés avant de supprimer les certificats.",
+          "delete_msg_500": "Une erreur est survenue lors de la suppression du certificat"
+        },
+        "states": {
+          "VALID": "Valide",
+          "INVALID": "Invalide",
+          "OBSOLETE": "Expiré",
+          "REVOKED": "Révoqué"
+        },
+        "type": "Type",
+        "types": {
+          "SERVER": "Serveur",
+          "CLIENT": "Client",
+          "SIGNATURE": "Signature",
+          "UNKNOWN": "N/A"
+        },
+        "fileName": "Nom",
+        "description": "Description",
+        "state": "État attendu",
+        "validityDate": "Fin de validité",
+        "downloadable": "Téléchargeable",
+        "actions": "Actions"
+      },
+      "certificate": {
+        "new": "Ajouter un certificat",
+        "edit": "Modifier le certificat",
+        "details": "Détails du certificat",
+        "description": "Description",
+        "downloadable": "Doit être téléchargeable par l'utilisateur",
+        "error_message": {
+          "description": "Vous devez entrer une description(500 caractères maximum)",
+          "downloadable": "Vous devez sélectionner s'il doit être téléchargeable",
+          "state": "Vous devez sélectionner un état attendu"
+        },
+        "name": "Fichier du certificat",
+        "state": "Etat attendu du certificat",
+        "validity": "Fin de validité du certificat"
+      },
+      "title": "Gestion des certificats de la plateforme"
+    },
+    "chains": {
+      "chain": {
+        "new": "Ajouter une chaine de confiance",
+        "edit": "Modifier la chaine de confiance"
+      },
+      "no_certificates": "Pas de certificat",
+      "labels": {
+        "name": "Nom",
+        "description": "Description",
+        "actions": "Actions",
+        "user": "Utilisateur"
+      },
+      "certificate": {
+        "text_area_placeholder": "Coller ici le contenu du fichier PEM"
+      },
+      "errors": {
+        "loading_msg": "Une erreur s'est produite lors du chargement des chaines de confiance",
+        "loading_title": "Erreur de chargement"
+      },
+      "table_description": "Description",
+      "table_nom": "Nom",
+      "title": "Chaines de confiance"
+    },
+    "compatibility": {
+      "please_select_theme": "Veuillez sélectionner un thème",
+      "no_systems_found": "Aucun web service lié à ce thème n'a été trouvé",
+      "family_select": "Choisir un thème",
+      "system_select": "Choisir un web service",
+      "no_versions": "Aucune version disponible",
+      "choose_family": "1 - Choisir un thème",
+      "choose_service": "2 - Choisir un web service",
+      "test_list": "Liste des tests",
+      "title": "Tableau de Compatibilité"
+    },
+    "families": {
+      "errors": {
+        "families_title": "Erreur lors de la récupération des thèmes",
+        "families_msg": "Une erreur est survenue lors de la récupération des thèmes"
+      },
+      "labels": {
+        "name": "Nom",
+        "visibility": "Public",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier le thème",
+        "users": "Affecter des utilisateurs"
+      },
+      "family": {
+        "edit": "Modifier le thème",
+        "new": "Ajouter un thème",
+        "error_message": {
+          "name": "Vous devez entrer un nom (150 caractères maximum)"
+        },
+        "name": "Nom",
+        "visibility": "Visible au public"
+      },
+      "title": "Thèmes"
+    },
+    "user-families": {
+      "errors": {
+        "assignment_title": "Erreur lors de l'affectation des utilisateurs",
+        "assignment_msg": "Une erreur est survenue lors de l'affectation des utilisateurs",
+        "users_title": "Erreur lors de la récupération des utilisateurs",
+        "users_msg": "Une erreur est survenue lors de la récupération des utilisateurs"
+      },
+      "title": "Affectation des utilisateurs",
+      "no-users": "Pas d'éditeurs trouvés",
+      "labels": {
+        "name": "Nom",
+        "mail": "Email",
+        "unassigned-users": "Éditeurs non-affectés",
+        "assigned-users": "Éditeurs affectés"
+      }
+    },
+    "forgot": {
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide",
+      "email": "E-mail",
+      "title": "Réinitialisation de mot de passe"
+    },
+    "home": {
+      "title": "Page d'accueil"
+    },
+    "login": {
+      "email": "Identifiant (Email)",
+      "forgot_password": "Mot de passe oublié ?",
+      "login": "Login",
+      "password": "Mot de passe",
+      "sign_in": "Connexion",
+      "signup_link": "",
+      "title": "ANS"
+    },
+    "nomenclatures": {
+      "add_file": "Ajouter fichier de nomenclatures",
+      "file": "Fichier de nomenclatures",
+      "no_nomenclature_message": "Aucune nomenclatures disponibles",
+      "title": "Gestion des Nomenclatures",
+      "validation_message": "Les nomenclatures ont été mises à jour le : "
+    },
+    "preferences": {
+      "tooltips": {
+        "limit_try_authentication": "Limite d'essais infructueux avant de bloquer le compte. Valeur numérique attendue",
+        "list_email_notification": "Liste des mails des personnes à prévenir lors d'un échec de création de session. Les différents mails doivent être séparés par un point-virgule.",
+        "provisionning_timeout": "Temps d'attente pour le provisionnement d'un conteneur docker lorsque les ressources sont insuffisantes. La valeur est attendue en minutes (valeur numérique)",
+        "token_duration": "Durée de validitée du token. La valeur est attendue en minutes (valeur numérique)",
+        "blocked_account_duration": "Temps de blocage d'un compte. La valeur est attendue en minutes (valeur numérique)",
+        "textHomePage": "Texte de la page d'accueil, attendu au format html"
+
+      },
+      "labels": {
+        "key": "Nom de la propriété",
+        "value": "Valeur",
+        "actions": "Actions"
+      },
+      "modal": {
+        "label_property": "Propriété",
+        "label_value": "Valeur",
+        "title": "Ajouter une propriété"
+      },
+      "table": {
+        "actions": "Actions",
+        "key": "Nom de la propriété",
+        "value": "Valeur"
+      },
+      "title": "Préférences"
+    },
+    "profile": {
+      "roles": {
+        "admin": "Administrateur",
+        "user": "Éditeur",
+        "manager": "Gestionnaire de thème"
+      },
+      "title": "Mes informations personnelles",
+      "confirm_password": "Confirmation du mot de passe",
+      "entreprise": "Entreprise",
+      "error_msg": "Attention, les mots de passe saisis ne sont pas identiques",
+      "firstname": "Prénom",
+      "last_password": "Ancien mot de passe",
+      "mail": "E-mail",
+      "modifier_mot_de_passe": "Modifier",
+      "name": "Nom",
+      "password": "Mot de passe",
+      "profile": "Profil d’utilisateur",
+      "role": "Rôle",
+      "theme": "Theme"
+    },
+    "projects": {
+      "bulk-report":{
+        "title": "Rapport de mise à jour",
+        "dry-run": "Projet de mise à jour",
+        "filename": "Nom fichier",
+        "previousName": "Nom initial projet",
+        "newName": "Nom màj projet",
+        "lastUpdateDate":"Dernière màj projet",
+        "status": "Résultat",
+        "statusMessage": "Messages",
+        "awaitingReport": "En attente du rapport",
+        "emptyReport": "Rapport vide",
+        "confirm": "Appliquer"
+      },
+      "new": "Ajouter le projet",
+      "edit": "Modifier le projet",
+      "errors": {
+        "test_certificate_msg": "Une erreur s'est produite au moment du chargement du certificat",
+        "versions_msg": "Une erreur s'est produite au moment du chargement des versions",
+        "resources_msg": "Une erreur s'est produite au moment du chargement des ressources",
+        "analysis_msg": "Une erreur s'est produite au moment de l'analyse du fichier de projet",
+        "invalid_form_msg": "Veuillez corriger les erreurs présentes dans le formulaire",
+        "certificate_download_title": "Erreur de téléchargement du certificat",
+        "certificate_download_msg_500": "Une erreur s'est produite au moment du téléchargement du certificat",
+        "project_download_title": "Erreur de téléchargement du projet",
+        "project_download_msg_500": "Une erreur s'est produite au moment du téléchargement du projet",
+        "loading_title": "Erreur de chargement",
+        "analysis_title": "Erreur d'analyse",
+        "invalid_form_title": "Formulaire invalide"
+      },
+      "labels": {
+        "bulk_update": {
+          "maj_button": "MAJ des tests",
+          "modal":{
+            "title": "Définir mise à jour de masse",
+            "archive": "Archive",
+            "theme": "Thème à mettre à jour",
+            "wait_theme": "Chargement des thèmes",
+            "submit": "Soumettre"
+          }
+        },
+        "no_selection": "Veuillez sélectionner un élément de l'arborescence",
+        "no_data": "Aucun projet trouvé",
+        "loading": "Chargement des projets...",
+        "project": {
+          "resources": {
+            "DOCUMENT": "Documentation",
+            "BUNDLE_JAR": "Bundle jar",
+            "NOMENCLATURE": "Nomenclature",
+            "RESOURCE": "Ressource",
+            "PLUGIN": "Plugin",
+            "SINGLE_JAR": "Single jar"
+          },
+          "key": "Nom",
+          "value": "Valeur par défaut",
+          "description": "Description"
+        },
+        "name": "Nom",
+        "dateUpload": "Date de mise à jour",
+        "role": "Instance déployée",
+        "description": "Description",
+        "visibility": "Public",
+        "actions": "Actions",
+        "roles": {
+          "SERVER": "Mock Service",
+          "CLIENT": "Test Runner"
+        }
+      },
+      "actions": "Actions",
+      "btn_configure_project": "Modifier le projet",
+      "btn_detail_project": "Voir les détails du projet",
+      "btn_download_certificate": "Télécharger le certificat associé au projet",
+      "btn_download_project": "Télécharger le projet",
+      "choose_ws": "Filtrer par web service",
+      "create": {
+        "certificate": "Certificat à utiliser",
+        "choose_version": "Choisir une version compatible",
+        "inherited_resources": "Ressources héritées",
+        "missing_parameter_type": "Sélectionner le type du paramètre",
+        "missing_certificate": "Séléctionner un certificat",
+        "no_certificate": "Pas de certificat",
+        "no_resources": "Pas de ressources héritées",
+        "no_files": "Pas de ressources spécifiques",
+        "no_documentation_found": "Pas de documentation trouvée",
+        "no_related_files": "Pas de documents associés",
+        "project_file": "Fichier descripteur",
+        "project_name": "Nom du test",
+        "related_files": "Ressources spécifiques",
+        "role": "Instance déployée",
+        "visibility": "Visibilité",
+        "visibility_admin": "Administrateur seulement",
+        "visibility_all": "Public"
+      },
+      "date_upload": "Date de mise à jour",
+      "description": "Description",
+      "lines": "Lignes",
+      "name": "Nom",
+      "role": "Instance déployée",
+      "title": "Bibliothèque de tests",
+      "table_title": "Tableau des tests",
+      "visibility": "Public"
+    },
+    "reset": {
+      "confirmpassword": "Confirmation du nouveau mot de passe",
+      "password": "Nouveau mot de passe",
+      "title": "Modifier votre mot de passe"
+    },
+    "resources": {
+      "noselection": "Veuillez sélectionner un élément de l'arborescence",
+      "title": "Gestion des ressources",
+      "tree": "Arborescence des thèmes"
+    },
+    "sessions": {
+      "labels": {
+        "user": "Utilisateur",
+        "creationDate": "Date de création",
+        "applicationName": "Application à tester",
+        "description": "Description",
+        "rolePlateforme": "Instance déployée",
+        "sessionStatus": "Statut",
+        "actions": "Actions",
+        "roles":
+        {
+          "SERVER": "Mock Service",
+          "CLIENT": "Test Runner"
+        },
+        "statuses": {
+          "NONEXECUTE": "Non exécutée",
+          "CONSTRUCT": "En cours de préparation",
+          "DEPLOYMENT": "En cours de déploiement",
+          "STARTING": "En cours de démarrage",
+          "PENDING": "En cours d'exécution",
+          "ERROR": "En erreur",
+          "CANCELED": "Annulée",
+          "FINISHED": "Terminée",
+          "WAITING": "File d'attente"
+        }
+      },
+      "actions": {
+        "detail": "Détails de l'exécution",
+        "duplicate": "Dupliquer la session de test",
+        "edit": "Modifier la session",
+        "execute": "Exécuter la session",
+        "stop": "Arrêter la session"
+      },
+      "btn_Exit_Trash": "Sortir de la corbeille",
+      "btn_View_Trash": "Afficher la corbeille",
+      "detail": {
+        "cases_differents": "Nombre de cas de tests différents passés : ",
+        "coverage": "Pourcentage de couverture : ",
+        "creation_date": "Date de création : ",
+        "download": "Télécharger les logs en cliquant ici",
+        "execution_date": "Date d'exécution : ",
+        "execution_duration": "Durée d'exécution : ",
+        "failure_rate": "Cas de test en échec : ",
+        "parameters": "Paramètres personnalisés : ",
+        "resource_path": "Resource path : ",
+        "steps_number": "Nombre de pas de test : ",
+        "steps_success": "Pas de test en succès : ",
+        "success_percent": "Pourcentage de réussite : ",
+        "success_rate": "Taux de cas de test passants : ",
+        "test_suite": "Plan de test",
+        "tests": "Tests : ",
+        "title": "Détails de l'exécution de la session",
+        "url": "URL : "
+      },
+      "gestion": {
+        "refresh": "Actualiser la liste",
+        "title": "Gestion des sessions",
+        "labels": {
+          "user": "Utilisateur",
+          "creationDate": "Date de création",
+          "application": "Application Éditeur testée",
+          "description": "Description",
+          "rolePlateforme": "Instance déployée",
+          "sessionStatus": "Statut",
+          "executionDate": "Durée",
+          "actions": "Actions",
+          "roles":
+          {
+            "SERVER": "Test Runner",
+            "CLIENT": "Mock Service"
+          },
+          "statuses":{
+            "PENDING": "En cours d'exécution",
+            "DEPLOYMENT": "En cours de déploiement",
+            "CONSTRUCT": "En cours de préparation",
+            "WAITING": "En file d'attente",
+            "STARTING": "En cours de démarrage"
+          }
+        }
+      },
+      "pagination_10": 10,
+      "pagination_20": 20,
+      "pagination_30": 30,
+      "pagination_all": "Toutes",
+      "server": {
+        "begin_date": "Date début",
+        "bilan": "Bilan",
+        "connection_log": "Connexions",
+        "end_execution_date": "Date fin exécution",
+        "history": "Historique",
+        "http_log": "StdErr",
+        "tests": "Plan de test",
+        "title": "Détails de l'exécution de la session",
+        "tomcat_log": "StdOut",
+        "url": "URL Mock"
+      },
+      "session": {
+        "new": "Ajouter une session de test",
+        "duplicate": "Dupliquer la session de test",
+        "edit": "Modifier la session de test",
+        "add_project": "Ajouter un test",
+        "admin": "Administrateur",
+        "application": "Application à tester",
+        "description": "Description",
+        "duration": "Durée de session (en minutes)",
+        "title_client": "Instance Test Runner à déployer",
+        "title_mock": "Instance Mock Service à déployer",
+        "select": {
+          "family": "Veuillez sélectionner un thème",
+          "project": "Veuillez sélectionner un test",
+          "system": "Veuillez sélectionner un web-service",
+          "version": "Veuillez sélectionner une version"
+        },
+        "empty": {
+          "family": "Aucun thème disponible",
+          "system": "Aucun web-service disponible",
+          "version": "Aucune version disponible",
+          "project": "Aucun test disponible"
+        },
+        "errors": {
+          "create_title": "Erreur lors de la création de la session",
+          "create_msg": "Une erreur s'est produite lors de la création de la session",
+          "update_title": "Erreur lors de la mise à jour de la session",
+          "update_msg": "Une erreur s'est produite lors de la mise à jour de la session",
+          "projects_title": "Erreur lors de la récupération des tests",
+          "projects_msg": "Une erreur s'est produite lors de la récupération des tests",
+          "systems_title": "Erreur lors de la récupération des web-services",
+          "systems_msg": "Une erreur s'est produite lors de la récupération des web-services",
+          "all_users_title": "Erreur lors de la récupération des utilisateurs",
+          "all_users_msg": "Une erreur s'est produite lors de la récupération des utilisateurs",
+          "user_families_coverage_title": "Erreur lors de la récupération des thèmes",
+          "user_families_coverage_msg": "Une erreur s'est produite lors de la récupération des thèmes",
+          "versions_title": "Erreur lors de la récupération des versions",
+          "versions_msg": "Une erreur s'est produite lors de la récupération des versions",
+          "applications_title": "Erreur lors de la récupération des applications",
+          "applications_msg": "Une erreur s'est produite lors de la récupération des applications",
+          "durations_title": "Erreur lors de la récupération des durées",
+          "durations_msg": "Une erreur s'est produite lors de la récupération des durées"
+        },
+        "error_message": {
+          "application": "Vous devez sélectionner une application",
+          "description": "Vous devez sélectionner une description (500 caractères maximum)",
+          "duration": "Vous devez sélectionner une durée de session",
+          "family": "Vous devez sélectionner un thème",
+          "project_list": "Vous devez sélectionner un test",
+          "projects": "Vous devez ajouter au moins un test",
+          "system": "Vous devez sélectionner un web-service",
+          "user": "Vous devez sélectionner un utilisateur",
+          "version": "Vous devez sélectionner une version"
+        },
+        "family": "Thème",
+        "modal": {
+          "description": "Description",
+          "project": "Sélectionnez un test",
+          "properties": "Paramètres",
+          "test": "Test",
+          "title": "Détails du test"
+        },
+        "system": "Web service",
+        "system_title": "Instance à déployer",
+        "test_suite": "Plan de test",
+        "type": "Type de session",
+        "user": "Utilisateur",
+        "version": "Version"
+      },
+      "title": "Sessions de test",
+      "trash": "Corbeille - sessions de test"
+    },
+    "systems": {
+      "labels": {
+        "family.name": "Thème",
+        "name": "Web Service",
+        "actions": "Actions"
+      },
+      "filter_option": "Filtrer par thème",
+      "no_data": "Pas de WebServices enregistrés",
+      "system": {
+        "error_message": {
+          "family": "Vous devez sélectionner un thème",
+          "name": "Vous devez entrer un nom (50 caractères maximum)"
+        },
+        "family": "Thème",
+        "name": "Nom",
+        "new": "Ajouter un web service",
+        "edit": "Modifier le web service"
+      },
+      "title": "Web services"
+    },
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "labels": {
+        "forename": "Prénom",
+        "name": "Nom",
+        "firm": "Entreprise",
+        "mail": "Email",
+        "profile": "Profil",
+        "actions": "Actions",
+        "admin": "Administrateur",
+        "manager": "Gestionnaire de thème",
+        "user": "Éditeur"
+      },
+      "user": {
+        "selectAll": "Tout sélectionner",
+        "filter": "Rechercher",
+        "new": "Informations de l'utilisateur",
+        "edit": "Modifier les informations utilisateur",
+        "email": "Email",
+        "firm": "Entreprise",
+        "firstname": "Prénom",
+        "profile": "Profil",
+        "theme": "Thème rattaché",
+        "title": "Informations utilisateur",
+        "my_personal_information": "Mes informations personnelles"
+      }
+    },
+    "versions": {
+      "labels": {
+        "family": "Thème",
+        "service": "Web Service",
+        "label": "Version",
+        "description": "Description",
+        "visibility": "Public",
+        "actions": "Actions"
+      },
+      "filter_option": "Filtrer par thème",
+      "no_data": "Pas de versions enregistrées",
+      "title": "Versions des web services",
+      "version": {
+        "description": "Description",
+        "error_description": "Vous devez entrer une description (500 caractères maximum)",
+        "error_label": "Vous devez entrer un nom (50 caractères maximum)",
+        "family": "Thème",
+        "name": "Version",
+        "service": "Web Service",
+        "text_family": "Choisir un thème",
+        "text_service": "Choisir un Web Service",
+        "visibility": "Visible au public",
+        "new": "Ajouter une version",
+        "edit": "Modifier la version"
+      }
+    }
+  },
+  "icons": {
+    "editProject": "Modifier le projet",
+    "editApplication": "Modifier l'application",
+    "editUser": "Modifier l'utilisateur",
+    "editCertificate": "Modifier le certificat",
+    "editChain": "Modifier la chaîne",
+    "edit": "Modifier",
+    "save": "Enregistrer",
+    "editSession": "Modifier la session",
+    "executionDetails": "Détails de l'exécution de la session",
+    "copySession": "Dupliquer la session de test",
+    "executeSession": "Exécuter la session",
+    "editFamily": "Modifier le thème",
+    "assignUsers": "Affecter des utilisateurs",
+    "editSystem": "Modifier le web-service",
+    "editVersion": "Modifier la version",
+    "stop": "Arrêter",
+    "projectDownload": "Télécharger le projet",
+    "projectCertificate": "Télécharger le certificat associé au projet",
+    "projectDetails": "Voir les détails du projet"
+  }
+}

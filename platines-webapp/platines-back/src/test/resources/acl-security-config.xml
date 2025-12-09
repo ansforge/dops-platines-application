@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd">
+
+	<security:global-method-security
+		pre-post-annotations="enabled" secured-annotations="enabled">
+		<security:expression-handler ref="expressionHandler" />
+	</security:global-method-security>
+
+	<bean id="aclAuthorizationStrategy"
+		class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
+		<constructor-arg>
+			<list>
+				<!-- authority for taking ownership -->
+				<bean
+					class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+					<constructor-arg value="ROLE_admin" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="expressionHandler"
+		class="fr.asipsante.platines.security.CustomMethodSecurityExpressionHandler">
+		<property name="permissionEvaluator" ref="permissionEvaluator" />
+		<property name="permissionCacheOptimizer" ref="permissionCacheOptimizer" />
+	</bean>
+
+	<bean id="permissionEvaluator"
+		class="org.springframework.security.acls.AclPermissionEvaluator">
+		<constructor-arg ref="aclService"/>
+	</bean>
+	<bean id="permissionCacheOptimizer"
+		class="org.springframework.security.acls.AclPermissionCacheOptimizer">
+		<constructor-arg ref="aclService"/>
+	</bean>
+
+	<bean id="aclService"
+		class="org.springframework.security.acls.jdbc.JdbcMutableAclService">
+		<constructor-arg ref="dataSource" />
+		<constructor-arg ref="lookupStrategy" />
+		<constructor-arg ref="aclCache" />
+	</bean>
+
+	<bean id="lookupStrategy"
+		class="org.springframework.security.acls.jdbc.BasicLookupStrategy">
+		<constructor-arg ref="dataSource" />
+		<constructor-arg ref="aclCache" />
+		<constructor-arg ref="aclAuthorizationStrategy" />
+		<constructor-arg ref="auditLogger" />
+	</bean>
+
+	<bean id="aclCache"
+		class="org.springframework.security.acls.domain.EhCacheBasedAclCache">
+		<constructor-arg>
+			<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+				<property name="cacheName" value="aclCache"/>
+				<property name="cacheManager">
+					<bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+						<property name="shared" value="true"/>
+					</bean>
+				</property>
+			</bean>
+		</constructor-arg>
+		<constructor-arg ref="permissionGrantingStrategy"/>
+		<constructor-arg ref="aclAuthorizationStrategy"/>
+	</bean>
+
+	<bean id="permissionGrantingStrategy"
+		class="org.springframework.security.acls.domain.DefaultPermissionGrantingStrategy">
+		<constructor-arg ref="auditLogger"/>
+	</bean>
+
+	<bean id="auditLogger"
+		class="org.springframework.security.acls.domain.ConsoleAuditLogger" />
+
+	<bean id="myUserDetails"
+	class="fr.asipsante.platines.service.authentication.MyUserDetails" />
+
+
+	<security:authentication-manager>
+<!-- 		<security:authentication-provider -->
+<!-- 			user-service-ref="myUserDetails"> -->
+<!-- 		</security:authentication-provider> -->
+	</security:authentication-manager>
+
+
+
+</beans>

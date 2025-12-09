@@ -1,0 +1,22 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div >
+  <div class="modal-header card-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+
+    </button>
+  </div>
+  <form>
+  <div class="modal-body">
+    <p class="paragraphe">{{modalContent}}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn--default btn--ghost" type="button" (click)="closeModal()" translate="commons.actions.cancel"></button>
+    <button class="btn btn--primary btn--plain" type="submit" (click)="delete()" translate="commons.actions.validate" #validate></button>
+  </div>
+  </form>
+</div>

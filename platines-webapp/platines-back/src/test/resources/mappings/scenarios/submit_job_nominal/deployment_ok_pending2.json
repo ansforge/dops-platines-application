@@ -1,0 +1,15 @@
+{
+    "scenarioName": "Deployment ok",
+    "requiredScenarioState": "Deployment pending 2",
+    "request": {
+        "method": "GET",
+        "url": "/v1/deployment/9897d830-ce30-1e37-b3f3-69ab0d0f43dd?namespace=default"
+    },
+    "response": {
+        "status": 200,
+        "body" : "{\"ID\":\"9897d830-ce30-1e37-b3f3-69ab0d0f43dd\",\"Namespace\":\"default\",\"JobID\":\"platines-dev\",\"JobVersion\":4,\"JobModifyIndex\":447040,\"JobCreateIndex\":441116,\"TaskGroups\":{\"apps-servers\":{\"AutoRevert\":false,\"Promoted\":false,\"PlacedCanaries\":null,\"DesiredCanaries\":0,\"DesiredTotal\":1,\"PlacedAllocs\":1,\"HealthyAllocs\":1,\"UnhealthyAllocs\":0},\"db-servers\":{\"AutoRevert\":false,\"Promoted\":false,\"PlacedCanaries\":null,\"DesiredCanaries\":0,\"DesiredTotal\":1,\"PlacedAllocs\":1,\"HealthyAllocs\":1,\"UnhealthyAllocs\":0},\"front-servers\":{\"AutoRevert\":false,\"Promoted\":false,\"PlacedCanaries\":null,\"DesiredCanaries\":0,\"DesiredTotal\":1,\"PlacedAllocs\":1,\"HealthyAllocs\":1,\"UnhealthyAllocs\":0}},\"Status\":\"successful\",\"StatusDescription\":\"Deployment completed successfully\",\"CreateIndex\":447042,\"ModifyIndex\":447074}",
+        "headers": {
+            "Content-Type": "application/json"
+        }        
+    }
+}

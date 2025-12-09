@@ -1,0 +1,110 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../../listProjets" translate>pages.projects.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./">{{projectName}} - détails
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+
+        <h3 class="card-title">
+          <span>
+            {{projectName}} - détails
+          </span> <span *ngIf="this.currentPosition!=null" class="context-select-bar">
+            <button [disabled]="currentPosition===0" [routerLink]="['../',this.contextStateService.filteredProjectList[currentPosition-1]?.id]" mat-icon-button title="{{'icons.stop'|translate}}">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <mat-select #contextList (selectionChange)="routeTo(contextList.value)" [(ngModel)]="currentPosition" class="form-control context-select" panelClass="custom-mat-select-panel">
+              <mat-option *ngFor="let p of this.contextStateService.filteredProjectList; let i = index" [value]="i">{{p.name}}</mat-option>
+            </mat-select>
+            <button [disabled]="currentPosition===this.contextStateService.filteredProjectList.length-1" [routerLink]="['../',this.contextStateService.filteredProjectList[currentPosition+1]?.id]" mat-icon-button title="{{'icons.stop'|translate}}">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </span>
+        </h3>
+
+      </div>
+      <div class="card-body">
+        <div class="info">
+          <div class="col-md-5 treecol">
+            <app-project-tree
+              (nodeClick)="onNodeSelect($event)"
+              [projectObs]="projectSrc"
+              [activeNodes]="[activeNode]">
+            </app-project-tree>
+          </div>
+          <div class="col-md-7 treecol">
+            <div class="div-info ">
+              <div>
+                <mat-tab-group>
+                  <mat-tab label="{{'commons.labels.description'|translate}}">
+                    <div class="description">
+                      <pre class="description">{{description}}</pre>
+                    </div>
+                  </mat-tab>
+                  <mat-tab *ngIf="versions?.length > 0" label="{{'commons.labels.compatible_versions'|translate}}">
+                    <div class="description">
+                      <li *ngFor="let v of versions">{{v.label}}</li>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="{{'commons.labels.documentation' | translate}}">
+                    <div class="description">
+                      <span *ngIf="files.length == 0 && resources.length == 0" translate="pages.projects.create.no_documentation_found"></span>
+                      <li *ngFor="let f of files">
+                        <a (click)="loadFile(f)">{{f.fileName}}</a>
+                      </li>
+                      <li *ngFor="let r of resources">
+                        <a (click)="loadResource(r)">{{r.fileName}}</a>
+                      </li>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="parameters-div">
+          <fieldset *ngIf="tableDataSource?.data?.length !==0 " class="fieldSet">
+            <legend translate>commons.labels.parameters</legend>
+            <div class="table-responsive">
+              <table [dataSource]="tableDataSource" class="mat-elevation-z8" mat-table>
+
+                <ng-container *ngFor="let column of autoColumns" [matColumnDef]="column">
+                  <th *matHeaderCellDef mat-header-cell><span translate>{{labelsPath}}.{{ column }}</span></th>
+                  <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+                </ng-container>
+
+                <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+                <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+              </table>
+            </div>
+
+          </fieldset>
+          <div class="btn-back">
+            <button (click)="back()" class="btn btn--plain btn--primary" id="btnAnnul" translate="commons.actions.back" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

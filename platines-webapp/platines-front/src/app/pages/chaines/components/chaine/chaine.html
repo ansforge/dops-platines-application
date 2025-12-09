@@ -1,0 +1,130 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../list" translate>pages.chains.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{new:isNew}" routerLink="./">{{isNew ? ('pages.chains.chain.new' | translate) : ('pages.chains.chain.edit' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+
+
+
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" >{{isNew ? ('pages.chains.chain.new' | translate) : ('pages.chains.chain.edit' | translate)}}</h3>
+      </div>
+      <div class="card-body">
+        <form #chainForm="ngForm">
+          <div class="composant">
+            <fieldset class="fieldSet">
+              <legend>Chaine</legend>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" for="chainName" translate>commons.labels.name</label>
+                <div class="col-sm-12">
+                  <input #name="ngModel" [(ngModel)]="chainOfTrust.name" class="form-control" id="chainName" name="chainName" required type="text">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" translate>commons.labels.description</label>
+                <div class="col-sm-12">
+                  <textarea #description="ngModel" [(ngModel)]="chainOfTrust.description" class="form-control" id="chainDescription" name="description" required></textarea>
+                </div>
+              </div>
+              <div style="display: inline" style="float: right">
+                <button (click)="back()" class="btn btn--default btn--ghost btn-xs" id="btnBack" title="Retour" translate>commons.actions.back</button>
+                <button (click)="addChain()" [disabled]="!chainForm.form.valid" class="btn btn--plain btn--primary btn-xs" id="btnValidate" title="Valider" translate type="submit">commons.actions.validate
+                </button>
+              </div>
+
+            </fieldset>
+            <div *ngIf="!isNew">
+              <fieldset class="fieldSet">
+                <legend>Certificats</legend>
+                <div style="float: right; margin-bottom:10px">
+                  <button [disabled]="selection.selected.length===0" (click)="deleteCertificate($event)" class="btn btn-xs btn--default btn--ghost" id="btnDelete" title="Supprimer" translate>commons.actions.delete</button>
+                  <button (click)="addCertificate()" class="btn btn-xs btn--plain btn--primary" id="btnAdd" title="Ajouter un certificat" translate>commons.actions.add</button>
+                </div>
+
+                <div *ngIf="dataSource.data.length==0" class="empty-placeholder">
+                  <span translate>pages.chains.no_certificates</span>
+                </div>
+
+                <table aria-label="Liste des certificats de la chaine de confiance" *ngIf="dataSource.data.length>0" [dataSource]="dataSource" mat-table>
+
+                  <ng-container matColumnDef="validityDate">
+                    <th *matHeaderCellDef class="text-center" mat-header-cell></th>
+                    <td *matCellDef="let element" mat-cell>
+
+                      <span>
+
+                    <!--TODO: Add validity date verification logic-->
+                      <svg *ngIf="element['validityDate']" aria-hidden="true" class="svg-icon svg-circle-check icon-green" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#circle-check"></use></svg>
+                      <svg *ngIf="!element['validityDate']" aria-hidden="true" class="svg-icon svg-circle-cross icon-red" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#circle-cross"></use></svg>
+                    </span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="pem">
+                    <th *matHeaderCellDef class="text-center" mat-header-cell></th>
+                    <td *matCellDef="let element" mat-cell>
+                    <span>
+                      {{element['pem']}}
+                    </span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <th *matHeaderCellDef mat-header-cell>Actions</th>
+                    <td *matCellDef="let element" mat-cell>
+                <span>
+                  <button (click)="upadateCertificate(element['id'])" title="{{'icons.edit'|translate}}">
+                    <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg>
+                  </button>
+                </span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="checkbox">
+                    <th *matHeaderCellDef mat-header-cell>
+                      <div class="custom-control text-center custom-checkbox">
+                        <input (click)="setAll($event)" [checked]="isAllSelected()" [indeterminate]="!isAllSelected() && selection.hasValue()" class="custom-control-input" type="checkbox">
+                      </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                      <div class="custom-control text-center custom-checkbox">
+                        <input (change)="setRow(element)" [checked]="selection.isSelected(element)" class="custom-control-input" type="checkbox">
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+                  <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+                </table>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

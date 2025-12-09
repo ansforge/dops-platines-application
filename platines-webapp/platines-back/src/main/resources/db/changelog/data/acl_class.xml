@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet id="addAclClass" author="apierre">
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Application"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Certificate"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.ChainOfTrust"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.ConnectionHistory"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Family"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.FunctionalData"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Nomenclature"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Profile"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Project"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.ProjectResult"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.ProjectResultProperty"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Property"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.RelatedFiles"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.SessionDuration"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.SimulatedService"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.TestCaseResult"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.TestCertificate"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.TestSession"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.TestStepResult"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.TestSuiteResult"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.User"></column>
+	</insert>
+	<insert tableName="acl_class">
+			<column name="class" value="fr.asipsante.platines.entity.Version"></column>
+	</insert>
+
+	
+</changeSet>
+
+<changeSet id="fapmilyDevientThemeCoherenceMetier" author="edegenetais">
+	<update tableName="acl_class">
+          <column name="class" value="fr.asipsante.platines.entity.Theme"></column>
+          <where>class='fr.asipsante.platines.entity.Family'</where>
+	</update>
+</changeSet>
+	
+</databaseChangeLog>

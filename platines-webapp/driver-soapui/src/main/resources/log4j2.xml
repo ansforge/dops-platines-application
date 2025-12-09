@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<Configuration name="SoapUITestDriver" strict="true">
+  <Appenders>
+    <Appender type="Console" name="console">
+      <PatternLayout pattern="[%p] %c{4} - %m\n"/>
+    </Appender>
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="console" />
+    </Root>
+  </Loggers>
+</Configuration>

@@ -1,0 +1,34 @@
+
+# /
+/.classpath
+/.project
+/platines-root.iml
+
+# /platines-back/
+/platines-back/platines-back.iml
+
+# /platines-front/
+/platines-front/*.lock
+/platines-front/platines-front.iml
+/platines-front/yarn-error.log
+
+# /platines-front/src/environments/
+/platines-front/src/environments/environment.ts
+
+# /platines-mockws/
+/platines-mockws/platines-mockws.iml
+/.idea/
+/nomad-api/target/
+/nos-plugin-assertion/target/
+/nos-plugin-preference/target/
+/platines-back/target/
+/platines-front/target/
+/platines-front/node_modules/
+/platines-front/dist/
+/platines-front/.angular/
+/platines-rp/target/
+/soapui-image-files/target/
+/soapui-mock-listener/target/
+/soapui-vihf-plugin/target/
+platines-back/src/main/resources/readyapi-libs/
+.vscode

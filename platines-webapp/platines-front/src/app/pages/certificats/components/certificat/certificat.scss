@@ -1,0 +1,55 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+//@import "../../../../theme/sass/conf/conf";
+
+.composant {
+  margin: 20px 10px 10px 20px;
+}
+
+.ptn-xm {
+  border-color: #b5b5b5;
+  background-color: #b5b5b5;
+}
+
+.divBtn i {
+  padding-right: 5px;
+}
+
+.divBtn {
+}
+
+.radio {
+  text-align: left;
+}
+
+.FileUpload {
+  opacity: 0;
+  position: absolute;
+  z-index: 7000;
+  width: 100%;
+  cursor: pointer;
+}
+
+.status {
+  color: #000;
+  height: 150px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.divAnalyze {
+  padding-bottom: 55px;
+}
+
+div.input-group > input.form-control{
+  border-radius: 1.4rem;
+}
+
+.validity-date{
+  padding: 0 2.5rem;
+  margin:0;
+}

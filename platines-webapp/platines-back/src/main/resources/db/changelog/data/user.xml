@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+	<changeSet author="aboittiaux" id="ajoutUtilisateurAdmin">
+		<insert tableName="user">
+			<column name="id" value="1"></column>
+			<column name="dateCreation" valueDate="CURRENT_DATE"></column>
+			<column name="dateModifPassword"></column>
+			<column name="entreprise" value="asip"></column>
+			<column name="mail" value="admin.platines@asipsante.fr"></column>
+			<column name="nom" value="admin"></column>
+			<column name="prenom" value="admin"></column>
+			<column name="PROFILE_ID" value="1"></column>
+			<column name="USER_ID" value="1"></column>
+		</insert>
+	</changeSet>
+</databaseChangeLog> 

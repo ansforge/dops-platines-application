@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/test"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"response\": \"test response\"}",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}

@@ -1,0 +1,133 @@
+{"FIXME": "This file is OBSOLETE and MISLEADING. To be removed, or emptied cf redmine #58645",
+  "login": {
+    "title": "ANS",
+    "signup_link": "",
+    "login": "Login",
+    "email": "Identifiant (Email)",
+    "password": "Mot de passe",
+    "sign_in": "Connexion",
+    "forgot_password": "Mot de passe oublié ?"
+  },
+  "forgot": {
+    "title": "Vous avez oublié votre mot de passe",
+    "valider": "Valider",
+    "email":"Email"
+  },
+  "reset": {
+    "title": "Modifier votre mot de passe",
+    "valider": "Valider ",
+    "password":"Nouveau mot de passe",
+    "confirmpassword":"Confirmation du nouveau mot de passe"
+  },
+  "actions": {
+    "ajouter": "Ajouter",
+    "enregistrer": "Enregistrer",
+    "modifier": "Modifier",
+    "supprimer": "Supprimer",
+    "annuler": "Annuler"
+  },
+  "applications":{
+       "titre":"Applications Éditeurs"
+  },
+  "chaines":{
+       "titre":"Chaines de confiance",
+       "table_nom":"Nom",
+       "table_description":"Description",
+       "btnDelete":"Supprimer",
+       "btnRetour":"Annuler",
+       "btnAddCertif":"Ajouter un certificat",
+       "btnSave":"Enregistrer",
+       "btnModifier":"Modifier"
+  },
+  "certificat":{
+       "titre":"Certificat",
+       "table_nom":"Détails du certificat",
+       "table_description":"Copier ici le certificat: Le certificat doit être au format PEM (texte)",
+       "btnDelete":"Supprimer",
+       "btnRetour":"Annuler",
+       "btnSave":"Valider"
+
+  },
+  "general": {
+    "profile": {
+      "nom":"Nom",
+      "prenom":"Prénom",
+      "entreprise":"Entreprise",
+      "mail":"E-mail",
+      "password":"Mot de passe",
+      "profile":"Profil d’utilisateur",
+      "error_msg":"Attention, les mots de passe saisis ne sont pas identiques",
+      "modifier_mot_de_passe":"Modifier"
+    },
+    "menu": {
+      "espace_utilisateur":{
+        "title": "Espace utilisateur",
+        "title_abrev":"E. U.",
+        "applications":"Applications Éditeurs",
+        "chaines":"Chaines de confiance",
+        "sessions":"Sessions de test",
+        "familles":"Thèmes"
+      },
+      "espace_administrateur":{
+        "title": "Espace de gestion",
+        "title_abrev":"E. G.",
+        "dashboard":"Tableaux de bord",
+        "nomenclatures":"Nomenclatures",
+        "utilisateurs":"Gestion des Utilisateurs",
+        "certificats":"Gestion des certificats"
+      },
+      "services": {
+        "title": "Offre de tests",
+        "title_abrev":"O. T.",
+        "familles":"Thèmes",
+        "systemes":"Web services",
+        "projets":"Bibliothèque de tests",
+        "compatibilite":"Compatibilité des tests"
+        }
+    },
+    "created_with": "Version 1.5.1 (C) Copyright 2019 | ANS, l'Agence du Numérique en Santé."
+  },
+  "systemes":{
+       "titre":"Web services",
+       "service":"Thème",
+       "nom":"Nom",
+       "version":"Version",
+       "visible": "Visible au public",
+       "btnDelete":"Supprimer",
+       "btnRetour":"Annuler",
+       "btnSave":"Enregistrer"
+  },
+   "projets":{
+       "titre":"Bibliothèque de tests"
+  },
+   "sessionTst":{
+       "titre":"Sessions de test",
+       "table_Application_A_Tester":"Application A Tester",
+       "table_Systeme_Simule":"Web services",
+       "table_Description":"Description",
+       "table_Statut":"Statut",
+       "table_Actions":"Actions",
+       "btnDelete":"Supprimer",
+       "btnRetour":"Annuler",
+       "btnAddSession":"Ajouter une session",
+       "btnSave":"Enregistrer",
+       "btnModifier":"Modifier",
+       "AjouterProjet": "Ajouter un test"
+  },
+   "famille":{
+       "titre":"Thèmes",
+       "btnDelete":"Supprimer",
+       "btnRetour":"Annuler",
+       "btnAddFamille":"Ajouter",
+       "btnSave":"Enregistrer",
+       "btnModifier":"Modifier"
+  },
+  "compatibilite":{
+    "titre":"Compatibilité des tests",
+    "btnDelete":"Supprimer",
+    "btnRetour":"Annuler",
+    "btnAddFamille":"Ajouter",
+    "btnSave":"Enregistrer",
+    "btnModifier":"Modifier"
+}
+}

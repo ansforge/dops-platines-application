@@ -1,0 +1,42 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.session-tree-icon.svg-icon.svg-warning {
+  color: darkorange;
+  stroke-width: 1px;
+  width: 2rem;
+}
+
+.svg-icon.svg-check {
+    color: chartreuse;
+    stroke-width: 3px;
+}
+
+.svg-icon.svg-close {
+    color: red;
+    stroke-width: 1px;
+}
+
+.icon-container {
+    padding: 0.5rem;
+}
+
+div.invisible-decorator,
+div.invisible-decorator > svg.svg-icon {
+    min-height: 0px;
+    height: 0px;
+    display: inline-block;
+    line-height: 0px;
+}
+
+.session-tree-icon.svg-icon{
+  padding-left: 0.5rem;
+  vertical-align: bottom;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: block;
+}
+
+.session-tree-icon{
+  margin-right:1rem;
+}

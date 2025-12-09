@@ -1,0 +1,142 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<!-- <simple-notifications [options]="notifParams.options">
+</simple-notifications> -->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate>pages.profile.title </a></li>
+
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate>pages.profile.title</h3>
+      </div>
+      <form #profileForm="ngForm" class="form-horizontal" id="profileForm">
+        <div class="card-body">
+          <div class="composant">
+
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.name</span> </label>
+              <div class="col-sm-12">
+                <input #name="ngModel" [(ngModel)]="user.name" [readonly]="!isEdit" class="form-control" name="name" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.firstname</span> </label>
+              <div class="col-sm-12">
+                <input #forename="ngModel" [(ngModel)]="user.forename" [readonly]="!isEdit" class="form-control" name="forename" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.entreprise</span> </label>
+              <div class="col-sm-12">
+                <input #entreprise="ngModel" [(ngModel)]="user.firm" [readonly]="!isEdit" class="form-control" name="entreprise" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.role</span> </label>
+              <div class="col-sm-12">
+                <input [disabled]="true" class="form-control" name="profile" required value="{{'pages.profile.roles.'+role | translate}}">
+              </div>
+            </div>
+
+            <div *ngIf="!isAdmin" class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.theme</span> </label>
+              <div class="col-sm-12">
+
+                <mat-select [(ngModel)]="user.families" class="form-control disabled" disableOptionCentering  multiple name="families" panelClass="custom-mat-select-panel">
+                  <mat-option disabled *ngFor="let theme of families" [value]="theme">{{theme.name}}</mat-option>
+                </mat-select>
+
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label"> <span translate>pages.profile.mail</span> </label>
+              <div class="col-sm-12">
+                <input [(ngModel)]="user.mail" class=" form-control" disabled name="email"/>
+              </div>
+            </div>
+
+            <div *ngIf="!isEdit">
+              <div class="form-group row">
+                <div class="col-sm-12 text-right">
+                  <button (click)="editer()" class="btn btn--primary btn--plain">
+                    <span translate>pages.profile.modifier_mot_de_passe</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="isEdit">
+
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label"> <span translate>pages.profile.last_password</span> </label>
+                <div class="col-sm-12">
+                  <input #lastpwd="ngModel" [(ngModel)]="lastpassword" class="form-control" name="lastpassword" pattern="{{passwordRegex}}" type="password">
+                  <span *ngIf="lastpwd.touched && lastpwd.invalid" class="is-invalid text-danger">Le mot de passe n'est pas au bon format</span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label"> <span translate>pages.profile.password</span> </label>
+                <div class="col-sm-12">
+                  <input #pwd="ngModel" [(ngModel)]="password" class="form-control" name="password" pattern="{{passwordRegex}}" type="password">
+                  <span *ngIf="pwd.touched && pwd.invalid" class="is-invalid text-danger">Le mot de passe n'est pas au bon format</span>
+                </div>
+                <!--                <div class="col-sm-1">-->
+                <!--                  <span class="tooltip"></span> <span>-->
+                <!--											  <div class="tooltipAr">-->
+                <!--												<i class="fa fa-question-circle aideCircle"></i>-->
+                <!--												<div class="tooltiptextAr">-->
+                <!--												  <ul>-->
+                <!--													<li>Longueur minimale : 10 caractères</li>-->
+                <!--													<li>Au moins une majuscule, une minuscule, un chiffre et un caractère spécial</li>-->
+                <!--													<li>Les caractères spéciaux peuvent être : _-+=&lt;>@&amp;’!?%$*,;:</li>-->
+                <!--													<li>Liste de tous les caractères autorisés : [a-z][A-Z][0-9][ _-+=&lt;>@&amp;’!%?$*,;:]</li>-->
+                <!--												  </ul>-->
+                <!--												</div>-->
+                <!--											  </div>-->
+                <!--											</span>-->
+                <!--                </div>-->
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label"> <span translate>pages.profile.confirm_password</span>
+                </label>
+                <div class="col-sm-12">
+                  <input #confirmpwd="ngModel" [(ngModel)]="confirmpassword" class="form-control" name="confirmpassword" pattern="{{passwordRegex}}" type="password">
+                  <span *ngIf="pwd.touched && (confirmpwd.invalid || confirmpwd.value !== pwd.value)" class="is-invalid text-danger">Le mot de passe n'est pas au bon format</span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-12 text-right">
+                  <button (click)="annuler()" class="btn btn--ghost btn--default" style="margin-right: 10px;" translate>commons.actions.back</button>
+                  <button (click)="save()" [disabled]="!this.profileForm.valid" class="btn btn--primary btn--plain" translate type="submit">commons.actions.validate</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

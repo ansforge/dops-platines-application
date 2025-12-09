@@ -1,0 +1,55 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+td.mat-column-key {
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 17%;
+  max-width: 17%;
+}
+
+.preference{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button > .svg-icon{
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+
+td.mat-column-value {
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 77%;
+  max-width: 77%;
+}
+td.mat-column-actions {
+   width: 100%;
+   word-wrap: break-word;
+   white-space: unset;
+   overflow-wrap: break-word;
+   word-break: break-word;
+   hyphens: auto;
+   min-width: 6%;
+   max-width: 6%;
+ }
+
+textarea{
+  margin: 15px 0 15px 0;
+}
+
+td > input{
+  margin: 15px 0 15px 0;
+}

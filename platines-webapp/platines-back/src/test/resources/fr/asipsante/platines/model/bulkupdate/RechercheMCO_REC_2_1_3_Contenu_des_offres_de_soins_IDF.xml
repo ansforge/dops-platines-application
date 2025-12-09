@@ -1,0 +1,3308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<con:soapui-project id="a3066288-7735-41d1-9fd8-b4164aedbcde" activeEnvironment="Default environment" name="Contenu des offres de soins IDF" resourceRoot="${projectDir}" soapui-version="6.0.0" updated="2.1.0 20170726-1100" disableCarriageReturnEscaping="false" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>Recherche MCO – N° de l’exigence associée : REC.2.1.3 –
+Nom de la suite de test : Retour de l’offre de santé - Contenu des offres de soins
+
+Objectif de la suite de test :
+- vérifier que le système est capable d’interpréter tous les éléments possibles d’une requête de recherche 
+- vérifier que la réponse est conforme aux exigences de base du retour de l’offre de santé
+
+— Fichiers Schematron à charger pour le test —
+- Sch_codeINSEE_regionIDF.sch
+- Sch_codeINSEE_dept75.sch
+- lienOI_EG.sch
+
+— Conditions d'exécution du test — 
+Temps de réponse maximal autorisé au niveau de la requête : 5 s. 
+11 cas de test avec une requête par cas. Dans des conditions normales, la durée d'exécution moyenne est inférieure à 5 mn.</con:description>
+  <con:settings>
+    <con:setting id="WsdlSettings@cache-wsdls">false</con:setting>
+  </con:settings>
+  <con:interface xsi:type="con:WsdlInterface" id="d6a450f7-0d5b-4596-b762-f334730264e1" wsaVersion="NONE" name="careServicesRequest_PortType" type="wsdl" bindingName="{urn:asip:ror:2015}careServicesRequest_Binding" soapVersion="1_2" anonymous="optional" definition="Z:/Intégration/ROR/V1/Projets des tests pour la plateforme/ROR_1/Projets_SoapUI/Ref_Echanges_ROR_V003_2016_ROR_Version_Finale.WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>https://ror-prod.asipsante.fr/ROR/careServicesRequest_Binding</con:endpoint>
+    </con:endpoints>
+    <con:operation id="a953987d-53db-40bc-b1b1-13ef8a13828a" isOneWay="false" action="urn:asip:ror:2015:stored-function:ror-search" name="careServicesRequest_Request" bindingOperationName="careServicesRequest_Request" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="b235fc44-a66a-45f3-86bf-29e987975ea2" name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://ror-prod.asipsante.fr/ROR/careServicesRequest_Binding</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:-->
+                     <ageGroup code="?" codingScheme="?">?</ageGroup>
+                  </patientsType>
+                  <!--Zero or more repetitions:-->
+                  <typeOfCare code="?" codingScheme="?">?</typeOfCare>
+               </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="?" codingScheme="?">?</codedType>
+                  <!--Optional:-->
+                  <act code="?" codingScheme="?">?</act>
+                  <!--Optional:-->
+                  <specialty code="?" codingScheme="?">?</specialty>
+               </service>
+               <device>
+                  <!--Optional:-->
+                  <type code="?" codingScheme="?">?</type>
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="?" codingScheme="?">?</type>
+                     <code code="?" displayName="?" language="?" codingScheme="?" codingSchemeName="?" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:-->
+                     <distance value="?"/>
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>?</value>
+                        <!--Optional:-->
+                        <timeUnity code="?" codingScheme="?">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:testSuite id="f9972e98-12cb-4fb0-8199-2861e50cb4f6" name="RechercheMCO_REC-2-1-3">
+    <con:settings/>
+    <con:savedRecentRuns>1</con:savedRecentRuns>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="e7d96fb6-fb08-4240-8750-e04ff1c119e3" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="1 - Activité 37 (Dermatologie)" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" maxResults="20">
+      <con:description>Valeurs envoyées dans la requête : Activité de soin : 13 -Cardiologie
+Localisation de prise en charge : 1 - Région / 11 -Ile-de-france Age : 30 ans 
+• Les classes d’âge des UE retournées comprennent au moins la classe d’âge 06;Adulte, avant 65 ans 
+• Chaque UE retournée a pour activité de soin : 37, Dermatologie 
+• Le code commune INSEE des UE retournées est dans la région 11 - Ile-de-france</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="f637761b-879e-41f9-8472-9a0d915f93f7">
+        <con:description>Remplissage de tous les champs requis dans la requête XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>37</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>117</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="32663754-a8da-48b7-9b85-da389fb96548" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5" timeout="5000">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="a92a3c25-3ebd-4d99-a487-ef299827f3d2">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="3d6fb2b4-abb3-442a-8272-0241f6c967df">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="d0371d80-ca4d-4e28-939c-988246e497d0">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="88f682f0-1b39-4c03-8238-55e21d37c311">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="d2718932-5e77-439f-9058-c3aca665b002">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="4d1e46b3-0c7e-4a6d-94db-8120b0f86a4a">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="5df029fb-07e7-4cc7-b61c-db9d574f6434">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="9263a551-86b9-4fdb-8b3d-8d7857932e16">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>55a856c6-17d8-4a33-a589-78fc65c23419</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>0d81bd81-e951-4edf-9e6b-411c6aed8609</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="041263fd-4a17-4998-83fb-ce2a43fd92f0" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="2 - Acte spécifique 250 (Pacemaker)" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="62a2a2e8-be67-4236-9ce8-f2b064a79deb">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>62</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>250</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>117</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="1637515b-fb03-4f23-b5e8-fb6443cb6676" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5" timeout="5000">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+-->
+                  <!--Optional:-->
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" id="29f379f7-6cac-40ce-9d31-06e0546aa5d7" name="Il doit y avoir autant de fois l'acte spécifique recherché que d'OI">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]) >= //*:OInumber)) then "Résultat valide" else concat("Nombre d'unités contenant l'acte spécifique recherché ( code : " , "${Préparation de la requête#code_acteSpec}", " ) : ", count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="e18ccfc4-555e-4309-b1a3-c0df0a8abd24">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="8fc31cde-2eea-4a73-a2b3-b541d2506619">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="ac36ce58-36e7-4876-9914-34dcab0d6189">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="5bc35fd9-4114-4092-8cb0-08c6c3ea86a1">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="d9292e39-c03f-45de-a59c-a84d7a0b5120">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="be3c6fcb-5bae-4012-a98a-c087047cb4d2">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="909fbb1a-6cc9-4e3e-81c3-e584e31397ef">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a480068-8fee-4296-a0f9-8aaacf90b7ef</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="cf2d6a34-a3d6-4003-b422-eab4eb41433f" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="3 - Équipement spécifique 46 (Holter ECG)" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="97956772-5d11-493f-b903-b4e6e148a55a">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>62</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>46</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="f9345e10-2441-4908-9dea-fdd8b3367059" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>-->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>-->
+               </facility>
+               <service>
+                  <!--Zero or more repetitions:
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>-->
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>-->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>-->
+               </service>
+               <device>
+                  <!--Optional:-->
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" id="986bc647-d924-47d3-9792-c6a1836933a7" name="Il doit y avoir autant de fois l'équipement spécifique recherché que d'OI">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'équipement recherché ( code : " , "${Préparation de la requête#code_equipement}", " ) : ", count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="a1effbbd-6d89-4fdf-9daf-6a80cafa156d">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="8024c815-5eb1-45bc-81ab-683fb0d99c31">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="9c91c331-e1fb-4a0f-ad6a-6a4144b43595">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="951c65a4-3d17-4493-8d5a-6920c2c60808">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="ab76abbe-50b5-4277-9168-dd48e8139af7">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="79306a3b-d400-4d97-88ce-baab36119c92">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="87464004-4921-4715-b993-55c8ea7a9028">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>51c5bdd5-bcbb-4710-b0a8-18c6b48ba353</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="34781e36-8c4d-4120-9feb-74f7099594fc" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="4 - Mode de PEC 32 - activité 13" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="4c33be95-a069-4250-8a2e-810643d8a07c">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>32</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>117</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="d3d060a5-d97d-487f-bafa-3575d2a8cc39" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:-->
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" id="aea6b5e2-5c8b-4ceb-935c-d80e3079cff7" name="Il doit y avoir autant de fois le mode de PEC recherché que d'OI">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:typeOfCare[@code="${Préparation de la requête#code_modePEC}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant le mode de PEC recherché (code : ", "${Préparation de la requête#code_modePEC}", " ) : ", count(//*:facilityDirectory/*:facility/*:typeOfCare[@code="${Préparation de la requête#code_modePEC}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="1854cf44-6154-4983-b305-dc56caa5d872">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="a180cd98-62c2-4137-b0b8-ce02bbadebfb">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="465e1bd2-98a3-42f8-a530-72ff1495e6f0">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="cebe314e-b5e5-451c-816c-de51e2f60baf">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="4343c5f5-ff48-43ba-99cd-88284328eb7b">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="9905998c-97b8-4682-bb7c-ef9b0c2cb5fc">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="32be9027-4a00-4d08-b0d9-9811139fbf23">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="fc6a0104-510f-4cfc-9d0b-e0acbed98e78">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>98ad608f-b374-4672-95b5-fa18e47103c7</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="c11fe96c-23ab-4804-b125-9652b551a402" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="5 - Classe d'âge 6 (adulte) - activité 37" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="8c52601e-9dc4-4579-aa03-1b6cd609ca75">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>37</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>32</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>117</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="1188fb36-b8b5-40e5-a862-d903eb63f339" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:-->
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+           
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:
+                     <age>
+                     <value>${Préparation de la requête#age_valeur}</value>
+                     -->
+                        <!--Optional:
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                     -->
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="8c2abb4d-174c-4959-a632-df1cc276f77e">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="b0a14fad-93a6-4fbb-b21b-891fe60a56b0">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="5e800d9f-805d-4fcc-aaaf-5e5c09f1f99e">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="b3964c29-8bfe-4bac-854f-e9121d3c7724">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="98bcd158-a2cd-4f73-b31c-788ab1868bbf">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="1b2a635c-71e0-4ee2-b5a5-c8e8e70039db">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="c6d3bc8c-a742-4556-a827-b2c562f9108c">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="5f8b7d5c-f11c-4ab7-951a-795265844495">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>6c8ccd91-42ba-4556-a836-6d8d607d3aaf</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="1bf43f8f-d87a-4e3c-91e6-eae90cfe2930" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="6 - Activité 13 - acte spécifique 177" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="aeea0daa-b1e4-4b99-a6d8-77e96235a7eb">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>177</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>117</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="65c35977-ec03-4231-8f25-5be5600ae279" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+-->
+                  <!--Optional:-->
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="d5e1711c-8257-4d71-8365-f85c9cb32362">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="94fe7528-1560-4d3f-8e76-59e18f9900f9">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="9eb4fada-f1f6-4ab5-8293-fe918eb06885">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="02420f81-0ca6-4e65-9641-fda6d75f6261">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="b9264ca8-ba41-4837-9d20-f2e0a775db49">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="dd55326c-bd2e-49cf-ae26-f561b303d7c6">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="4e3e2337-6808-4dac-9309-c19865eb3236">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'acte spécifique recherché que d'OI" id="9da1f2b8-8e46-4ffa-b63a-1c6b8a380258">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]) >= //*:OInumber)) then "Résultat valide" else concat("Nombre d'unités contenant l'acte spécifique recherché ( code : " , "${Préparation de la requête#code_acteSpec}", " ) : ", count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" id="9ffcf017-d471-4eb8-bf9f-9ff886f8950f" name="Les OI sont rattachées à une EG présente dans la réponse">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>59ede31c-f1c9-4a47-84db-b516850ad4e7</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="5ef3c23a-4485-491c-89e0-0e1a154cb6a9" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="7 - Activité 103 - équipement spécifique 73" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="a86ea574-3a3c-4ab2-bf93-71104956d595">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>103</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>73</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="5b33373a-a2a0-4c8b-b5eb-df80afcb1914" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:-->
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="704905ec-781c-4973-83f4-a32c9706bc67">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="68ee1823-7eef-4fd0-affa-6c217649f15e">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="cc353e44-1eff-4e6a-b025-c8ca84fb56d1">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="a2c4a601-737d-4850-82ad-cfc533086ced">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="484170dd-e9da-4875-9ad6-fb39203b1bf1">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="6066580b-b938-41d5-9329-5c3605a9ae39">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="c8952a9f-bda4-4776-9edd-8ff9a2fa3bd0">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'équipement spécifique recherché que d'OI" id="423b70c9-6365-4c1c-96a2-07dc20a540da">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'équipement recherché ( code : " , "${Préparation de la requête#code_equipement}", " ) : ", count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="51842844-1951-450a-a5b2-aee09c1ffba8">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>0c02844b-2f2c-43a6-a43a-b07ba651e74a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="82fddb6f-dc4c-46c4-9065-20918b1631ec" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="8 - Activité 103 - acte 122 - équipement 73" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="299b7d34-c9b6-429d-aef0-30d99a5f08c5">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>103</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>122</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>73</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="9645ad3d-52a9-4362-ae1c-0ef9bad8bceb" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+                  -->
+	           </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:-->
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+                  -->
+                </service>
+               <device>
+                  <!--Optional:-->
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+                     -->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="19a3653a-9cb2-4df1-bf58-aa311ab888ea">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="d6f98404-f324-47e2-bc45-c27e519b44e4">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="d308a900-55a5-438d-9267-af8064b88434">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="fe6a05d6-0862-4ca1-9f17-3fd01ee4b60e">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="d87ec2a7-9bb9-42fd-8611-50ceda298181">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="5b64ee42-121e-4f9b-aca8-e7609dfa4b51">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir à la région recherchée" id="78f1afd3-7eb0-4570-84b0-f5f9a83887af">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'équipement spécifique recherché que d'OI" id="41942848-0400-464d-a310-b50afbe95e94">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'équipement recherché ( code : " , "${Préparation de la requête#code_equipement}", " ) : ", count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'acte spécifique recherché que d'OI" id="955ba307-270f-49a6-abed-42997c448c6b">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]) >= //*:OInumber)) then "Résultat valide" else concat("Nombre d'unités contenant l'acte spécifique recherché ( code : " , "${Préparation de la requête#code_acteSpec}", " ) : ", count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="c145caf0-746a-44af-88ed-395926d1fd2a">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>b05a657f-7931-4aaf-9deb-009db61bf06f</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="9c60a0c1-e277-4b1e-a815-cf65379152c3" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="9 - Mode de PEC 32 - activité 13 - acte 178 - équipement 17" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Valeurs envoyées dans la requête :</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="01262ee8-927b-47c5-b4b0-e7761e305131">
+        <con:description>Remplissage de tous les champs requis dans la requête
+          XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>32</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>178</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>17</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="efd99ac2-b70e-4cba-9885-924b5c3c263b" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!--Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                  </patientsType>
+                  <!--Zero or more repetitions:-->
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+
+                  <!--Optional:-->
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:-->
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="6c7f7c05-b6ad-43e2-ad5b-b532032041c3">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="34b13290-1c01-4708-91e9-a9d33ff54bdf">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="423f6f44-3099-4b30-9ef8-de5241238a58">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="d7aab0f1-235b-4022-8a7a-1e02c6a1a5c2">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="8eea9cfa-b0fc-41d9-ae7c-98063779baad">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="a38ee329-eb91-4d15-bb65-6d096f5ef192">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir au département recherché" id="3242c81a-4de6-4e00-899e-eb7cf1f5044f">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'équipement spécifique recherché que d'OI" id="5870316d-5a48-475d-aefb-4df1fec1a86d">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'équipement recherché ( code : " , "${Préparation de la requête#code_equipement}", " ) : ", count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'acte spécifique recherché que d'OI" id="87fc730a-2050-4a08-9f3b-79e10a14fe3f">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]) >= //*:OInumber)) then "Résultat valide" else concat("Nombre d'unités contenant l'acte spécifique recherché ( code : " , "${Préparation de la requête#code_acteSpec}", " ) : ", count(//*:serviceDirectory/*:service/*:act[@code="${Préparation de la requête#code_acteSpec}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois le mode de PEC recherché que d'OI" id="a0e231e0-19a7-4351-9be4-a49c1af4d6cf">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:typeOfCare[@code="${Préparation de la requête#code_modePEC}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant le mode de PEC recherché (code : ", "${Préparation de la requête#code_modePEC}", " ) : ", count(//*:facilityDirectory/*:facility/*:typeOfCare[@code="${Préparation de la requête#code_modePEC}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="7bb2c30b-11ff-4e2c-a3f8-c4e4131b15f2">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>1c296ea5-34cd-4ee7-883e-7dde739f0590</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="8be43a10-58ab-4f76-bd2e-a06ed31027bc" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="10 - Activité 13 - département 75" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" maxResults="20">
+      <con:description>Valeurs envoyées dans la requête : 
+Activité de soin : 13 -Cardiologie
+Localisation de prise en charge :	1 - Région / 11 -Ile-de-france 
+Age : 30 ans
+
+• Les classes d’âge des UE retournées comprennent au moins la classe d’âge  06;Adulte, avant 65 ans
+• Chaque UE retournée a pour activité de soin : 13;Cardiologie
+• Le code commune INSEE des UE retournées est dans la région 11 - Ile-de-france</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="60423609-66b6-4acf-a838-17e94dfdf10c">
+        <con:description>Remplissage de tous les champs requis dans la requête XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#departement}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>32</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>178</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>17</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="858442c6-ecef-40a4-afa1-3ce0a779e7ae" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!-- Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                 </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+-->
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+-->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+-->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:
+                     <distance value="${Préparation de la requête#perimetre}"/>
+-->
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE doivent appartenir au département recherché" id="c96114bd-468d-4c26-ae38-42f08eadacbe">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_dept75.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="8f03815f-a217-4723-a844-c7c80e4965dc">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="9510b9a3-04c7-4277-acb3-28ba38e6c116">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="cebb37a5-777d-491e-a662-71842e98cf59">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="58274fe4-ef31-4230-9a15-25debcb88efb">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="daab60a4-f294-4fd5-b3ee-c036c461c8b1">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="b82fc739-807e-4537-9a60-f764be425168">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="e970a8da-9c4a-4c79-9521-f1c1c09698cf">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>b363fe80-ef10-4377-b305-964cda85226e</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>8f8cb82e-d25e-4bec-82fc-77316a76bfe3</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>778774e7-db54-4135-a480-4916efd205f6</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>55a856c6-17d8-4a33-a589-78fc65c23419</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>b8b08936-85f3-41a5-b2b8-b198466a54b9</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>60423609-66b6-4acf-a838-17e94dfdf10c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="074ffe04-1414-44eb-a210-0a91701e8e2c" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="11- Activité 13, ville de Paris" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" maxResults="20">
+      <con:description>Valeurs envoyées dans la requête : 
+Activité de soin : 13 -Cardiologie
+Localisation de prise en charge :	1 - Région / 11 -Ile-de-france 
+Age : 30 ans
+
+
+• Les classes d’âge des UE retournées comprennent au moins la classe d’âge  06;Adulte, avant 65 ans
+• Chaque UE retournée a pour activité de soin : 13;Cardiologie
+• Le code commune INSEE des UE retournées est dans la région 11 - Ile-de-france</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="f30221df-bf28-474c-b0cc-6728bf45d262">
+        <con:description>Remplissage de tous les champs requis dans la requête XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>3</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#ville}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>32</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.11</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>178</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>17</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="356ed740-000f-4f05-b924-341b3d36ff78" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>careServicesRequest_PortType</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+   <soap:Header/>
+   <soap:Body>
+      <urn:careServicesRequest>
+         <function>
+            <requestParams>
+               <organization>?</organization>
+               <facility>
+                  <patientsType>
+                     <!-- Zero or more repetitions:
+                     <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+                      -->
+                 </patientsType>
+                  <!--Zero or more repetitions:
+                  <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+               <service>
+                  <!--Zero or more repetitions:-->
+                  <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+-->
+                  <!--Optional:
+                  <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+                  -->
+                  <!--Optional:
+                  <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+                  -->
+			</service>
+               <device>
+                  <!--Optional:
+                  <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement}">?</type>
+                  -->
+               </device>
+               <otherParams>
+                  <!--1 or more repetitions:-->
+                  <destination>
+                     <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+                     <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+                     <!--Optional:-->
+                     <distance value="${Préparation de la requête#perimetre}"/>                
+                  </destination>
+                  <patient>
+                     <!--Optional:-->
+                     <age>
+                        <value>${Préparation de la requête#age_valeur}</value>
+                        <!--Optional:-->
+                        <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+                     </age>
+                  </patient>
+               </otherParams>
+            </requestParams>
+         </function>
+      </urn:careServicesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="Assertion Schematron" name="Les codes INSEE sont situés dans la région recherchée" id="2139dca4-f2d4-4a2f-ba44-58b7f2497ffc">
+              <con:configuration>
+                <schematronProperty>Sch_codeINSEE_regionIDF.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Le nombre de réponses doit être retourné" id="379ad8aa-cba7-4f60-824d-c0245d245cf2">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Nombre de résultats valide (entre de 0 et 200)" id="479d9ab9-5388-44de-9c71-97bf42f7d1a9">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois l'activité recherchée que d'OI" id="8a74e3fa-63ac-48bb-9d14-999aaf3dbc81">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'activité recherchée ( code : ", "${Préparation de la requête#code_activite}",")  :  ",count(//*:serviceDirectory/*:service/*:codedType[@code='${Préparation de la requête#code_activite}']), " - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque EG doit être liée à une EJ" id="d5e9feb9-6a93-4289-9a3c-146ae80ba2c2">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Chaque OI doit être liée à une EG" id="ee39f1a6-e791-4f52-b0e8-cc401eba6b6a">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(distinct-values(//*:facility/*:organizations/*:organization/@entityID))=count(distinct-values(//*:organization[*:parent]/@entityID)))) then "Résultat valide" else concat(" Nombre d'EG appelées par les OI : ", count(distinct-values(//*:facility/organization/@entityID))," - Nombre d'EG : ", count(distinct-values(//*:organization[*:parent]/@entityID))) else "Pas de contenu détaillé dans la réponse"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="514df16e-8357-4a4a-a118-125d83b3b39e">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Résultat valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Assertion Schematron" name="Les OI sont rattachées à une EG présente dans la réponse" id="9f828ffd-7966-4e5d-9e99-ee9a7ce75452">
+              <con:configuration>
+                <schematronProperty>lienOI_EG.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>fb8bd95b-9f5e-40a7-a431-38992ca5a0bd</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>3d91dffb-04ac-41fb-8907-cff67be5bb8b</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>2a3a1d57-936d-4f1a-977f-da9f6e8f5668</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>4fceb254-6901-40e0-9898-e473ff1b7e8a</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>eedec698-40a2-48eb-ab32-1c41f63bd272</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>b363fe80-ef10-4377-b305-964cda85226e</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>8f8cb82e-d25e-4bec-82fc-77316a76bfe3</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>778774e7-db54-4135-a480-4916efd205f6</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>55a856c6-17d8-4a33-a589-78fc65c23419</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>b8b08936-85f3-41a5-b2b8-b198466a54b9</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>f30221df-bf28-474c-b0cc-6728bf45d262</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>endpoint</con:name>
+      <con:value>https://pprror-interop.gcsdsisif.fr/interop-serveur/ServiceInteroperabilite?wsdl</con:value>
+    </con:property>
+    <con:property>
+      <con:name>region</con:name>
+      <con:value>11</con:value>
+    </con:property>
+    <con:property>
+      <con:name>departement</con:name>
+      <con:value>75</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ville</con:name>
+      <con:value>75101</con:value>
+    </con:property>
+  </con:properties>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>

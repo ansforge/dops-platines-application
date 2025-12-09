@@ -1,0 +1,84 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate="">pages.preferences.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate="pages.preferences.title"></h3>
+      </div>
+      <div class="form-group row search">
+        <div class="col-sm-3 col-search flex-row form-group-wrap form-group-wrap--right">
+          <input #search class="form-control zone-search" (keyup)="applyFilter($event)" matInput placeholder="{{'commons.labels.search' | translate}}">
+          <svg aria-hidden="true" class="svg-icon svg-search" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#search "></use></svg>
+        </div>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+
+            <table (matSortChange)="sortData($event)" [dataSource]="dataSource" aria-label="Liste des préférences" class="mat-elevation-z8" mat-table matSort>
+
+              <ng-container matColumnDef="key">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell><span translate>{{this.labelsPath}}.key</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span class="preference">{{element['key']}}
+                    <mat-icon matTooltip="{{this.tooltipPath+'.'+element['key'] | translate}}"
+                              [matTooltipPosition]="'right'"
+                              [matTooltipClass]="'tooltip-inner'" >
+                      <svg aria-hidden="true" class="svg-icon svg-question-circle" focusable="false">
+                        <use xlink:href="svg-icons/icon-sprite.svg#question-circle"></use>
+                      </svg>
+                    </mat-icon>
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="value">
+                <th mat-sort-header *matHeaderCellDef mat-header-cell><span translate>{{this.labelsPath}}.value</span></th>
+                <td *matCellDef="let element" mat-cell>
+                  <span (click)="expandValue(element)" *ngIf="!element['isBeingEdited']" [ngClass]="{'max-lines':!element.expanded, 'expandable':element.key==='textHomePage'}"> {{element['value']}} </span>
+                  <input (keyup)="validateValueInput(element)" *ngIf="element['isBeingEdited']&&element['key']!=='textHomePage'" [(ngModel)]="element['value']" class="form-control" type="text"/>
+                  <textarea (keyup)="validateValueInput(element)" *ngIf="element['isBeingEdited']&&element['key']==='textHomePage'" [(ngModel)]="element['value']" cdkTextareaAutosize class="form-control" matInput type="text">
+                    </textarea>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th *matHeaderCellDef class="text-center" mat-header-cell>
+                  <span translate>{{this.labelsPath}}.actions</span></th>
+                <td *matCellDef="let element" mat-cell>
+                        <span class="action-row">
+                        <button title="{{'icons.edit'|translate}}"  (click)="toggleEditing(element)" *ngIf="!element['isBeingEdited']">
+                          <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg>
+                        </button>
+                        <button title="{{'icons.save'|translate}}"  (click)="toggleEditing(element)" *ngIf="element['isBeingEdited']" [disabled]="!element['valid']">
+                          <svg aria-hidden="true" class="svg-icon svg-save" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#save"></use></svg>
+                        </button>
+                          </span>
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+              <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+        
+	<acl_entry id="51" acl_object_identity="3" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="52" acl_object_identity="4" ace_order="0"
+		sid="4" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="53" acl_object_identity="4" ace_order="0"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="54" acl_object_identity="4" ace_order="0"
+		sid="3" mask="4" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="55" acl_object_identity="4" ace_order="0"
+		sid="3" mask="8" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="56" acl_object_identity="4" ace_order="0"
+		sid="3" mask="8" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="57" acl_object_identity="4" ace_order="0"
+		sid="3" mask="16" granting="1" audit_success="1" audit_failure="1" />
+        
+        <association id="11" association_type="1"/>
+        <famille id="11" nom="ROR" visibilite="0" />
+        
+        <user_famille
+          User_ID="3"
+          FAMILY_ID="11"
+        >
+        </user_famille>
+        <user_famille
+          User_ID="4"
+          FAMILY_ID="11"
+        >
+        </user_famille>
+</dataset>

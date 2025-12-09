@@ -1,0 +1,122 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.dnd-drag-start {
+    -moz-transform:scale(0.8);
+    -webkit-transform:scale(0.8);
+    transform:scale(0.8);
+    opacity:0.7;
+    border: 2px dashed #000;
+}
+
+.dnd-drag-enter {
+    opacity:0.7;
+    border: 2px dashed #000;
+}
+
+.dnd-drag-over {
+    border: 2px dashed #000;
+}
+
+.dnd-sortable-drag {
+  -moz-transform:scale(0.9);
+  -webkit-transform:scale(0.9);
+  transform:scale(0.9);
+  opacity:0.7;
+  border: 1px dashed #000;
+}
+
+.composant {
+    margin: 20px 10px 10px 20px;
+}
+title {
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.radio {
+    text-align: center;
+}
+
+.tooltipAr {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #0069b4;
+
+}
+
+.tooltipAr .tooltiptextAr {
+    visibility: hidden;
+    //font-family: $font-family!important;
+    font-size: 16px;
+    width: 320px;
+    background-color: #0069b4;
+    color: #fff;
+    text-align: justify;
+    border-radius: 6px;
+    padding: 10px 10px 10px 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltipAr:hover .tooltiptextAr {
+    visibility: visible;
+}
+
+.objetTree {
+    //height: 550px;
+    padding: 10px 10px 10px 10px;
+    position: relative;
+    margin-bottom: 10px;
+
+}
+
+
+
+.btnDetail {
+    margin-right: auto;
+    margin-top: -10px;
+}
+
+.divDetail {
+    text-align: right;
+    margin-top: -10px;
+}
+
+.btnProjet {
+    margin-left: auto;
+}
+
+
+.list-group-item{
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.list-group-item:not(:first-child){
+  margin-top: 0.5rem;
+}
+
+.btn-xs{
+  margin: 0 1.5rem 1.5rem 0;
+}
+
+li>button{
+  width: var(--table-button-size);
+  height: var(--table-button-size);
+  margin: 5px;
+}
+
+.project-name{
+  flex-grow: 1;
+}
+
+li>button>svg{
+  height: inherit;
+  width: inherit;
+  vertical-align: unset;
+}

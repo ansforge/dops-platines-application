@@ -1,0 +1,1727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="insertTableUser" author="apierre">
+		<sql> insert into acl_sid (principal, sid) select true, utilisateur.mail from
+			utilisateur where not utilisateur.mail like 'admin.platines@asipsante.fr'
+		</sql>
+		<sql> insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 21, utilisateur.id, null, 3, true
+			from utilisateur join acl_sid on utilisateur.mail
+			like acl_sid.sid
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask,
+			granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 0, 1, 1, true , false, false
+			from
+			acl_object_identity
+			where acl_object_identity.object_id_class = 21
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask, granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 1, 1, 2, true, false, false
+			from
+			acl_object_identity
+			where acl_object_identity.object_id_class = 21
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask, granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 2, 1, 4, true, false, false
+			from
+			acl_object_identity
+			where acl_object_identity.object_id_class = 21
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask, granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 3, 1, 8, true, false, false
+			from
+			acl_object_identity
+			where acl_object_identity.object_id_class = 21
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask, granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 4, acl_sid.id, 1, true, false, false
+			from
+			acl_object_identity
+			join utilisateur on
+			acl_object_identity.object_id_identity = utilisateur.id
+			join acl_sid on
+			acl_sid.sid like utilisateur.mail
+			where acl_object_identity.object_id_class =
+			21
+		</sql>
+		<sql> insert into acl_entry (acl_object_identity, ace_order, sid,
+			mask, granting, audit_success, audit_failure)
+			select
+			acl_object_identity.id, 5, acl_sid.id, 2, true, false, false
+			from
+			acl_object_identity
+			join utilisateur on
+			acl_object_identity.object_id_identity = utilisateur.id
+			join acl_sid on
+			acl_sid.sid like utilisateur.mail
+			where acl_object_identity.object_id_class =
+			21
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableChaineDeConfiance" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 3, chaine_de_confiance.id, null, acl_sid.id, true
+			from
+			chaine_de_confiance
+			join utilisateur on chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like acl_sid.sid
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			chaine_de_confiance on chaine_de_confiance.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			chaine_de_confiance on chaine_de_confiance.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			chaine_de_confiance on chaine_de_confiance.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 3
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			chaine_de_confiance on chaine_de_confiance.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 3
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableCertificat" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 2, certificat.id, null, acl_sid.id, true
+			from certificat
+			join
+			chaine_de_confiance on chaine_de_confiance.id =
+			certificat.CHAINEDECONFIANCE_ID
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			certificat on certificat.id = acl_object_identity.object_id_identity
+			join chaine_de_confiance on chaine_de_confiance.id =
+			certificat.CHAINEDECONFIANCE_ID
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			certificat on certificat.id = acl_object_identity.object_id_identity
+			join chaine_de_confiance on chaine_de_confiance.id =
+			certificat.CHAINEDECONFIANCE_ID
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			certificat on certificat.id = acl_object_identity.object_id_identity
+			join chaine_de_confiance on chaine_de_confiance.id =
+			certificat.CHAINEDECONFIANCE_ID
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 2
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			certificat on certificat.id = acl_object_identity.object_id_identity
+			join chaine_de_confiance on chaine_de_confiance.id =
+			certificat.CHAINEDECONFIANCE_ID
+			join utilisateur on
+			chaine_de_confiance.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 2
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableApplication" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 1, application.id, null, acl_sid.id, true
+			from application
+			join
+			utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 1
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			application on application.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			application on application.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			application on application.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 1
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			application on application.id =
+			acl_object_identity.object_id_identity
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 1
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableFamille" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 5, famille.id, null, 3, true
+			from famille
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 5
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			8, 2, 1, true, false, false
+			from acl_object_identity
+			join famille on
+			acl_object_identity.object_id_identity = famille.id
+			where
+			acl_object_identity.object_id_class = 5 and famille.visibilite = true
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableSysteme" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 15, systeme.id, null, 3, true
+			from systeme
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+		
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			8, 2, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 15
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableVersion" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 22, version.id, null, 3, true
+			from version
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 22
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			8, 2, 1, true, false, false
+			from acl_object_identity
+			join version on
+			acl_object_identity.object_id_identity = version.id
+			where
+			acl_object_identity.object_id_class = 22 and version.visibilite =
+			true
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableProjet" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 9, projet.id, null, 3, true
+			from projet
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 9
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			8, 2, 1, true, false, false
+			from acl_object_identity
+			join projet on
+			acl_object_identity.object_id_identity = projet.id
+			where
+			acl_object_identity.object_id_class = 9 and projet.visibilite = true
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableCertificatTest" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 17, certificat_tst.id, null, 3, true
+			from certificat_tst
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 17
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id, 8, 2, 1, true, false, false
+			from acl_object_identity
+			join certificat_tst on acl_object_identity.object_id_identity =
+			certificat_tst.id
+			where
+			acl_object_identity.object_id_class = 17 and
+			certificat_tst.telechargeable = true
+		</sql>
+
+	</changeSet>
+
+	<changeSet id="insertTableFichierAssocie" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 13, fichiers_associes.id, null, 3, true
+			from fichiers_associes
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 13
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTablePropriete" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 12, proprietes.id, null, 3, true
+			from proprietes
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, 3, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, 3, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, 3, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, 3, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 12
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableSessionTest" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 18, session_tst.id, null, acl_sid.id, true
+			from session_tst
+			join application on application.id = session_tst.APPLICATION_ID
+			join
+			utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 18
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			session_tst on session_tst.id =
+			acl_object_identity.object_id_identity
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			session_tst on session_tst.id =
+			acl_object_identity.object_id_identity
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			session_tst on session_tst.id =
+			acl_object_identity.object_id_identity
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 18
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			session_tst on session_tst.id =
+			acl_object_identity.object_id_identity
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 18
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableRProjet" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 10, r_projet.id, null, acl_sid.id, true
+			from r_projet
+			join
+			session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 10
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			r_projet on r_projet.id = acl_object_identity.object_id_identity
+			join
+			session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			r_projet on r_projet.id = acl_object_identity.object_id_identity
+			join
+			session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			r_projet on r_projet.id = acl_object_identity.object_id_identity
+			join
+			session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 10
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			r_projet on r_projet.id = acl_object_identity.object_id_identity
+			join
+			session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 10
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableProprieteSession" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 11, propriete_session.id, null, acl_sid.id, true
+			from
+			propriete_session
+			join r_projet on r_projet.id =
+			propriete_session.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 11
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			propriete_session on propriete_session.id =
+			acl_object_identity.object_id_identity
+			join r_projet on r_projet.id =
+			propriete_session.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			propriete_session on propriete_session.id =
+			acl_object_identity.object_id_identity
+			join r_projet on r_projet.id =
+			propriete_session.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			propriete_session on propriete_session.id =
+			acl_object_identity.object_id_identity
+			join r_projet on r_projet.id =
+			propriete_session.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 11
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			propriete_session on propriete_session.id =
+			acl_object_identity.object_id_identity
+			join r_projet on r_projet.id =
+			propriete_session.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 11
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableRSuite" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 20, r_suite.id, null, acl_sid.id, true
+			from r_suite
+			join
+			r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 20
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			r_suite on r_suite.id = acl_object_identity.object_id_identity
+			join
+			r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			r_suite on r_suite.id = acl_object_identity.object_id_identity
+			join
+			r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			r_suite on r_suite.id = acl_object_identity.object_id_identity
+			join
+			r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 20
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			r_suite on r_suite.id = acl_object_identity.object_id_identity
+			join
+			r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on
+			r_projet.SESSIONTST_ID = session_tst.id
+			join application on
+			session_tst.APPLICATION_ID = application.id
+			join utilisateur on
+			application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 20
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableRCase" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 16, r_case.id, null, acl_sid.id, true
+			from r_case
+			join r_suite
+			on r_suite.id = r_case.RSUITE_ID
+			join r_projet on r_projet.id =
+			r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID =
+			session_tst.id
+			join application on session_tst.APPLICATION_ID =
+			application.id
+			join utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid
+			on utilisateur.mail like acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			r_case on r_case.id = acl_object_identity.object_id_identity
+			join
+			r_suite on r_suite.id = r_case.RSUITE_ID
+			join r_projet on r_projet.id
+			= r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID =
+			session_tst.id
+			join application on session_tst.APPLICATION_ID =
+			application.id
+			join utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid
+			on utilisateur.mail like acl_sid.sid
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			r_case on r_case.id = acl_object_identity.object_id_identity
+			join
+			r_suite on r_suite.id = r_case.RSUITE_ID
+			join r_projet on r_projet.id
+			= r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID =
+			session_tst.id
+			join application on session_tst.APPLICATION_ID =
+			application.id
+			join utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid
+			on utilisateur.mail like acl_sid.sid
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			r_case on r_case.id = acl_object_identity.object_id_identity
+			join
+			r_suite on r_suite.id = r_case.RSUITE_ID
+			join r_projet on r_projet.id
+			= r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID =
+			session_tst.id
+			join application on session_tst.APPLICATION_ID =
+			application.id
+			join utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid
+			on utilisateur.mail like acl_sid.sid
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			r_case on r_case.id = acl_object_identity.object_id_identity
+			join
+			r_suite on r_suite.id = r_case.RSUITE_ID
+			join r_projet on r_projet.id
+			= r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID =
+			session_tst.id
+			join application on session_tst.APPLICATION_ID =
+			application.id
+			join utilisateur on application.USER_ID = utilisateur.id
+			join acl_sid
+			on utilisateur.mail like acl_sid.sid
+			where
+			acl_object_identity.object_id_class = 16
+		</sql>
+	</changeSet>
+
+	<changeSet id="insertTableRStep" author="apierre">
+		<sql>insert into acl_object_identity (object_id_class,
+			object_id_identity, parent_object, owner_sid, entries_inheriting)
+			select 19, r_step.id, null, acl_sid.id, true
+			from r_step
+			join r_case on
+			r_case.id = r_step.RCASE_ID
+			join r_suite on r_suite.id =
+			r_case.RSUITE_ID
+			join r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			0, 1, 1, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			1, 1, 2, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			2, 1, 4, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			3, 1, 8, true, false, false
+			from acl_object_identity
+			where
+			acl_object_identity.object_id_class = 19
+		</sql>
+
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			4, acl_sid.id, 1, true, false, false
+			from acl_object_identity
+			join
+			r_step on r_step.id = acl_object_identity.object_id_identity
+			join
+			r_case on r_case.id = r_step.RCASE_ID
+			join r_suite on r_suite.id =
+			r_case.RSUITE_ID
+			join r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			5, acl_sid.id, 2, true, false, false
+			from acl_object_identity
+			join
+			r_step on r_step.id = acl_object_identity.object_id_identity
+			join
+			r_case on r_case.id = r_step.RCASE_ID
+			join r_suite on r_suite.id =
+			r_case.RSUITE_ID
+			join r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			6, acl_sid.id, 4, true, false, false
+			from acl_object_identity
+			join
+			r_step on r_step.id = acl_object_identity.object_id_identity
+			join
+			r_case on r_case.id = r_step.RCASE_ID
+			join r_suite on r_suite.id =
+			r_case.RSUITE_ID
+			join r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 19
+		</sql>
+		<sql>insert into acl_entry (acl_object_identity, ace_order, sid, mask,
+			granting, audit_success, audit_failure)
+			select acl_object_identity.id,
+			7, acl_sid.id, 8, true, false, false
+			from acl_object_identity
+			join
+			r_step on r_step.id = acl_object_identity.object_id_identity
+			join
+			r_case on r_case.id = r_step.RCASE_ID
+			join r_suite on r_suite.id =
+			r_case.RSUITE_ID
+			join r_projet on r_projet.id = r_suite.RPROJET_ID
+			join session_tst on r_projet.SESSIONTST_ID = session_tst.id
+			join
+			application on session_tst.APPLICATION_ID = application.id
+			join utilisateur
+			on application.USER_ID = utilisateur.id
+			join acl_sid on utilisateur.mail like
+			acl_sid.sid
+			where acl_object_identity.object_id_class = 19
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,6 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+@Library('AnsPipeline') _
+
+AnsPipelineJdk17Mvn39Nomad(svnCredentialsId: "TRA", mailList: "TRA", haveFrontModule: "true", mvnOpts: "-DSonarInclusions=platines-back/src/main/java,platines-back/src/test/java,platines-front/src/app",git:"true")

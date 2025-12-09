@@ -1,0 +1,104 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listSessions" translate>pages.sessions.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" [queryParams]="{id:this.session?.id}" translate>pages.sessions.detail.title</a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+            <h3 class="card-title" >
+              <span translate>pages.sessions.detail.title</span>
+              <span class="context-select-bar"  *ngIf="this.currentPosition!=null">
+              <button [disabled]="currentPosition===0" (click)="this.sessionService.routeToSession(currentPosition-1)" mat-icon-button title="{{'icons.stop'|translate}}">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+              </button>
+            <mat-select  [(ngModel)]="currentPosition" #contextList (selectionChange)="this.sessionService.routeToSession(contextList.value)" panelClass="custom-mat-select-panel" class="form-control context-select">
+              <mat-option *ngFor="let p of this.contextStateService.filteredSessionList; let i = index" [value]="i">{{p.application.name}}</mat-option>
+            </mat-select>
+              <button [disabled]="currentPosition===this.contextStateService.filteredSessionList.length-1" (click)="this.sessionService.routeToSession(currentPosition+1)" mat-icon-button title="{{'icons.stop'|translate}}">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+              </button>
+            </span>
+            </h3>
+      </div>
+      <div class="card-body">
+
+        <div class="info">
+          <div class="col-md-5 left">
+
+            <app-session-result-tree
+              [projectObs]="sessionSrc"
+              (nodeSelection)="onNodeSelect($event)"
+              [activeNodes]="[activeNode]"
+            ></app-session-result-tree>
+          </div>
+          <div class="col-md-7 right">
+            <div style="height: auto;">
+              <div class="div-contenu" [ngClass]="{'full-height':stepLog===null}">
+                <app-cadre-general-element-session
+                  [sessionDetails]="sessionSrc"
+                  [nodeSelection]="currentNodeObs"
+                ></app-cadre-general-element-session>
+              </div>
+
+              <div *ngIf="stepLog !== null" class="div-contenu">
+                <mat-tab-group>
+                  <mat-tab *ngIf="stepLog.request !== null" label="Requête">
+                    <div class="desc">
+                      <div style="font-size: 18px;">
+                        <i aria-hidden="true" class="ion-archive"></i>
+                        <a (click)="downloadRequest()">Télécharger la requête</a>
+                      </div>
+                    </div>
+                    <pre class="pre-message">{{stepLog.request}}</pre>
+                  </mat-tab>
+                  <mat-tab *ngIf="stepLog.response !== null " label="Réponse">
+                    <div class="desc">
+                      <div style="font-size: 18px;">
+                        <i aria-hidden="true" class="ion-archive"></i>
+                        <a (click)="downloadResponse()">Télécharger la réponse</a>
+                      </div>
+                    </div>
+                    <pre class="pre-message">{{stepLog.response}}</pre>
+                  </mat-tab>
+                  <mat-tab label="Erreurs relevées">
+                    <div class="desc">
+                      <div style="font-size: 18px;">
+                        <i aria-hidden="true" class="ion-archive"></i>
+                        <a (click)="downloadError()">Télécharger les erreurs</a>
+                      </div>
+                    </div>
+                    <pre class="error log">{{stepLog.error}}</pre>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="btn-back">
+          <button (click)="back()" class="btn btn--plain btn--primary" id="btnAnnul" translate="commons.actions.back" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listFamilles" translate>pages.families.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{id:family.id}" routerLink="./">
+            {{isNew ? ('pages.families.family.new' | translate) : ('pages.families.family.edit' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title">{{isNew ? ('pages.families.family.new' | translate) : ('pages.families.family.edit' | translate)}}</h3>
+      </div>
+      <form #familyForm="ngForm" class="form-horizontal" id="familyForm">
+        <div class="card-body">
+          <div class="composant">
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.families.family.name"></label>
+              <div class="col-sm-12">
+                <input id="name" type="text" name="name" [(ngModel)]="family.name" #name="ngModel" class="form-control" required maxlength="150">
+                <span class="text-danger" *ngIf="familyForm.submitted && name.invalid" translate="pages.families.family.error_message.name"></span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-fit checkbox-platines">
+                <div class="custom-control custom-checkbox">
+                  <input id="visible" class="custom-control-input" type="checkbox" name="visibility" [(ngModel)]="family.visibility" #visibility="ngModel"
+                    value="family.visibility" [checked]="family.visibility">
+                  <label class="custom-control-label" for="visible"></label>
+                </div>
+              </div>
+              <label class="col-sm-fit checkbox-platines control-label" translate="pages.families.family.visibility"></label>
+            </div>
+            <div class="col-sm-12 divBtn">
+                  <button id="btnRetour" type="button" class="btn btn--default btn--ghost" (click)="back()" translate="commons.actions.back"></button>
+                  <button id="btnValider" type="submit" class="btn btn--plain btn--primary" (click)="saveFamily()" translate="commons.actions.validate"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

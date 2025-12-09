@@ -1,0 +1,13 @@
+#*
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ *#
+<html>
+ 
+<head></head>
+ 
+<body>
+<p>Bonjour ${firstName},</p>
+<p>Votre session de test utilisant le mockservice ${uuid} vient de s&#39;achever, il n&#39;est plus accessible.
+</p>
+</body>
+</html>

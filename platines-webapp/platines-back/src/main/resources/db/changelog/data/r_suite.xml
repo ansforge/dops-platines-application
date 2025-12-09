@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="setValeurStatutResultatInEnglishForRSuite"
+		author="apierre">
+		<update tableName="r_suite">
+			<column name="statutResultat" value='PENDING'
+				type="varchar(50)" />
+			<where>statutResultat = 'ENCOURS'</where>
+		</update>
+		<update tableName="r_suite">
+			<column name="statutResultat" value='SUCCESS'
+				type="varchar(50)" />
+			<where>statutResultat = 'SUCCES'</where>
+		</update>
+		<update tableName="r_suite">
+			<column name="statutResultat" value='FAILURE'
+				type="varchar(50)" />
+			<where>statutResultat = 'ECHEC'</where>
+		</update>
+		<update tableName="r_suite">
+			<column name="statutResultat" value='ERROR' type="varchar(50)" />
+			<where>statutResultat = 'ERREUR'</where>
+		</update>
+		<update tableName="r_suite">
+			<column name="statutResultat" value='WAITING'
+				type="varchar(50)" />
+			<where>statutResultat = 'ENATTENTE'</where>
+		</update>
+	</changeSet>
+
+</databaseChangeLog>

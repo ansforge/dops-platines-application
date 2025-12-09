@@ -1,0 +1,20 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<app-tree
+  [allowMultipleSelection]="allowMultipleSelection"
+  (nodeClick)="onNodeClick($event)"
+  (scrolledTo)="scrolledTo = $event"
+  expandByDefault="true"
+  [scrollTo]="scrollTo"
+  [withHeader]=withHeader
+  [treeTitle]=treeTitle
+  [innerHeight]=innerHeight
+  doNotInitialize="true"
+  [frameHeight]=frameHeight
+  [activeNodes]="activeNodes"
+  [dataObs]="projectObs"
+  [loadTree]="loadTree"
+></app-tree>

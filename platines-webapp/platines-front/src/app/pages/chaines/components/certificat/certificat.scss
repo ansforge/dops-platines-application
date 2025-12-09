@@ -1,0 +1,18 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+textarea{
+  margin-bottom: 1.5rem;
+}
+.btn-xs{
+  margin: 0;
+}
+
+.error{
+  display: flex;
+  align-items: center;
+}
+
+.error>*:not(:first-child){
+  padding-left: 1rem;
+}

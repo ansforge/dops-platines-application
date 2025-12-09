@@ -1,0 +1,90 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate>pages.systems.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate=pages.systems.title></h3>
+      </div>
+      <div class="form-group row search">
+        <div class="col-sm-3">
+          <select #family [(ngModel)]="systemsFamily" (change)="filterSystems()" class="form-control zone-search" id="familyId" name="family">
+            <option selected translate="pages.systems.filter_option" value="null"></option>
+            <option *ngFor="let family of families" value="{{family.id}}">{{family.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-3 col-search flex-row form-group-wrap form-group-wrap--right">
+          <input #search class="form-control zone-search"
+                 [ngModel]="this.contextStateService.filters.get(this.metadata.selector)"
+                 (ngModelChange)="this.contextStateService.filters.set(this.metadata.selector, $event)"
+                 (keyup)="applyFilter()" matInput placeholder="{{'commons.labels.search' | translate}}">
+          <svg aria-hidden="true" class="svg-icon svg-search" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#search "></use></svg>
+        </div>
+
+        <div class="col-sm-9 margin-btn">
+          <div class="list-btn-actions">
+            <button (click)="addSystem()" class="btn btn--plain btn--primary" id="btnAjouter" translate="commons.actions.add" type="submit"></button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table [dataSource]="dataSource" aria-label="Web Services" class="mat-elevation-z8" (matSortChange)="sortData($event)" mat-table matSort>
+
+            <ng-container matColumnDef="family">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                <span translate>{{this.labelsPath}}.family.name</span></th>
+              <td *matCellDef="let element" mat-cell>
+                {{element.theme.name}}
+              </td>
+            </ng-container>
+
+            <ng-container *ngFor="let column of autoColumns" [matColumnDef]="column">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header><span translate>{{this.labelsPath}}.{{ column }}</span></th>
+              <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th *matHeaderCellDef class="text-center"  mat-header-cell translate>{{this.labelsPath}}.actions</th>
+              <td *matCellDef="let element" mat-cell>
+                    <span class="action-row">
+                      <button
+                        matTooltip="{{'icons.editSystem'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        (click)="edit(element['id'])"> <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg> </button>
+                    </span>
+              </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+            <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      ansPaginatorStyle
+      [length]="dataSource.data.length"
+      [showTotalPages]="5"
+      [pageSizeOptions]="[20, 50, 100]"
+      aria-label="Select page of users">
+    </mat-paginator>
+  </div>
+</div>

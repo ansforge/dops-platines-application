@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="createTableAclEntry" author="apierre">
+		<createTable tableName="acl_entry">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="acl_object_identity" type="BIGINT"></column>
+			<column name="ace_order" type="BIGINT"></column>
+			<column name="sid" type="BIGINT"></column>
+			<column name="mask" type="BIGINT"></column>
+			<column name="granting" type="BIT(1)"></column>
+			<column name="audit_success" type="BIT(1)"></column>
+			<column name="audit_failure" type="BIT(1)"></column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8"/>
+		</modifySql>
+	</changeSet>
+	<changeSet id="addPrimaryKeyAclEntry" author="apierre">
+		<addPrimaryKey columnNames="id" tableName="acl_entry"/>
+		<addUniqueConstraint columnNames="acl_object_identity, ace_order" tableName="acl_entry"/>
+	</changeSet>
+	<changeSet author="apierre" id="addForeignKeyAclEntry">
+		<addForeignKeyConstraint baseColumnNames="acl_object_identity"
+			baseTableName="acl_entry" constraintName="constraintAclObjectIdentityTableAclEntry"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="acl_object_identity" />
+			<addForeignKeyConstraint baseColumnNames="sid"
+			baseTableName="acl_entry" constraintName="constraintSidTableAclEntry"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="acl_sid" />
+	</changeSet>
+		<changeSet id="addAutoIncrementAclEntry" author="apierre">
+			<sql>ALTER TABLE acl_entry MODIFY id BIGINT AUTO_INCREMENT</sql>
+			<sql>ALTER TABLE acl_entry AUTO_INCREMENT=1</sql>
+	</changeSet>
+</databaseChangeLog>

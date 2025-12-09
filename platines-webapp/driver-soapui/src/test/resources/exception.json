@@ -1,0 +1,28 @@
+{
+    "cause": null,
+    "stackTrace": [
+        {
+            "classLoaderName": "app",
+            "moduleName": null,
+            "moduleVersion": null,
+            "methodName": "buildException",
+            "fileName": "ExceptionThrower.java",
+            "lineNumber": 34,
+            "nativeMethod": false,
+            "className": "fr.asipsante.platines.utils.ExceptionThrower"
+        },
+        {
+            "classLoaderName": "app",
+            "moduleName": null,
+            "moduleVersion": null,
+            "methodName": "main",
+            "fileName": "ExceptionThrower.java",
+            "lineNumber": 30,
+            "nativeMethod": false,
+            "className": "fr.asipsante.platines.utils.ExceptionThrower"
+        }
+    ],
+    "message": "The NPE",
+    "suppressed": [ ],
+    "localizedMessage": "The NPE"
+}

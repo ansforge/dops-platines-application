@@ -1,0 +1,27 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+td>.svg-icon {
+  height: 3rem;
+  width: 3rem;
+}
+.svg-circle-cross {
+  color: crimson;
+}
+
+.svg-check {
+  color: chartreuse;
+}
+
+.svg-warning {
+  color: darkorange;
+}
+
+td.mat-column-status{
+  align-content: center;
+  text-align: center;
+}
+
+td.mat-column-statusMessage {
+  font-size: smaller;
+}

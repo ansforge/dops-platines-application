@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+  <!-- 
+  Ajout ici de l'enregistrement de fichier associé au projet nécessaire popur le cas passant
+  de mise à jour de masse avec fichier associé.
+  -->
+  <acl_object_identity id="34" object_id_class="13"
+		object_id_identity="1" owner_sid="3" entries_inheriting="0" />
+
+  <acl_entry id="60" acl_object_identity="34" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+  <acl_entry id="61" acl_object_identity="34" ace_order="0"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+  
+  <fichiers_associes
+    id="1"
+    fileName="test_attachment.txt"
+    PROJECT_ID="10"
+    filetype="DOCUMENT"
+    date_upload="2023-09-18"
+  >
+  </fichiers_associes>
+</dataset>

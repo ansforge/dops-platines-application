@@ -1,0 +1,49 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.mat-column-user,
+.mat-column-executionDate {
+  width: 100%;
+  white-space: unset;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 12%;
+  max-width: 12%;
+}
+
+.mat-column-rolePlateforme,
+.mat-column-description {
+  width: 100%;
+  white-space: unset;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 13%;
+  max-width: 13%;
+}
+
+.mat-column-creationDate,
+.mat-column-sessionStatus,
+{
+  width: 100%;
+  white-space: unset;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 14%;
+  max-width: 14%;
+}
+
+.mat-column-application
+{
+  width: 100%;
+  white-space: unset;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 17%;
+  max-width: 17%;
+}
+
+.mat-column-actions {
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}

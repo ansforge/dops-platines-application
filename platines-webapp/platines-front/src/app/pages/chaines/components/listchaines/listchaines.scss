@@ -1,0 +1,61 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.form-group.row.search{
+  padding-right:15px;
+}
+
+.table-responsive{
+  width: 100%;
+}
+
+td.mat-column-valide{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+td.mat-column-name{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+td.mat-column-description{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 40%;
+  max-width: 40%;
+}
+
+td.mat-column-user{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 25%;
+  max-width: 25%;
+}
+
+td.mat-column-actions{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+td.mat-column-checkbox{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}

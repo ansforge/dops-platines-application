@@ -1,0 +1,105 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<header class="header header-principal" role="banner">
+  <div class="header-principal__inner">
+    <div class="header-principal-left">
+      <div class="logos">
+        <div class="logo logo--0">
+          <a href="https://solidarites-sante.gouv.fr/">
+            <img alt="Ministère de la Santé et de la Prévention" height="62" src="img/logo-ministere.svg" width="107">
+          </a>
+        </div>
+        <div class="logo logo--1">
+          <a href="https://esante.gouv.fr/">
+            <img alt="Accueil Design System ANS" height="50" src="./img/logo-ANS.svg" width="166"> </a>
+        </div>
+      </div>
+      <a class="header__title__link" routerLink="/pages/accueil"><p class="header__title" translate>header.title</p></a>
+    </div>
+
+    <div class="header-principal-right">
+      <div class="header-principal__nav">
+        <div class="navbar navbar-expand-xl navbar-light" id="menuPrincipalTarget" tabindex="-1">
+          <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false" class="navbar-toggler btn btn--icon-only btn-icon--header" data-target="#menuPrincipal" data-toggle="collapse" type="button">
+            <svg aria-hidden="true" class="svg-icon svg-menu" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#menu"></use>
+            </svg>
+            <span class="sr-only">Menu</span>
+          </button>
+
+          <div #mainMenu class="collapse navbar-collapse" id="menuPrincipal">
+            <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false" class="navbar-toggler-close d-xl-none btn btn--icon-only btn-icon--header" data-target="#menuPrincipal" data-toggle="collapse" type="button">
+              <svg aria-hidden="true" class="svg-icon svg-close" focusable="false">
+                <use xlink:href="svg-icons/icon-sprite.svg#close"></use>
+              </svg>
+              <span class="sr-only">Fermer le menu</span>
+            </button>
+
+            <nav aria-label="Menu principal" role="navigation">
+              <ul class="navbar-nav nav-lvl--1">
+
+                <li *ngFor="let element of menu; let i = index" class="nav-item common-nav-item">
+                  <button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="subMenu" aria-controls="nav1simple-nav-collapse-submenu--2" class="nav-link"
+
+                  >{{element.title}}
+                  </button>
+                  <mat-menu #subMenu="matMenu" hasBackdrop="false">
+                    <div class=" nav-collapse nav-collapse--right">
+                      <ul class="navbar-nav nav-lvl--2">
+
+                        <li *ngFor="let subElement of element.elements" class="nav-item common-nav-item" mat-menu-item routerLink="{{subElement.link}}">
+                          <a class="nav-link">{{subElement.title}}</a>
+                        </li>
+
+                      </ul>
+                    </div>
+
+                  </mat-menu>
+                </li>
+
+                <div *ngIf="AuthRor" class="collapse-wrapper common-nav-item">
+                  <button #userMenuModalButton (click)="toggleShow($event)" class="btn btn--icon-only btn-icon--header user-menu-button" type="button">
+                    <svg aria-hidden="true" class="svg-icon svg-user" focusable="false">
+                      <use xlink:href="svg-icons/icon-sprite.svg#user"></use>
+                    </svg>
+                    <span class="user-menu-button">{{this.profileService.getUsernameFromLocalStorage()}}</span>
+                  </button>
+                  <div #userMenuModal class="collapse nav-collapse nav-collapse--right" role="menu">
+                    <div class="m-user">
+
+                      <p class="m-user__name">{{this.profileService.getUsernameFromLocalStorage()}}</p>
+
+                      <ul class="navbar-nav m-user__nav align-content-center ">
+                        <li class="nav-item">
+                          <a (click)="userMenuModal.classList.toggle('show')" class="nav-link" routerLink="/pages/profile" translate="pages.users.user.my_personal_information"></a>
+                        </li>
+                      </ul>
+
+                      <ul class="navbar-buttons">
+
+                        <li>
+                          <a (click)="this.authenticationService.logoutAndRedirect()" class=" btn btn--plain btn--primary btn-xs">Déconnexion</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main-content container">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer>

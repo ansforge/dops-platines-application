@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="setValeurStatutSessionTest"
+		author="aboittiaux">
+		<update tableName="session_tst">
+			<column name="statutSession" value='FINI' type="varchar(50)" />
+			<where>statutSession = 'ECHEC' or statutSession = 'SUCCES'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="setValeurStatutInEnglishForSessionTest"
+		author="apierre">
+		<update tableName="session_tst">
+			<column name="statutSession" value='PENDING'
+				type="varchar(50)" />
+			<where>statutSession = 'ENCOURS'</where>
+		</update>
+		<update tableName="session_tst">
+			<column name="statutSession" value='FINISHED'
+				type="varchar(50)" />
+			<where>statutSession = 'FINI'</where>
+		</update>
+		<update tableName="session_tst">
+			<column name="statutSession" value='ERROR' type="varchar(50)" />
+			<where>statutSession = 'ERREUR'</where>
+		</update>
+		<update tableName="session_tst">
+			<column name="statutSession" value='WAITING'
+				type="varchar(50)" />
+			<where>statutSession = 'ENATTENTE'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="setValeurTypeSessionInEnglishForSessionTest"
+		author="apierre">
+		<update tableName="session_tst">
+			<column name="typeSession" value='SANDBOX' type="varchar(50)" />
+			<where>typeSession = 'BACASABLE'</where>
+		</update>
+		<update tableName="session_tst">
+			<column name="typeSession" value='RECIPE' type="varchar(50)" />
+			<where>typeSession = 'RECETTE'</where>
+		</update>
+		<update tableName="session_tst">
+			<column name="typeSession" value='APPROVAL' type="varchar(50)" />
+			<where>typeSession = 'HOMOLOGATION'</where>
+		</update>
+	</changeSet>
+	
+	<changeSet id="setValueToNullTypeSession"
+		author="aboittiaux">
+		<update tableName="session_tst">
+			<column name="typeSession" value='SANDBOX' type="varchar(50)" />
+			<where>typeSession is NULL</where>
+		</update>
+	</changeSet>
+	
+</databaseChangeLog>

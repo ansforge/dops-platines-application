@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+  <!-- Theme utilisé : famille (JDD base) -->
+  <association id="10" association_type="2"/>
+  <association id="20" association_type="3"/>
+  <association id="21" association_type="3"/>
+  <systeme id="10" nom="Platines" FAMILLE_ID="1" />
+  <version
+          id="20"
+          libelle="Platines.v0"
+          systeme_id="10"
+          visibilite="true"
+  />
+  <version
+          id="21"
+          libelle="Platines.v1"
+          systeme_id="10"
+          visibilite="true"
+  />
+  <resource 
+     id="1"
+     fileName="themersc.txt"
+     file="Q2VjaSBlc3QgdW4gc2ltcGxlIHRlc3QKRmljaGllciBhc3NvY2nDqSBhdSB0aMOobWUgJ2ZhbWlsbGUnCg=="
+     filetype="RESOURCE"
+     date_upload="2023-10-25 13:25:50"
+     ASSOCIATION_ID="1"
+     FAMILY_ID="1"
+  />
+  <resource 
+     id="2"
+     fileName="systemersc.txt"
+     file="Q2VjaSBlc3QgdW4gc2ltcGxlIHRlc3QKRmljaGllciBhc3NvY2nDqSBhdSBzeXN0w6htZSAnUGxhdGluZXMnCg=="
+     filetype="RESOURCE"
+     date_upload="2023-10-25 13:25:50"
+     ASSOCIATION_ID="10"
+     FAMILY_ID="1"
+  />
+  <resource 
+     id="3"
+     fileName="version0rsc.txt"
+     file="Q2VjaSBlc3QgdW4gc2ltcGxlIHRlc3QKRmljaGllciBhc3NvY2nDqSDDoCBsYSB2ZXJzaW9uICdQbGF0aW5lcy52MCcK"
+     filetype="RESOURCE"
+     date_upload="2023-10-25 13:25:50"
+     ASSOCIATION_ID="20"
+     FAMILY_ID="1"
+  />
+  <resource 
+     id="4"
+     fileName="version1rsc.txt"
+     file="Q2VjaSBlc3QgdW4gc2ltcGxlIHRlc3QKRmljaGllciBhc3NvY2nDqSDDoCBsYSB2ZXJzaW9uICdQbGF0aW5lcy52MCcK"
+     filetype="RESOURCE"
+     date_upload="2023-10-25 13:25:50"
+     ASSOCIATION_ID="21"
+     FAMILY_ID="1"
+  />
+</dataset>

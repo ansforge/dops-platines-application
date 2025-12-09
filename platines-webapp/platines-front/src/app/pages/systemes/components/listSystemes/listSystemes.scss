@@ -1,0 +1,30 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.mat-column-actions{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mat-column-family{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 25%;
+  max-width: 25%;
+}
+
+.mat-column-name{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 70%;
+  max-width: 70%;
+}

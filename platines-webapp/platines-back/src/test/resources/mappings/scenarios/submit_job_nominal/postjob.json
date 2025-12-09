@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/v1/job/d8226912-7139-4f1d-a2b2-a0ac9d8eecb4?namespace=default"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"EvalID\": \"7525163d-4938-1621-2b00-a9eb8c2350a6\",\"EvalCreateIndex\": 0,\"JobModifyIndex\": 109,\"Warnings\": \"\",\"Index\": 0,\"LastContact\": 0,\"KnownLeader\": false}",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}

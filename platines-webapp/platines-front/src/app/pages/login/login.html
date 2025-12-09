@@ -1,0 +1,92 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<header class="header header-principal" role="banner">
+  <div class="header-principal__inner">
+    <div class="header-principal-left">
+      <div class="logos">
+        <div class="logo logo--0">
+          <a href="https://solidarites-sante.gouv.fr/"> <img alt="Ministère de la Santé et de la Prévention" height="62"
+                                                             src="img/logo-ministere.svg" width="107"> </a>
+        </div>
+        <div class="logo logo--1">
+          <a href="https://esante.gouv.fr/"> <img alt="Accueil Design System ANS" height="50" src="./img/logo-ANS.svg" width="166">
+          </a>
+        </div>
+      </div>
+      <a class="header__title__link" > <p class="header__title" translate>header.title</p></a>
+    </div>
+
+    <div class="header-principal-right">
+      <div class="header-principal__nav">
+        <div class="navbar navbar-expand-xl navbar-light" id="menuPrincipalTarget" tabindex="-1">
+          <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false"
+                  class="navbar-toggler btn btn--icon-only btn-icon--header" data-target="#menuPrincipal"
+                  data-toggle="collapse" type="button">
+            <svg aria-hidden="true" class="svg-icon svg-menu" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#menu"></use>
+            </svg>
+            <span class="sr-only">Menu</span>
+          </button>
+
+          <div #mainMenu class="collapse navbar-collapse" id="menuPrincipal">
+            <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false"
+                    class="navbar-toggler-close d-xl-none btn btn--icon-only btn-icon--header"
+                    data-target="#menuPrincipal" data-toggle="collapse" type="button">
+              <svg aria-hidden="true" class="svg-icon svg-close" focusable="false">
+                <use xlink:href="svg-icons/icon-sprite.svg#close"></use>
+              </svg>
+              <span class="sr-only">Fermer le menu</span>
+            </button>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="auth-main">
+  <div class="auth-block">
+
+    <div class="m-user__icon">
+      <svg class="svg-icon svg-user" aria-hidden="true" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#user"></use></svg>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <label for="inputEmail3" class="col-sm-4 control-label" translate="pages.login.email"></label>
+        <div class="col-sm-12">
+          <input [formControl]="$any(email)" type="email" class="form-control" id="inputEmail3">
+        </div>
+      </div>
+
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword3" class="col-sm-4 control-label" translate="pages.login.password"></label>
+        <div class="col-sm-12 justify-content-center">
+          <input [formControl]="$any(password)" type="password" class="form-control" id="inputPassword3">
+        </div>
+        <span class="is-invalid text-danger error-on-dark-background" *ngIf="error&&error != ''">{{error}}</span>
+      </div>
+
+      <div class="form-group row justify-content-center">
+        <div class="col-sm-8 text-center">
+          <button type="submit" class="btn btn--plain btn--primary" translate="pages.login.sign_in"></button>
+        </div>
+      </div>
+
+      <div class="form-group row justify-content-center pass-row" >
+        <div class="col-sm-8 text-center">
+          <a routerLink="/forgot" class="forgot-pass" style="font-size: 16px" translate="pages.login.forgot_password"></a>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+<app-footer></app-footer>

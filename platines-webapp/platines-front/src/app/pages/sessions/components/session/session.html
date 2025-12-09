@@ -1,0 +1,175 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listSessions" translate>pages.sessions.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item">
+            <a [queryParams]="isDuplicate ? {idSession:session?.id,isDuplicate:isDuplicate}:{idSession:session?.id}" routerLink="./">
+              {{isDuplicate ? ('pages.sessions.session.duplicate' | translate) :
+              !idSession ? ('pages.sessions.session.new' | translate) : ('pages.sessions.session.edit' | translate)}}
+              <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+            </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header">
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <h3 class="card-title">
+              {{isDuplicate ? ('pages.sessions.session.duplicate' | translate) :
+              !idSession ? ('pages.sessions.session.new' | translate) : ('pages.sessions.session.edit' | translate)}}</h3>
+          </div>
+        </div>
+      </div>
+      <form #sessionForm="ngForm" class="form-horizontal" id="sessionForm">
+        <div class="card-body">
+          <div class="composant">
+            <div *ngIf="isManager || isAdmin" class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.sessions.session.user"></label>
+              <div class="col-sm-12">
+                <select #user="ngModel" (change)="changeUser(user.value)" [(ngModel)]="session?.application.user.id" class="form-control" id="user" name="user" required>
+                  <option *ngFor="let user of users" [selected]="user.id == session.application.user.id" value="{{user.id}}">{{user.forename}} : {{user.name}}</option>
+                </select>
+                <span *ngIf="sessionForm.submitted && user.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.user"></span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.sessions.session.application"></label>
+              <div class="col-sm-12">
+                <select #application="ngModel" (change)="changeApplication(application.value)" [(ngModel)]="session?.application.id" class="form-control" id="application" name="application" required>
+                  <option *ngFor="let app of applications" [selected]="app.id == session.application.id" value="{{app.id}}">{{app.name}}</option>
+                </select>
+                <span *ngIf="sessionForm.submitted && application.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.application"></span>
+              </div>
+            </div>
+            <fieldset *ngIf="session?.application?.role" class="objetTree fieldSet">
+              <legend style="font-size: 20px; ">{{session?.application?.role === 'CLIENT' ? ("pages.sessions.session.title_mock" | translate) :
+                ("pages.sessions.session.title_client" | translate)}}</legend>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" translate="pages.sessions.session.family"></label>
+                <div class="col-sm-12">
+                  <select #family="ngModel" (change)="selectFamily(family.value)" [(ngModel)]="session?.version.service.theme.id" [disabled]="families.length===0" class="form-control" id="familleId" name="family" required>
+                    <option *ngIf="families.length===0" [value]=null selected>{{'pages.sessions.session.empty.family' | translate}}</option>
+                    <option *ngIf="families.length>0" [value]=null selected>{{'pages.sessions.session.select.family' | translate}}</option>
+                    <option *ngFor="let family of families" [selected]="family.id == session.version.service.theme.id " value="{{family.id}}">{{family.name}}</option>
+                  </select>
+                  <span *ngIf="sessionForm.submitted && family.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.family"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" translate="pages.sessions.session.system"></label>
+                <div class="col-sm-12">
+                  <select #system="ngModel" (change)="selectSystem(system.value)" [(ngModel)]="session?.version.service.id" [disabled]="systems.length===0" class="form-control" id="systemeId" name="system" required>
+                    <option *ngIf="systems.length===0" [value]=null selected>{{'pages.sessions.session.empty.system' | translate}}</option>
+                    <option *ngIf="systems.length>0" [value]=null selected>{{'pages.sessions.session.select.system' | translate}}</option>
+                    <option *ngFor="let system of systems" [selected]="system.id == session.version.service.id" value="{{system.id}}">{{system.name}}</option>
+                  </select>
+                  <span *ngIf="sessionForm.submitted && system.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.system"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" translate="pages.sessions.session.version"></label>
+                <div class="col-sm-12">
+                  <select #version="ngModel" (change)="selectVersion(version.value)" [(ngModel)]="session?.version.id" [disabled]="versions.length===0" class="form-control" id="versionId" name="version" required>
+                    <option *ngIf="versions.length===0" [value]=null selected>{{'pages.sessions.session.empty.version' | translate}}</option>
+                    <option *ngIf="versions.length>0" [value]=null selected>{{'pages.sessions.session.select.version' | translate}}</option>
+                    <option *ngFor="let version of versions" [selected]="version.id == session.version.id" value="{{version.id}}">{{version.label}}</option>
+                  </select>
+                  <span *ngIf="sessionForm.submitted && version.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.version"></span>
+                </div>
+              </div>
+              <div *ngIf="(session?.application.role ==='CLIENT')" class="form-group row">
+                <label class="col-sm-2 control-label" translate="pages.sessions.session.duration"></label>
+                <div class="col-sm-12">
+                  <select #duration="ngModel" [(ngModel)]=session?.sessionDuration.id class="form-control" id="duration" name="duration" required>
+                    <option *ngFor="let duration of durations" [selected]="session?.sessionDuration?.duration === duration?.duration" value="{{duration?.id}}">{{duration?.duration}}</option>
+                  </select>
+                  <span *ngIf="sessionForm.submitted && duration.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.duration"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset *ngIf="session?.application?.role" class="objetTree fieldSet">
+              <legend style="font-size: 20px; " translate="pages.sessions.session.test_suite"></legend>
+
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <div class="panel panel-success">
+                    <div class="panel-body">
+                      <ul #projects (cdkDropListDropped)="drop($event)" cdkDropList class="list-group" id="project" name=projects>
+                        <li *ngIf="loadingProjects" class="list-group-item">
+                          Chargement...
+                        </li>
+                        <div *ngIf="!loadingProjects" style="display: contents">
+                          <li *ngIf="(projectsList?.length===0)&&(session.projectResults.length===0)" class="is-invalid">{{"pages.sessions.session.empty.project" | translate}}</li>
+                          <li *ngIf="(projectsList?.length>0)&&(session.projectResults.length===0)">{{"pages.sessions.session.select.project" | translate}}</li>
+                          <li *ngFor="let project of session.projectResults; let i = index" cdkDrag class="list-group-item" style="background-color: #e4e4e4 !important;font-size: 18px!important">
+                            <i class="fa fa fa-arrows-v" style="margin-right:8px"></i>&nbsp;
+                            <span class="project-name">{{project.name}}</span>
+                            <button (click)="openEditModal(project)" id="edit-project" type="button">
+                              <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false">
+                                <use xlink:href="svg-icons/icon-sprite.svg#edit"></use>
+                              </svg>
+                            </button>
+                            <button (click)="deleteProject(project)" id="delete-project" type="button">
+                              <svg aria-hidden="true" class="svg-icon svg-trash" focusable="false">
+                                <use xlink:href="svg-icons/icon-sprite.svg#trash"></use>
+                              </svg>
+                            </button>
+
+                          </li>
+                        </div>
+                      </ul>
+
+                    </div>
+
+                    <span *ngIf="sessionForm.submitted && (session.projectResults.length === 0)" class="is-invalid text-danger" translate="pages.sessions.session.error_message.projects"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: inline">
+                <div style="float: right">
+                  <button (click)="openModal()" [disabled]="projectsList?.length===0" class="btn btn--plain btn--primary btn-xs" id="btnAjouter" translate="commons.actions.add" type="button"></button>
+                </div>
+              </div>
+            </fieldset>
+            <div *ngIf="session?.application?.role" class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.sessions.session.description"></label>
+              <div class="col-sm-12">
+                <textarea #description="ngModel" [(ngModel)]=session.description class="form-control" id="description" maxlength="500" name="description" required></textarea>
+                <span *ngIf="sessionForm.submitted && description.invalid" class="is-invalid text-danger" translate="pages.sessions.session.error_message.description"></span>
+              </div>
+            </div>
+
+            <div>
+
+              <div style="display: inline">
+                <div class="divBtn">
+                  <button (click)="back()" class="btn btn--ghost btn--default" id="btnAnnul" translate="commons.actions.cancel" type="button"></button>
+                  <button (click)="saveSession()" class="btn btn--plain btn--primary" id="btnValidation" translate="commons.actions.validate" type="submit"></button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

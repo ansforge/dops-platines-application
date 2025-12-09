@@ -1,0 +1,82 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<mat-tab-group class="ulDetail">
+    <mat-tab class="information padding" label="Résultats">
+      <div class="desc mat-tab-content">
+        <div>
+          <b translate="pages.sessions.detail.tests"></b>{{session?.projectResults?.length}}
+        </div>
+        <div>
+          <b translate="pages.sessions.detail.creation_date"></b>{{dateCreation}}
+        </div>
+        <div *ngIf="session?.executionDate">
+          <div>
+            <b translate="pages.sessions.detail.execution_date"></b> {{dateExecution}}
+          </div>
+          <div>
+            <b translate="pages.sessions.detail.execution_duration"></b> {{dureeExecution}}s
+          </div>
+        </div>
+        <div *ngIf="session !== undefined">
+          <div>
+            <b translate="pages.sessions.detail.steps_number"></b> {{nbStep}}
+          </div>
+        </div>
+        <div *ngIf="session">
+          <div>
+            <b translate="pages.sessions.detail.steps_success"></b> {{successStep}}
+          </div>
+          <div>
+            <b translate="pages.sessions.detail.success_percent"></b> {{stepSuccessRate}}%
+          </div>
+          <div *ngIf="caseRatios">
+            <b title="Estimation du succès des cas de test en tenant compte des criticités" translate="pages.sessions.detail.success_rate"></b> {{caseRatios.successRate}}%<br/>
+            <b translate="pages.sessions.detail.failure_rate"></b><br/>
+            <span *ngIf="caseRatios.criticalRate > 0">- Critique : {{caseRatios.criticalRate.toFixed(0)}}<br/></span>
+            <span *ngIf="caseRatios.majorFailRate > 0">- Majeur : {{caseRatios.majorFailRate.toFixed(0)}}<br/></span>
+            <span *ngIf="caseRatios.minorFailRate > 0">- Mineur : {{caseRatios.minorFailRate.toFixed(0)}}</span>
+          </div>
+        </div>
+        <div *ngIf="session?.sessionStatus != 'PENDING'" style="font-size: 18px;">
+          <i aria-hidden="true" class="ion-archive"></i>
+          <a (click)="downloadZip()" translate="pages.sessions.detail.download" style="cursor: pointer;"></a>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab class="padding" label="Description">
+      <div class="mat-tab-content">
+        <pre class="description"> {{currentNode?.payload.description}} </pre>
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="currentNode?.payload.projectProperties?.length > 0" class="padding" label="Paramètres">
+      <div class="desc mat-tab-content">
+                                    <span *ngIf="currentNode?.payload.projectProperties?.length > 0">
+                                        <i aria-hidden="true" class="fa fa-list"></i>
+                                        <b style="padding-left:1rem;" translate="pages.sessions.detail.parameters"> </b>
+                                    </span>
+
+        <div>
+          <div *ngFor="let p of currentNode?.payload.projectProperties; let i = index">
+            <div>
+                <i matTooltip="{{p.description}}"
+                   [matTooltipPosition]="'above'"
+                   [matTooltipClass]="'tooltip-inner'"
+                  aria-hidden="true" class="fa fa-question-circle" style="padding-top: 10px !important;color:var(--primary) "></i>
+              {{p.key}} : {{p.value}}
+              <span translate></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="files?.length > 0" class="padding" label="{{'commons.labels.documentation' | translate}}">
+      <div class="desc mat-tab-content">
+        <li *ngFor="let f of files">
+          <button (click)="loadFile($event, f)" class="btn-link" id="btn-link" translate="{{f['fileName']}}" type="button"></button>
+        </li>
+      </div>
+    </mat-tab>
+  </mat-tab-group>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+	<acl_object_identity id="11" object_id_class="3"
+		object_id_identity="254" owner_sid="3" entries_inheriting="0" />
+	<acl_object_identity id="12" object_id_class="3"
+		object_id_identity="11" owner_sid="4" entries_inheriting="0" />
+	<acl_object_identity id="13" object_id_class="22"
+		object_id_identity="1" owner_sid="3" entries_inheriting="0" />
+
+	<acl_entry id="11" acl_object_identity="11" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="12" acl_object_identity="11" ace_order="1"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="13" acl_object_identity="12" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="14" acl_object_identity="12" ace_order="1"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="15" acl_object_identity="13" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="16" acl_object_identity="13" ace_order="1"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+		
+	<association id="11" association_type="1"/>
+	<association id="254" association_type="1"/>
+
+	<famille id="11" nom="ROR" visibilite="1" />
+	<famille id="254" nom="RER" visibilite="1" />
+</dataset>

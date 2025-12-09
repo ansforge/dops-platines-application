@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="modifyDataType-session_tst-description">
+		<modifyDataType columnName="description"
+			newDataType="TEXT" tableName="session_tst" />
+	</changeSet>
+
+	<changeSet author="aboittiaux"
+		id="ajoutLogSession_session_tst">
+		<addColumn tableName="session_tst">
+			<column name="logSession" type="LONGBLOB"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="aboittiaux" id="ajoutUUIDSession">
+		<addColumn tableName="session_tst">
+			<column name="uuidSession" type="text"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="aboittiaux" id="ajoutDateSupr">
+		<addColumn tableName="session_tst">
+			<column name="dateSupr" type="datetime"></column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="dropColumn-ordre-session_tst" author="apierre">
+		<dropColumn tableName="session_tst" columnName="ordre" />
+	</changeSet>
+</databaseChangeLog>

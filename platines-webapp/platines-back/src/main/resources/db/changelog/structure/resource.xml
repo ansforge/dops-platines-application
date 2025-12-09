@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="cnader"
+		id="ajoutTableResource">
+		<createTable tableName="resource">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="fileName" type="VARCHAR(255)"></column>
+			<column name="file" type="LONGBLOB"></column>
+			<column name="filetype" type="VARCHAR(50)"></column>
+			<column name="date_upload" type="datetime"></column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	
+	<changeSet author="cnader"
+		id="ajoutDeLaClePrimaireResource">
+		<addPrimaryKey columnNames="id"
+			tableName="resource" />
+	</changeSet>
+	
+	<changeSet author="cnader"
+		id="add-resource-association_id">
+		<addColumn tableName="resource">
+			<column name="ASSOCIATION_ID" type="BIGINT"></column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="cnader"
+		id="add-resource-family_id">
+		<addColumn tableName="resource">
+			<column name="FAMILY_ID" type="BIGINT"></column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="cnader" id="addResourceUniqueConstraint">
+    	<addUniqueConstraint tableName="resource"
+    		constraintName="constraintUniqueNameInScope"
+    		deferrable="true"
+	        disabled="true"
+	        initiallyDeferred="true"
+    		columnNames="fileName, FAMILY_ID"/>
+	</changeSet>
+	
+</databaseChangeLog>

@@ -1,0 +1,74 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<header class="header header-principal" role="banner">
+  <div class="header-principal__inner">
+    <div class="header-principal-left">
+      <div class="logos">
+        <div class="logo logo--0">
+          <a href="https://solidarites-sante.gouv.fr/">
+            <img alt="Ministère de la Santé et de la Prévention" height="62" src="img/logo-ministere.svg" width="107">
+          </a>
+        </div>
+        <div class="logo logo--1">
+          <a href="https://esante.gouv.fr/">
+            <img alt="Accueil Design System ANS" height="50" src="./img/logo-ANS.svg" width="166"> </a>
+        </div>
+      </div>
+      <a class="header__title__link"><p class="header__title" translate>header.title</p></a>
+    </div>
+
+    <div class="header-principal-right">
+      <div class="header-principal__nav">
+        <div class="navbar navbar-expand-xl navbar-light" id="menuPrincipalTarget" tabindex="-1">
+          <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false" class="navbar-toggler btn btn--icon-only btn-icon--header" data-target="#menuPrincipal" data-toggle="collapse" type="button">
+            <svg aria-hidden="true" class="svg-icon svg-menu" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#menu"></use>
+            </svg>
+            <span class="sr-only">Menu</span>
+          </button>
+
+          <div #mainMenu class="collapse navbar-collapse" id="menuPrincipal">
+            <button (click)="mainMenu.classList.toggle('collapse')" aria-controls="menuPrincipal" aria-expanded="false" class="navbar-toggler-close d-xl-none btn btn--icon-only btn-icon--header" data-target="#menuPrincipal" data-toggle="collapse" type="button">
+              <svg aria-hidden="true" class="svg-icon svg-close" focusable="false">
+                <use xlink:href="svg-icons/icon-sprite.svg#close"></use>
+              </svg>
+              <span class="sr-only">Fermer le menu</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="auth-main">
+  <div class="auth-block">
+    <h2 translate="pages.reset.title"></h2>
+    <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" class="form-horizontal">
+      <div class="form-group row ">
+        <div class=" col-sm-12">
+          <input [formControl]="$any(password)" [ngClass]="{'is-invalid':!password.valid && password.touched}" class="form-control" placeholder="{{'pages.reset.password'|translate}}" type="password">
+        </div>
+        <span *ngIf="!password.valid && password.touched" class="is-invalid text-danger error-on-dark-background">Le mot de passe ne respecte pas le format préconisé</span>
+      </div>
+      <div class="form-group row ">
+        <div class=" col-sm-12">
+          <input [formControl]="$any(confirmpassword)" [ngClass]="{'is-invalid':!confirmpassword.valid && confirmpassword.touched}" class="form-control" placeholder="{{'pages.reset.confirmpassword'|translate}}" type="password">
+        </div>
+
+        <span *ngIf="form.controls.confirmpassword.errors?.MatchPassword && confirmpassword.touched" class="is-invalid text-danger error-on-dark-background">Les mots de passe saisis ne sont pas identiques</span>
+      </div>
+      <div class="form-group text-center">
+        <div class="col-sm-12">
+          <button [disabled]="!form.valid" class="btn btn--plain btn--primary" translate="commons.actions.validate" type="submit"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

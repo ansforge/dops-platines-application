@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<include file="features/init-database.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/hibernate_sequence.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/profile.xml" relativeToChangelogFile="true" />
+	<include file="data/user.xml" relativeToChangelogFile="true" />
+	<include file="structure/historique_de_connexion.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/fichiers_associes.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/resource.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/association.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/migration/association_migration.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/proprietes_session.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/proprietes.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/duree_session.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_projet.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_case.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_suite.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_step.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/session_tst.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/projet.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/certificat_tst.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/certificat.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/user.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/user_famille.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/duree_session.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/donnees_fonctionnelles.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/fichiers_associes.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/session_tst.xml"
+		relativeToChangelogFile="true" />
+
+	<include file="data/application.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/certificat_tst.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/projet.xml" relativeToChangelogFile="true" />
+	<include file="data/r_case.xml" relativeToChangelogFile="true" />
+	<include file="data/r_projet.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/r_step.xml" relativeToChangelogFile="true" />
+	<include file="data/r_suite.xml" relativeToChangelogFile="true" />
+
+
+	<include file="structure/acl_sid.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/acl_class.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/acl_object_identity.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/acl_entry.xml"
+		relativeToChangelogFile="true" />
+
+	<include file="data/acl_class.xml"
+		relativeToChangelogFile="true" />
+	<include file="data/acl_sid.xml" relativeToChangelogFile="true" />
+
+	<include file="data/migration/acl_migration.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_server_operation_history.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_operation_expected.xml"
+		relativeToChangelogFile="true" />
+	<include file="structure/r_operation_unexpected.xml"
+		relativeToChangelogFile="true" />
+</databaseChangeLog>

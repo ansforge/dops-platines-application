@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="maher"
+		id="ajoutTableHistoriqueDeConnexion">
+		<createTable tableName="historique_de_connexion">
+			<column name="id" type="BIGINT"></column>
+			<column name="mail" type="VARCHAR(50)" />
+			<column name="dateLogin" type="datetime"></column>
+			<column name="dateLogout" type="datetime"></column>
+			<column name="succes" type="BIT(1)"></column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="maher (generated)"
+		id="ajoutDeLaClePrimaireHistorique_de_connexion">
+		<addPrimaryKey columnNames="id"
+			tableName="historique_de_connexion" />
+	</changeSet>
+
+	<changeSet id="dropColumn-historique_de_connexion-succes"
+		author="apierre">
+		<dropColumn tableName="historique_de_connexion"
+			columnName="succes"></dropColumn>
+	</changeSet>
+
+	<changeSet id="dropColumn-historique_de_connexion-dateLogout"
+		author="apierre">
+		<dropColumn tableName="historique_de_connexion"
+			columnName="dateLogout"></dropColumn>
+	</changeSet>
+
+</databaseChangeLog>

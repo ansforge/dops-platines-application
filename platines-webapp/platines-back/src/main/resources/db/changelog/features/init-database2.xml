@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="aboittiaux" id="1503323827126-1">
+		<createTable tableName="application">
+
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="chainedeconfiance_id" type="BIGINT" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="nom" type="VARCHAR(50)" />
+			<column name="role" type="VARCHAR(25)" />
+			<column name="url" type="VARCHAR(150)" />
+			<column name="version" type="VARCHAR(50)" />
+			<column name="USER_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-2">
+		<createTable tableName="certificat">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="fichier" type="LONGBLOB" />
+			<column name="nomFichier" type="VARCHAR(255)" />
+			<column name="password" type="VARCHAR(255)" />
+			<column name="pem" type="TEXT" />
+			<column name="CHAINEDECONFIANCE_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-3">
+		<createTable tableName="certificat_tst">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(500)" />
+			<column name="etat" type="VARCHAR(25)" />
+			<column name="fichier" type="LONGBLOB" />
+			<column name="nomFichier" type="VARCHAR(255)" />
+			<column name="password" type="VARCHAR(255)" />
+			<column name="telechargeable" type="BIT(1)" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-4">
+		<createTable tableName="chaine_de_confiance">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(500)" />
+			<column name="nom" type="VARCHAR(50)" />
+			<column name="USER_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-5">
+		<createTable tableName="famille">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="nom" type="VARCHAR(50)" />
+			<column name="visibilite" type="BIT(1)" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-6">
+		<createTable tableName="hibernate_sequence">
+			<column name="next_val" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-7">
+		<createTable tableName="nomenclature">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateUpload" type="datetime" />
+			<column name="file" type="LONGBLOB" />
+			<column name="fileName" type="VARCHAR(255)" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-8">
+		<createTable tableName="profile">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="libelle" type="VARCHAR(20)" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-9">
+		<createTable tableName="projet">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(500)" />
+			<column name="fichier" type="LONGBLOB" />
+			<column name="nom" type="VARCHAR(150)" />
+			<column name="nomFichier" type="VARCHAR(150)" />
+			<column name="role" type="VARCHAR(25)" />
+			<column name="visibilite" type="BIT(1)" />
+			<column name="CERTIFICAT_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-10">
+		<createTable tableName="r_case">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateExecution" type="datetime" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="dureeExecution" type="LONG" />
+			<column name="erreurs" type="TEXT" />
+			<column name="nom" type="VARCHAR(150)" />
+			<column name="statutResultat" type="VARCHAR(25)" />
+			<column name="RSUITE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-11">
+		<createTable tableName="r_projet">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateExecution" type="datetime" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="dureeExecution" type="LONG" />
+			<column name="erreurs" type="TEXT" />
+			<column name="idProject" type="BIGINT" />
+			<column name="nom" type="VARCHAR(150)" />
+			<column name="numOrdre" type="INT" />
+			<column name="statutResultat" type="VARCHAR(25)" />
+			<column name="SESSIONTST_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-12">
+		<createTable tableName="r_step">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateExecution" type="datetime" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="dureeExecution" type="LONG" />
+			<column name="erreurs" type="TEXT" />
+			<column name="nom" type="VARCHAR(150)" />
+			<column name="statutResultat" type="VARCHAR(25)" />
+			<column name="RCASE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-13">
+		<createTable tableName="r_suite">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateExecution" type="datetime" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="dureeExecution" type="LONG" />
+			<column name="erreurs" type="TEXT" />
+			<column name="nom" type="VARCHAR(150)" />
+			<column name="statutResultat" type="VARCHAR(25)" />
+			<column name="RPROJET_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-16">
+		<createTable tableName="session_tst">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="date" type="datetime" />
+			<column name="dateExecution" type="datetime" />
+			<column name="description" type="VARCHAR(500)" />
+			<column name="dureeExecution" type="LONG" />
+			<column name="ordre" type="VARCHAR(100)" />
+			<column name="statutSession" type="VARCHAR(25)" />
+			<column name="typeSession" type="VARCHAR(25)" />
+			<column name="APPLICATION_ID" type="BIGINT" />
+			<column name="VERSION_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DUREESESSION_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-17">
+		<createTable tableName="systeme">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="nom" type="VARCHAR(50)" />
+			<column name="FAMILLE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-18">
+		<createTable tableName="user">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="dateCreation" type="datetime" />
+			<column name="dateModifPassword" type="datetime" />
+			<column name="entreprise" type="VARCHAR(50)" />
+			<column name="mail" type="VARCHAR(50)" />
+			<column name="nom" type="VARCHAR(50)" />
+			<column name="password" type="VARCHAR(200)" />
+			<column name="prenom" type="VARCHAR(50)" />
+			<column name="PROFILE_ID" type="BIGINT" />
+			<column name="User_ID" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-19">
+		<createTable tableName="version">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(500)" />
+			<column name="libelle" type="VARCHAR(50)" />
+			<column name="visibilite" type="BIT(1)" />
+			<column name="systeme_id" type="BIGINT" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-20">
+		<createTable tableName="version_project">
+			<column name="VERSION_ID" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+			<column name="PROJECT_ID" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+
+<!-- 	<changeSet id="1503323827126-92" author="aboittiaux"> -->
+<!-- 		<sql>ALTER TABLE version_project CONVERT TO CHARACTER SET utf8;</sql> -->
+<!-- 	</changeSet> -->
+	<changeSet author="aboittiaux" id="1503323827126-21">
+		<addPrimaryKey columnNames="id" tableName="application" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-22">
+		<addPrimaryKey columnNames="id" tableName="certificat" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-23">
+		<addPrimaryKey columnNames="id" tableName="certificat_tst" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-24">
+		<addPrimaryKey columnNames="id" tableName="chaine_de_confiance" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-25">
+		<addPrimaryKey columnNames="id" tableName="famille" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-26">
+		<addPrimaryKey columnNames="id" tableName="nomenclature" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-27">
+		<addPrimaryKey columnNames="id" tableName="profile" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-28">
+		<addPrimaryKey columnNames="id" tableName="projet" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-29">
+		<addPrimaryKey columnNames="id" tableName="r_case" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-30">
+		<addPrimaryKey columnNames="id" tableName="r_projet" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-31">
+		<addPrimaryKey columnNames="id" tableName="r_step" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-32">
+		<addPrimaryKey columnNames="id" tableName="r_suite" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-34">
+		<addPrimaryKey columnNames="id" tableName="session_tst" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-35">
+		<addPrimaryKey columnNames="id" tableName="systeme" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-36">
+		<addPrimaryKey columnNames="id" tableName="user" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-37">
+		<addPrimaryKey columnNames="id" tableName="version" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-38">
+		<addUniqueConstraint columnNames="password, mail"
+			constraintName="UK9cbdw4tcphjg1rt8qn7oqmv05" tableName="user" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-39">
+		<createIndex indexName="FK117hh08jawu9lni931k07xdmp"
+			tableName="version_project">
+			<column name="VERSION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-41">
+		<createIndex indexName="FK1o9u99j6k298v3c7k66oa39k7"
+			tableName="chaine_de_confiance">
+			<column name="USER_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-42">
+		<createIndex indexName="FK1ta4hd9mepdp1p4g8c83443v4"
+			tableName="r_case">
+			<column name="RSUITE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-43">
+		<createIndex indexName="FK2efpbaxki3p0qo00rhybvpt0y"
+			tableName="user">
+			<column name="PROFILE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-44">
+		<createIndex indexName="FK6ntvunbe53ek21n0keiwgisbe"
+			tableName="application">
+			<column name="USER_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-45">
+		<createIndex indexName="FK7niwan6lqt4f7llodosb7p3he"
+			tableName="session_tst">
+			<column name="APPLICATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-46">
+		<createIndex indexName="FKd0nbdruh39nw2hx9463n7oul1"
+			tableName="r_suite">
+			<column name="RPROJET_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-47">
+		<createIndex indexName="FKer7apbtlelnihb2wr6m8l5hrc"
+			tableName="r_step">
+			<column name="RCASE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-48">
+		<createIndex indexName="FKf0vmpidgvnt78ti152l69s6i8"
+			tableName="certificat">
+			<column name="CHAINEDECONFIANCE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-50">
+		<createIndex indexName="FKge39axgbd8wrjndjqbo3fr0tp"
+			tableName="systeme">
+			<column name="FAMILLE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-51">
+		<createIndex indexName="FKkygyreiwdb34hgird3pl2dnut"
+			tableName="version">
+			<column name="systeme_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-52">
+		<createIndex indexName="FKna4nbv2aikxqnpehfsdcal1nu"
+			tableName="user">
+			<column name="User_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-53">
+		<createIndex indexName="FKnouw2natbimhiybt4b4boyguc"
+			tableName="r_projet">
+			<column name="SESSIONTST_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-54">
+		<createIndex indexName="FKpm5tourffo8r798nhndommch3"
+			tableName="session_tst">
+			<column name="VERSION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-55">
+		<createIndex indexName="FKpobs0ufu5a7408houkm3s5cih"
+			tableName="projet">
+			<column name="CERTIFICAT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-56">
+		<createIndex indexName="FKqjj86r0inxxmsly1j2q6hs85n"
+			tableName="version_project">
+			<column name="PROJECT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-57">
+		<addForeignKeyConstraint baseColumnNames="VERSION_ID"
+			baseTableName="version_project" constraintName="FK117hh08jawu9lni931k07xdmp"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="version" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-59">
+		<addForeignKeyConstraint baseColumnNames="USER_ID"
+			baseTableName="chaine_de_confiance" constraintName="FK1o9u99j6k298v3c7k66oa39k7"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="user" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-60">
+		<addForeignKeyConstraint baseColumnNames="RSUITE_ID"
+			baseTableName="r_case" constraintName="FK1ta4hd9mepdp1p4g8c83443v4"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="r_suite" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-61">
+		<addForeignKeyConstraint baseColumnNames="PROFILE_ID"
+			baseTableName="user" constraintName="FK2efpbaxki3p0qo00rhybvpt0y"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="profile" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-62">
+		<addForeignKeyConstraint baseColumnNames="USER_ID"
+			baseTableName="application" constraintName="FK6ntvunbe53ek21n0keiwgisbe"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="user" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-63">
+		<addForeignKeyConstraint baseColumnNames="APPLICATION_ID"
+			baseTableName="session_tst" constraintName="FK7niwan6lqt4f7llodosb7p3he"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="application" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-64">
+		<addForeignKeyConstraint baseColumnNames="RPROJET_ID"
+			baseTableName="r_suite" constraintName="FKd0nbdruh39nw2hx9463n7oul1"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="r_projet" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-65">
+		<addForeignKeyConstraint baseColumnNames="RCASE_ID"
+			baseTableName="r_step" constraintName="FKer7apbtlelnihb2wr6m8l5hrc"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="r_case" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-66">
+		<addForeignKeyConstraint baseColumnNames="CHAINEDECONFIANCE_ID"
+			baseTableName="certificat" constraintName="FKf0vmpidgvnt78ti152l69s6i8"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="chaine_de_confiance" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-68">
+		<addForeignKeyConstraint baseColumnNames="FAMILLE_ID"
+			baseTableName="systeme" constraintName="FKge39axgbd8wrjndjqbo3fr0tp"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="famille" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-69">
+		<addForeignKeyConstraint baseColumnNames="systeme_id"
+			baseTableName="version" constraintName="FKkygyreiwdb34hgird3pl2dnut"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="systeme" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-70">
+		<addForeignKeyConstraint baseColumnNames="User_ID"
+			baseTableName="user" constraintName="FKna4nbv2aikxqnpehfsdcal1nu"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="user" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-71">
+		<addForeignKeyConstraint baseColumnNames="SESSIONTST_ID"
+			baseTableName="r_projet" constraintName="FKnouw2natbimhiybt4b4boyguc"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="session_tst" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-72">
+		<addForeignKeyConstraint baseColumnNames="VERSION_ID"
+			baseTableName="session_tst" constraintName="FKpm5tourffo8r798nhndommch3"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="version" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-73">
+		<addForeignKeyConstraint baseColumnNames="CERTIFICAT_ID"
+			baseTableName="projet" constraintName="FKpobs0ufu5a7408houkm3s5cih"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="certificat_tst" />
+	</changeSet>
+	<changeSet author="aboittiaux" id="1503323827126-74">
+		<addForeignKeyConstraint baseColumnNames="PROJECT_ID"
+			baseTableName="version_project" constraintName="FKqjj86r0inxxmsly1j2q6hs85n"
+			onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="projet" />
+	</changeSet>
+
+</databaseChangeLog>

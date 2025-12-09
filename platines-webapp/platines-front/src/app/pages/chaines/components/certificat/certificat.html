@@ -1,0 +1,35 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate>pages.certificates.title</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <fieldset class="composant">
+            <textarea class="form-control pem-certifcat" formControlName="pem" id="certificatePem" placeholder="{{'pages.chains.certificate.text_area_placeholder' | translate}}" style="height: 600px"></textarea>
+            <div *ngIf="validationMessageError !=  null" class="error is-invalid">
+              <svg aria-hidden="true" class="svg-icon svg-circle-cross">
+                <use xlink:href="svg-icons/icon-sprite.svg#circle-cross"></use>
+              </svg>
+              <span>
+              {{validationMessageError}}
+              </span>
+            </div>
+            <div style="float: right">
+              <button (click)="back()" class="btn btn--default btn--ghost btn-xs" id="btnBack" translate type="submit">commons.actions.back</button>
+              <button (click)="addCertificate()" [disabled]="form.invalid" class="btn btn--plain btn--primary btn-xs" id="btnValidate" translate type="submit">commons.actions.validate</button>
+            </div>
+          </fieldset>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

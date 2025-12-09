@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="dropColumn-certificat_tst-password"
+		author="apierre">
+		<dropColumn tableName="certificat_tst"
+			columnName="password" />
+	</changeSet>
+
+	<changeSet id="addColumn-certificat_tst-validityDate"
+		author="apierre">
+		<addColumn tableName="certificat_tst">
+			<column name="validityDate" type="datetime"></column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="addColumn-certificat_tst-type"
+			   author="ssviridov">
+		<addColumn tableName="certificat_tst">
+			<column name="type" type="varchar(255)"></column>
+		</addColumn>
+	</changeSet>
+
+</databaseChangeLog> 

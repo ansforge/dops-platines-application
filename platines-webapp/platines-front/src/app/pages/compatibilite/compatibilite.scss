@@ -1,0 +1,110 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.select-modif {
+  margin: auto;
+}
+
+.label-modif {
+  text-align: center;
+}
+
+.table {
+  margin-top: 10px;
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius);
+}
+
+.table tbody tr:last-child td:last-child, .table tbody tr:last-child th:last-child {
+  border-radius: 0 0 (var(--border-radius)) (var(--border-radius));
+}
+
+tr{
+  height: 6.4rem;
+}
+
+.label-listeVersion {
+  padding-left: 5px;
+}
+
+.table tr > th:first-child {
+  text-align: left;
+  width: auto !important
+}
+
+.table > tbody > tr > th {
+  text-align: center;
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 18px;
+  background-color: var(--gray-200);
+  vertical-align: middle;
+  width: 30px;
+}
+
+.table > tbody > tr > td {
+  font-size: 18px;
+}
+
+.tdCheckBox {
+  text-align: center;
+
+}
+
+.form-control {
+  height: auto;
+}
+
+.row {
+  flex-wrap: nowrap;
+}
+
+.custom-radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.list-title{
+  width: fit-content;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+table.table{
+  margin-bottom: 0;
+}
+
+div.versions-list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+
+
+div.versions-list > ul {
+  list-style: disc;
+}
+
+div.versions-list > ul > li {
+  display: list-item;
+}
+
+label.checkbox-inline.custom-checkbox.nowrap{
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+div.custom-control.text-center.custom-checkbox {
+  margin: 0;
+  padding: 0;
+}
+
+div.custom-control.text-center.custom-checkbox > input.custom-control-input {
+  height: var(--table-checkbox-size);
+  width: var(--table-checkbox-size);
+  position: unset;
+}

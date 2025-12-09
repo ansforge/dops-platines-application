@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="setValeurRoleInEnglishForProjet"
+		author="apierre">
+		<update tableName="projet">
+			<column name="role" value='SERVER' type="varchar(50)" />
+			<where>role = 'SERVEUR'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="setValueDateUploadProject" author="aboittiaux">
+		<update tableName="projet">
+			<column name="date_upload" value="now()" type="datetime" />
+			<where>date_upload IS NULL</where>
+		</update>
+	</changeSet>
+
+</databaseChangeLog>

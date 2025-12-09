@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<con:soapui-project id="ce1b98db-bf85-48af-9353-e2cf196c8b28" activeEnvironment="Default environment" name="Nested data source sample" soapui-version="6.0.0" encryptionMode="Not encrypted" resourceRoot="" updated="3.44.0 2023-02-20T11:10:43Z" projectVersion="" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>This sample project demonstrates how to use the nested data source loop.
+
+Steps to execute the project:
+
+1. Open TestCase 1 and take a look at the data source loops. Examine the REST Request and Data Source 
+    test steps. 
+2. The project has a couple of data sources with loops. Each data source contains two values. 
+3. Run the test case.
+4. In the test case editor, select the Transaction Log tab.
+
+Expected response:
+You will see about 4 transactions (2 transactions per loop) of REST Request. Open every REST Request 
+and select the Raw tab. In the first line you will see the query parameters. For each transaction, parameter 
+values will be different as ReadyAPI looped through data sources.</con:description>
+  <con:settings>
+    <con:setting id="ProjectSettings@hermesConfig">C:\Users\.hermes</con:setting>
+  <con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting></con:settings>
+  <con:interface xsi:type="con:RestService" id="09207eb4-82d1-46cd-aeea-5b6c8f18117a" wadlVersion="http://wadl.dev.java.net/2009/02" name="REST Service 1" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    
+    <con:definitionCache type="TEXT" rootPart="REST Service 1.wadl"><con:part><con:url>REST Service 1.wadl</con:url><con:content><![CDATA[<application xmlns="http://wadl.dev.java.net/2009/02">
+  <doc xml:lang="en" title="REST Service 1"/>
+  <resources base="">
+    <resource path="test" id="/">
+      <doc xml:lang="en" title="/"/>
+      <method name="GET" id="GET">
+        <doc xml:lang="en" title="GET"/>
+        <request>
+          <param name="prop1" type="xs:string" required="true" style="query" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+          <param name="prop2" type="xs:string" required="true" style="query" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+        </request>
+        <response status="404">
+          <representation mediaType="" element="data"/>
+        </response>
+        <response status="200">
+          <representation mediaType="application/json" element="loc:Response" xmlns:loc="http://localhost/"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>]]></con:content><con:type>http://wadl.dev.java.net/2009/02</con:type></con:part></con:definitionCache><con:endpoints/>
+    <con:resource name="/" path="/" id="9a85a87b-1cea-409a-aa4f-553597381264">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="GET" id="97b7dde4-a0ba-4e10-841b-2848c28df9eb" method="GET">
+        <con:settings/>
+        <con:parameters>
+          <con:parameter required="true">
+            <con:name>prop1</con:name>
+            <con:value/>
+            <con:style>QUERY</con:style>
+            <con:default/>
+          </con:parameter>
+          <con:parameter required="true">
+            <con:name>prop2</con:name>
+            <con:value/>
+            <con:style>QUERY</con:style>
+            <con:default/>
+          </con:parameter>
+        </con:parameters>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType>application/json</con:mediaType>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element xmlns:loc="http://localhost/">loc:Response</con:element>
+        </con:representation>
+        <con:request name="GET Request" id="beadce07-586c-49a9-80ca-2509fc81127f" mediaType="application/json">
+          <con:settings/>
+          <con:endpoint>http://localhost:8080</con:endpoint>
+          <con:request/>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters/>
+          <con:parameterOrder>
+            <con:entry>prop1</con:entry>
+            <con:entry>prop2</con:entry>
+          </con:parameterOrder>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:testSuite id="41c4650c-7996-44ca-a799-8b1e12a49a99" name="TestSuite 1">
+    <con:description>For information on the sample project and steps to run, right-click the project node in the Navigator on the left and select Project Settings from the context menu.</con:description>
+    <con:settings/>
+    <con:savedRecentRuns>1</con:savedRecentRuns>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="a80c6d0d-31bf-438a-86ca-29f671b9227a" failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" zephyrTestName="" zephyrTestId="">
+      <con:description>For information on the sample project and steps to run, right-click the project node in the Navigator on the left and select Project Settings from the context menu.</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      
+      
+      <con:testStep type="datasource" name="DataSource 1" id="9fa3ad4e-dcec-4004-b3f4-b63e5b6437d7">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Grid">
+            <con:configuration><check><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry></xml-fragment>]]></check><row>&lt;con:entry xmlns:con="http://eviware.com/soapui/config">1&lt;/con:entry></row><row>&lt;con:entry xmlns:con="http://eviware.com/soapui/config">2&lt;/con:entry></row><recognizeAsPlainText>true</recognizeAsPlainText></con:configuration>
+          </con:dataSource>
+          <con:property>prop1</con:property>
+          <con:completeLastOperation>true</con:completeLastOperation>
+          <con:restartOnRun>true</con:restartOnRun>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasource" name="DataSource 2" id="b3e4213b-9e74-4dd1-bb53-024fea177865">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Grid">
+            <con:configuration><check><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry></xml-fragment>]]></check><row>&lt;con:entry xmlns:con="http://eviware.com/soapui/config">a&lt;/con:entry></row><row>&lt;con:entry xmlns:con="http://eviware.com/soapui/config">b&lt;/con:entry></row><recognizeAsPlainText>true</recognizeAsPlainText></con:configuration>
+          </con:dataSource>
+          <con:property>prop2</con:property>
+          <con:completeLastOperation>true</con:completeLastOperation>
+          <con:restartOnRun>true</con:restartOnRun>
+        </con:config>
+      </con:testStep><con:testStep type="restrequest" name="REST Request" id="8dbc5531-67ee-4518-b9f6-e42e0eb1d937">
+        <con:settings/>
+        <con:config service="REST Service 1" resourcePath="/" methodName="GET" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="REST Request" id="beadce07-586c-49a9-80ca-2509fc81127f" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:endpoint>${#Project#endpoint}</con:endpoint>
+            <con:request/>
+            <con:originalUri>http://localhost/</con:originalUri>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="prop2" value="${DataSource 2#prop2}"/>
+              <con:entry key="prop1" value="${DataSource 1#prop1}"/>
+            </con:parameters>
+            <con:parameterOrder>
+              <con:entry>prop1</con:entry>
+              <con:entry>prop2</con:entry>
+            </con:parameterOrder>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="RG-EXP-003" id="f1ddb90c-b5ae-4262-8db1-ee5819710398"><con:settings/><con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:entry><con:id>99e6a951-66a5-4a11-8680-5bfb3ef4cdcf</con:id><con:isGroup>false</con:isGroup><con:sourceId>8dbc5531-67ee-4518-b9f6-e42e0eb1d937</con:sourceId><con:propertyName>Response</con:propertyName><con:assertion type="JsonPath Match" name="JSONPath Match" id="757e99cc-17a5-4d49-a7a8-27db2b0f8fe5"><con:configuration><path>$['response']</path><content>"test response"</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:entry></con:config></con:testStep>
+      
+      <con:testStep type="datasourceloop" name="DataSource 1 Loop" id="a4b5e0af-6088-4696-bb76-a02008e5de06">
+        <con:settings/>
+        <con:config><dataSourceStep>DataSource 2</dataSourceStep><targetStep>REST Request</targetStep><discardResults>true</discardResults></con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource 2 Loop" id="fb88d4d1-7ee0-49ed-85cc-2caa86d6aa6a">
+        <con:settings/>
+        <con:config><dataSourceStep>DataSource 1</dataSourceStep><targetStep>DataSource 2</targetStep><discardResults>true</discardResults></con:config>
+      </con:testStep><con:properties/>
+      <con:reportParameters/>
+      
+      
+    <con:breakPoints><con:testStepId>9fa3ad4e-dcec-4004-b3f4-b63e5b6437d7</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>b3e4213b-9e74-4dd1-bb53-024fea177865</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>8dbc5531-67ee-4518-b9f6-e42e0eb1d937</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a4b5e0af-6088-4696-bb76-a02008e5de06</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>fb88d4d1-7ee0-49ed-85cc-2caa86d6aa6a</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:requirements/>
+  <con:properties><con:property><con:name>endpoint</con:name><con:value>http://localhost:8080</con:value></con:property></con:properties>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>

@@ -1,0 +1,45 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.btn-xs{
+  margin: 0 1.5rem 1.5rem 0;
+}
+td.mat-column-validityDate{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.empty-placeholder{
+
+  display: flex;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+td.mat-column-actions{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+td.mat-column-pem{
+  width: 100%;
+  min-width: 85%;
+  max-width: 85%;
+  white-space: pre;
+  font-family: monospace !important;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+td.mat-column-checkbox{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mdc-data-table__header-cell{
+  border-bottom-color: rgba(0,0, 0, 0.06);
+}

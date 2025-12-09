@@ -1,0 +1,16 @@
+#*
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ *#
+<html>
+ 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+ 
+<body>
+
+<p>Bonjour ${firstName}, <br/>
+Avant de pouvoir vous connecter &agrave; la plateforme de test Platines, vous devez configurer votre mot de passe en cliquant sur le lien suivant: 
+</p>
+<a href="${url}">Cliquez ici</a>
+</body>
+</html>

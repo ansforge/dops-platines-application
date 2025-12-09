@@ -1,0 +1,16 @@
+{
+    "scenarioName": "Evaluation ok",
+    "requiredScenarioState": "Started",
+    "newScenarioState": "Evaluation pending",
+    "request": {
+        "method": "GET",
+        "url": "/v1/evaluation/7525163d-4938-1621-2b00-a9eb8c2350a6?namespace=default"
+    },
+    "response": {
+        "status": 200,
+        "body" : "{\"ID\":\"7525163d-4938-1621-2b00-a9eb8c2350a6\",\"Namespace\":\"default\",\"Priority\":50,\"Type\":\"service\",\"TriggeredBy\":\"job-register\",\"JobID\":\"platines-dev\",\"JobModifyIndex\":379505,\"NodeID\":\"\",\"NodeModifyIndex\":0,\"DeploymentID\":\"9897d830-ce30-1e37-b3f3-69ab0d0f43dd\",\"Status\":\"pending\",\"StatusDescription\":\"\",\"Wait\":0,\"NextEval\":\"\",\"PreviousEval\":\"\",\"BlockedEval\":\"\",\"FailedTGAllocs\":null,\"ClassEligibility\":null,\"QuotaLimitReached\":\"\",\"EscapedComputedClass\":false,\"AnnotatePlan\":false,\"QueuedAllocations\":{\"apps-servers\":0},\"SnapshotIndex\":379506,\"CreateIndex\":379506,\"ModifyIndex\":379508}",
+        "headers": {
+            "Content-Type": "application/json"
+        }        
+    }
+}

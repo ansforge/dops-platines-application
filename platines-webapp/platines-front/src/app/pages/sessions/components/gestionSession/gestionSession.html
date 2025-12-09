@@ -1,0 +1,127 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate>pages.sessions.gestion.title</a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate="pages.sessions.gestion.title"></h3>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+            <table aria-label="Tableaux de gestion des sessions" [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort>
+
+              <ng-container matColumnDef="user">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.user</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span>{{element['application']['user']['forename']}} {{element['application']['user']['name']}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="creationDate">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.creationDate</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span>{{element['creationDate'] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="application">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.application</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span>
+                    {{element['application']['name']}}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container *ngFor="let column of autoColumns" [matColumnDef]="column">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.{{column}}</span>
+                </th>
+                <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="rolePlateforme">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.rolePlateforme</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate="{{labelsPath}}.roles.{{element['application']['role']}}">
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sessionStatus">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.sessionStatus</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span translate>
+                    {{labelsPath}}.statuses.{{element['sessionStatus']}}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="executionDate">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  <span translate>{{labelsPath}}.executionDate</span>
+                </th>
+                <td *matCellDef="let element" mat-cell>
+                  <span>
+                    {{diffDate(transformDate(element['executionDate']), Date.now())}}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th *matHeaderCellDef class="text-center" mat-header-cell>
+                  <span translate>{{labelsPath}}.actions</span>
+                </th>
+                <td class="text-center" *matCellDef="let element" mat-cell>
+                  <span>
+                    <button
+                      matTooltip="{{'icons.stop'|translate}}"
+                      [matTooltipPosition]="'above'"
+                      [matTooltipClass]="'tooltip-inner'"
+                      (click)="stop(element['id'])" mat-icon-button>
+                      <mat-icon>stop</mat-icon>
+                    </button>
+                  </span>
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+              <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+            </table>
+          </div>
+      </div>
+      <mat-paginator
+        ansPaginatorStyle
+        [length]="dataSource.data.length"
+        [showTotalPages]="5"
+        [pageSizeOptions]="[20,50,100]"
+        aria-label="Select page of gestionSession">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

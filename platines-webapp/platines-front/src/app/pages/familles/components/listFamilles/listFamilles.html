@@ -1,0 +1,100 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="./" translate="">pages.families.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" translate="pages.families.title"></h3>
+      </div>
+      <div class="form-group row search">
+
+        <div class="col-sm-3 col-search flex-row form-group-wrap form-group-wrap--right">
+          <input #search class="form-control zone-search"
+                 [ngModel]="this.contextStateService.filters.get(this.metadata.selector)"
+                 (ngModelChange)="this.contextStateService.filters.set(this.metadata.selector, $event)"
+                 (keyup)="applyFilter()" matInput placeholder="{{'commons.labels.search' | translate}}">
+          <svg aria-hidden="true" class="svg-icon svg-search" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#search "></use></svg>
+        </div>
+
+        <div class="col-sm-9 margin-btn">
+          <div class="list-btn-actions">
+            <button (click)="addFamily()" [disabled]="!isAdmin" class="btn btn--plain btn--primary" id="btnAjouter" translate="commons.actions.add" type="submit"></button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive">
+          <table (matSortChange)="sortData($event)" [dataSource]="dataSource" aria-label="Liste des thèmes" class="mat-elevation-z8" mat-table matSort>
+
+            <ng-container *ngFor="let column of autoColumns" [matColumnDef]="column">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                <span translate>{{this.labelsPath}}.{{ column }}</span></th>
+              <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="visibility">
+              <th *matHeaderCellDef class="text-center" mat-header-cell mat-sort-header>
+                <span translate>{{this.labelsPath}}.visibility</span></th>
+              <td *matCellDef="let element" class="text-center" mat-cell>
+                    <span>
+                      <svg *ngIf="element.visibility" aria-hidden="true" class="svg-icon svg-circle-check icon-green" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#circle-check"></use></svg>
+                      <svg *ngIf="!element.visibility" aria-hidden="true" class="svg-icon svg-circle-cross icon-red" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#circle-cross"></use></svg>
+                    </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th *matHeaderCellDef class="text-center" mat-header-cell>
+                <span translate>{{this.labelsPath}}.actions</span></th>
+              <td *matCellDef="let element" mat-cell>
+                  <span class="action-column">
+                    <span class="action-row">
+                      <button *ngIf="this.isAdmin"
+                        matTooltip="{{'icons.editFamily'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        (click)="editFamily(element['id'])"> <svg aria-hidden="true" class="svg-icon svg-edit" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#edit"></use></svg> </button>
+                      <button
+                        matTooltip="{{'icons.assignUsers'|translate}}"
+                        [matTooltipPosition]="'above'"
+                        [matTooltipClass]="'tooltip-inner'"
+                        (click)="assignUsers(element['id'])"> <svg aria-hidden="true" class="svg-icon svg-user" focusable="false"><use xlink:href="svg-icons/icon-sprite.svg#user"></use></svg> </button>
+                    </span>
+                    <span class="action-row">
+                    </span>
+                  </span>
+              </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="allColumns" mat-header-row></tr>
+            <tr *matRowDef="let emprow; columns: allColumns" mat-row></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      ansPaginatorStyle
+      [length]="dataSource.data.length"
+      [showTotalPages]="5"
+      [pageSizeOptions]="[(20), 50, 100]"
+      aria-label="Select page of users">
+    </mat-paginator>
+  </div>
+</div>

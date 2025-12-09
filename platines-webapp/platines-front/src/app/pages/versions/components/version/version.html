@@ -1,0 +1,88 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listVersions" translate>pages.versions.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{id:version.id}" routerLink="./">
+            {{!isNew ? ('pages.versions.version.edit' | translate) : ('pages.versions.version.new' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title">
+          {{!isNew ? ('pages.versions.version.edit' | translate) : ('pages.versions.version.new' | translate)}}</h3>
+      </div>
+      <form #versionForm="ngForm" class="form-horizontal" id="versionForm">
+        <div class="card-body">
+          <div class="composant">
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.versions.version.family"></label>
+              <div class="col-sm-12">
+                <select #family="ngModel" (change)="refreshSystem(family.value)" [(ngModel)]="version.service.theme.id" class="form-control" id="familleId" name="family">
+                  <option selected translate="pages.versions.version.text_family" value="null"></option>
+                  <option *ngFor="let family of families" [selected]="family.id == version.service.theme.id" value="{{family.id}}">{{family.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.versions.version.service"></label>
+              <div class="col-sm-12">
+                <select #system="ngModel" (change)="onChangeSystem(system.value)" [(ngModel)]="version.service.id" class="form-control" id="systemeId" name="system">
+                  <option selected translate="pages.versions.version.text_service" value="null"></option>
+                  <option *ngFor="let system of systems" [selected]="system.id == version.service.id" value="{{system.id}}">{{system.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.versions.version.name"></label>
+              <div class="col-sm-12">
+                <input #label="ngModel" [(ngModel)]="version.label" class="form-control" id="label" maxlength="50" name="label" placeholder="{{'pages.versions.version.name' | translate}}" required type="text">
+                <span *ngIf="versionForm.submitted && label.invalid" class="text-danger" translate="pages.versions.version.error_label"></span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-fit checkbox-platines">
+                <div class="custom-control custom-checkbox">
+                  <input #visibility="ngModel" [(ngModel)]="version.visibility" [checked]="version.visibility" class="custom-control-input" id="visible" name="visibility" type="checkbox" value="version.visibility">
+                  <label class="custom-control-label" for="visible"></label>
+                </div>
+              </div>
+              <label class="col-sm-fit checkbox-platines control-label" translate="pages.versions.version.visibility"></label>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate="pages.versions.version.description"></label>
+              <div class="col-sm-12">
+                <textarea #description="ngModel" [(ngModel)]=version.description class="form-control" id="descritpion" maxlength="500" name="description" placeholder="{{'pages.versions.version.description' | translate}}" required></textarea>
+                <span *ngIf="versionForm.submitted && description.invalid" class="text-danger" translate="pages.versions.version.error_description"></span>
+              </div>
+            </div>
+            <div class="col-sm-12 divBtn">
+              <button (click)="back()" class="btn btn--default btn--ghost" id="btnRetour" translate="commons.actions.back" type="button"></button>
+              <button (click)="saveVersion()" class="btn btn--plain btn--primary" id="btnValidation" translate="commons.actions.validate" type="submit"></button>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

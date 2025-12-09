@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+
+	<acl_object_identity id="31" object_id_class="6"
+		object_id_identity="21" owner_sid="3" entries_inheriting="0" />
+	<acl_object_identity id="32" object_id_class="6"
+		object_id_identity="22" owner_sid="3" entries_inheriting="0" />
+	<acl_object_identity id="33" object_id_class="21"
+		object_id_identity="1" owner_sid="3" entries_inheriting="0" />
+
+
+	<acl_entry id="31" acl_object_identity="31" ace_order="0" sid="3"
+		mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="2" acl_object_identity="31" ace_order="1" sid="3"
+		mask="32" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="33" acl_object_identity="31" ace_order="2" sid="3"
+		mask="4" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="34" acl_object_identity="31" ace_order="3" sid="3"
+		mask="8" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="35" acl_object_identity="32" ace_order="4" sid="3"
+		mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="36" acl_object_identity="32" ace_order="5" sid="3"
+		mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="37" acl_object_identity="32" ace_order="6" sid="3"
+		mask="4" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="38" acl_object_identity="32" ace_order="7" sid="3"
+		mask="8" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="39" acl_object_identity="33" ace_order="0" sid="1"
+		mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="40" acl_object_identity="33" ace_order="0" sid="1"
+		mask="2" granting="1" audit_success="1" audit_failure="1" />
+
+	<association id="2" association_type="2"/>
+	<association id="3" association_type="3"/>
+
+	<chaine_de_confiance id="1" description="desc" nom="name"
+		USER_ID="4"></chaine_de_confiance>
+	<application id="1" chainedeconfiance_id="1" description="desc"
+		nom="name" role="CLIENT" url="url" version="v1" USER_ID="4"/>
+
+	<systeme id="2" nom="systeme" FAMILLE_ID="1"/>
+        
+	<version id="3" libelle="version" description="desc"
+		visibilite="1" systeme_id="2"/>
+	<user_famille User_ID="4" FAMILY_ID="1"/>
+
+	<session_tst id="21" description="session pending"
+		statutSession="PENDING" APPLICATION_ID="1" VERSION_ID="3" uuidSession="1234-5678" date="2018-04-12 09:20:28"></session_tst>
+	<session_tst id="22" description="session error"
+		statutSession="ERROR" APPLICATION_ID="1" VERSION_ID="3" date="2018-04-12 11:32:48"></session_tst>
+</dataset>

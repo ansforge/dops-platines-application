@@ -1,0 +1,176 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listSessions" translate>pages.sessions.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item">
+            <a [queryParams]="{id:this.session.id}" routerLink="./" translate>pages.sessions.detail.title</a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title">
+          <span translate>pages.sessions.detail.title</span>
+          <span *ngIf="this.currentPosition!=null" class="context-select-bar">
+            <button (click)="this.sessionService.routeToSession(currentPosition-1)" [disabled]="currentPosition===0" mat-icon-button title="{{'icons.stop'|translate}}">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <mat-select #contextList (selectionChange)="this.sessionService.routeToSession(contextList.value)" [(ngModel)]="currentPosition" class="form-control context-select" panelClass="custom-mat-select-panel">
+              <mat-option *ngFor="let p of this.contextStateService.filteredSessionList; let i = index" [value]="i">{{p.application.name}}</mat-option>
+            </mat-select>
+            <button (click)="this.sessionService.routeToSession(currentPosition+1)" [disabled]="currentPosition===this.contextStateService.filteredSessionList.length-1" mat-icon-button title="{{'icons.stop'|translate}}">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </span>
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-sm-6 left">
+            <div class="frame">
+              <mat-tab-group (selectedIndexChange)="getPlan($event)">
+                <mat-tab class="tab-header" label="{{'pages.sessions.server.tests'|translate}}">
+                  <div class="treecol">
+                    <app-session-result-tree
+                      [projectObs]="sessionSrc"
+                      (nodeSelection)="onEvent($event)"
+                      [withHeader]="false"
+                      [activeNodes]="[activeNode]"
+                      border="none"
+                      frameHeight="58rem"
+                    ></app-session-result-tree>
+                  </div>
+                </mat-tab>
+                <mat-tab class="tab-header" label="{{'pages.sessions.server.history'|translate}}">
+                  <div id="cdiv2" class="history-tab">
+                    <div *ngFor="let res of result">
+                      [{{res.operationDate}}] {{res.timeTaken}}ms {{res.operation}} {{res.responseName}}
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+          <div class="col-sm-6 right">
+            <div *ngIf=" ((session.sessionStatus === 'FINISHED') && plan ) || (session.sessionStatus === 'PENDING')" class="frame">
+              <mat-tab-group *ngIf="plan">
+                <mat-tab label="Résultats">
+                  <div id="cdiv3" style="margin: 1rem;overflow: auto;">
+                    <div *ngIf="session.sessionStatus === 'PENDING'">
+                      <b translate="pages.sessions.detail.url"></b>{{url}}
+                      <div>
+                        <b translate="pages.sessions.detail.resource_path"></b>
+                        <ul>
+                          <li *ngFor="let rp of resourcePath">
+                            {{rp}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div>
+                      <b translate="pages.sessions.detail.creation_date"></b>{{creationDate}}
+                    </div>
+                    <div>
+                      <b translate="pages.sessions.detail.execution_date"></b>{{startDate}}
+                    </div>
+                    <div>
+                      <b translate="pages.sessions.detail.execution_duration"></b>{{duration}}
+                    </div>
+                    <div>
+                      <b translate="pages.sessions.detail.cases_differents"></b>{{nbCasesSuccess}}/{{nbCase}}
+                    </div>
+                    <div>
+                      <b translate="pages.sessions.detail.coverage"></b>{{nbCasesSuccess / nbCase * 100|number:'.0-1'}}%
+                    </div>
+                    <div *ngIf="session.sessionStatus != 'PENDING'" style="font-size: 18px;">
+                      <i aria-hidden="true" class="ion-archive"></i>
+                      <a (click)="downloadZip()" translate="pages.sessions.detail.download"></a>
+                    </div>
+
+                  </div>
+                </mat-tab>
+                <mat-tab *ngIf="stepLog == null" class="padding" label="Description">
+
+                  <div id="cdiv4" style="overflow: auto;">
+                    <pre class="description">
+                      {{description}}
+                    </pre>
+                  </div>
+                </mat-tab>
+
+                <mat-tab *ngIf="stepLog == null" class="padding" label="{{'commons.labels.documentation' | translate}}">
+                  <div id="cdiv5" style="overflow: auto;">
+                    <ul>
+                      <li *ngFor="let f of files">
+
+                        <button (click)="loadFile($event, f)" class="btn-link" id="btn-link" translate="{{f.fileName}}" type="button"></button>
+                      </li>
+                    </ul>
+                  </div>
+                </mat-tab>
+                <mat-tab *ngIf="stepLog != null" label="Requête">
+                  <div class="tab">
+                    <pre class="pre-message" lang="xml">
+                    {{stepLog.request}}</pre>
+                  </div>
+                </mat-tab>
+                <mat-tab *ngIf="stepLog != null" label="Réponse">
+                  <div class="tab">
+                    <pre class="pre-message" lang="xml">{{stepLog.response}}</pre>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+
+              <mat-tab-group *ngIf="history && session.sessionStatus === 'PENDING'">
+                <mat-tab label="{{'pages.sessions.server.tomcat_log' | translate}}">
+
+                  <div class="desc history-tab">
+                    <div *ngFor="let log of logsOut">
+                      {{log}}
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="{{'pages.sessions.server.http_log' | translate}}">
+                  <div class="desc history-tab">
+
+                    <div *ngFor="let log of logsErr">
+                      {{log}}
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="{{'pages.sessions.server.connection_log' | translate}}">
+                  <div class="desc history-tab">
+                    <pre lang="xml">Connexion autorisée pour les adresses IP suivantes : {{application.url}}</pre>
+                    <div *ngFor="let log of logsConn">
+                      {{log}}
+                    </div>
+                  </div>
+                </mat-tab>
+
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+        <div class="btn-back">
+          <button (click)="back()" class="btn btn--plain btn--primary" id="btnAnnul" translate="commons.actions.back" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

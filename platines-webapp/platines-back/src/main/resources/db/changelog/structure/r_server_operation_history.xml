@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="createTableRServerOperationHistory">
+		<createTable tableName="r_server_operation_history">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="request" type="LONGTEXT"></column>
+			<column name="response" type="LONGTEXT"></column>
+			<column name="response_name" type="VARCHAR(255)"></column>
+			<column name="operation_date" type="datetime"></column>
+			<column name="time_taken" type="BIGINT"></column>
+			<column name="operation" type="VARCHAR(255)"></column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB DEFAULT CHARSET=UTF8" />
+		</modifySql>
+	</changeSet>
+	
+	<changeSet author="aboittiaux"
+		id="ajoutDeLaClePrimaireRServerOperationHistory">
+		<addPrimaryKey columnNames="id"
+			tableName="r_server_operation_history" />
+	</changeSet>
+</databaseChangeLog>

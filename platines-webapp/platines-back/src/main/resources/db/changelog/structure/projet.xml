@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="aboittiaux"
+		id="modifyDataType-projet-description">
+		<modifyDataType columnName="description"
+			newDataType="TEXT" tableName="projet" />
+	</changeSet>
+
+	<changeSet author="aboittiaux" id="add-projet-date_upload">
+		<addColumn tableName="projet">
+			<column name="date_upload" type="datetime"></column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="cnader" id="add-projet-theme">
+		<addColumn tableName="projet">
+			<column name="FAMILY_ID" type="BIGINT"></column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="cnader" id="add-projet-theme-foreign-key">
+		<addForeignKeyConstraint
+			baseColumnNames="FAMILY_ID" baseTableName="projet"
+			constraintName="project_id_famille_id" onDelete="RESTRICT"
+			onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="famille" />
+	</changeSet>
+        <changeSet author="edegenetais" id="remove-projet-to-family">
+          <dropForeignKeyConstraint baseTableName="projet" constraintName="project_id_famille_id" />
+          <dropColumn tableName="projet" columnName="FAMILY_ID"/>
+        </changeSet>
+</databaseChangeLog>

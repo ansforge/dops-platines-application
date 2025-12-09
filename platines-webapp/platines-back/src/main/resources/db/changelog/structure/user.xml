@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+	<changeSet author="apierre"
+		id="dropForeignKeyConstraint-user-userid">
+		<dropForeignKeyConstraint
+			baseTableName="user" constraintName="FKna4nbv2aikxqnpehfsdcal1nu" />
+	</changeSet>
+
+	<changeSet id="dropColumn-user-userid" author="apierre">
+		<dropColumn tableName="user" columnName="User_ID"></dropColumn>
+	</changeSet>
+
+	<changeSet id="dropColumn-user-datemodifpassword"
+		author="apierre">
+		<dropColumn tableName="user" columnName="dateModifPassword"></dropColumn>
+	</changeSet>
+	<changeSet id="addColumn-user-lastTryAuthentication"
+		author="aboittiaux">
+		<addColumn tableName="user">
+			<column name="date_last_try_authentication"
+				defaultValue="now()" type="datetime"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="addColumn-user-nbFailure" author="aboittiaux">
+		<addColumn tableName="user">
+			<column name="number_of_failure" type="INT" defaultValue="0"></column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="remane_table" author="pmortas">
+		<renameTable oldTableName="user" newTableName="utilisateur" />
+		<!-- changement de nom de la table car "user" est un mot réservé H2 -->
+	</changeSet>
+</databaseChangeLog> 

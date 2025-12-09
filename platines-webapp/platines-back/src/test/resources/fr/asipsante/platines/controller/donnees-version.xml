@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+  
+  <acl_object_identity id="13" object_id_class="3"
+		object_id_identity="11" owner_sid="4" entries_inheriting="0" /> <!--  Theme ROR -->
+  
+  <acl_object_identity id="20" object_id_class="7"
+		object_id_identity="23" owner_sid="4" entries_inheriting="0" /><!-- version systeme1.v1-->
+  <acl_object_identity id="21" object_id_class="7"
+		object_id_identity="24" owner_sid="4" entries_inheriting="0" /><!-- systeme.v0 -->
+  
+  <association id="2" association_type="2"/><!-- system1 -->
+  <association id="10" association_type="2"/><!-- systeme -->
+  <association id="11" association_type="1"/><!-- theme ROR -->
+  <association id="23" association_type="3"/><!-- version systeme1.v1-->
+  <association id="24" association_type="2"/><!-- systeme.v0 -->
+  
+  <famille id="11" nom="ROR" visibilite="1" />
+  
+  <systeme id="2" nom="systeme1" FAMILLE_ID="1"></systeme>
+  <systeme id="10" nom="systeme" FAMILLE_ID="11"></systeme>
+  <version
+          id="23"
+          libelle="systeme1.v1"
+          systeme_id="2"
+          visibilite="true"
+  />
+  <version
+          id="24"
+          libelle="systeme.v0"
+          systeme_id="10"
+          visibilite="true"
+  />
+</dataset>

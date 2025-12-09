@@ -1,0 +1,60 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div>
+    <div class="modal-header card-header">
+        <h4 class="modal-title" translate="pages.sessions.session.modal.title"></h4>
+        <button class="close" aria-label="Close" (click)="closeModal()">
+
+        </button>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <select class="form-control" #projectS name=projectS (change)="getProjectProperties(projectS.value)" required>
+                        <option value="null" [selected]="projectM === null" translate="pages.sessions.session.modal.project"></option>
+                        <option *ngFor="let p of projectsList" value="{{p.id}}" [selected]="projectM.idProject === p.id">{{p.name}}</option>
+                    </select>
+                    <!-- <span class="text-danger" *ngIf="projectsForm.submitted &&projectS.value === 'null'" translate="pages.sessions.session.error_message.project_list"></span> -->
+                </div>
+            </div>
+            <fieldset class="objetTree fieldSet" *ngIf="isSelected">
+                <legend style="font-size: 20px;" translate="pages.sessions.session.modal.description"></legend>
+
+                <div class="description">{{projectM.description}}</div>
+            </fieldset>
+            <fieldset class="objetTree fieldSet" *ngIf="isSelected">
+                <legend style="font-size: 20px;" translate="pages.sessions.session.modal.properties"></legend>
+
+                <div *ngFor="let prop of properties; let i = index">
+
+                    <div class="form-group row" *ngIf="prop.propertyType !== 'NON_EDITABLE_INVISIBLE'">
+                        <label class="col-sm-4 control-label">{{prop.key}}</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="prop{{i}}" [(ngModel)]="properties[i].value" class="form-control" maxlength="500" title="{{prop.value}}"
+                                style="color: black;" [readonly]="prop.propertyType === 'NON_EDITABLE_VISIBLE'" />
+
+                        </div>
+                        <!-- <i class="fa fa-info-circle" aria-hidden="true"><span tooltip="Tooltip" placement="top" show-delay="500"></span></i> -->
+                        <span translate>
+                            <div class="tooltipAr">
+                                <i class="fa fa-info-circle" style="padding-top: 10px !important; " aria-hidden="true"></i>
+                                <p class="tooltiptextAr">
+                                    {{prop.description}}
+                                </p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="btn-form">
+                <button id="btnAnnuler" class="btn btn--default btn--ghost" type="button" (click)="closeModal()" translate="commons.actions.cancel"></button>
+                <button id="btnValidate" class="btn btn--plain btn--primary" type="submit" (click)="validate()" translate="commons.actions.validate"></button>
+            </div>
+        </div>
+
+        </form>
+</div>

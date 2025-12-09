@@ -1,0 +1,74 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.mat-column-actions{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mat-column-checkbox{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mat-column-downloadable{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mat-column-fileName{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 20%;
+  max-width: 20%;
+}
+.mat-column-description{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 37%;
+  max-width: 37%;
+}
+
+.mat-column-type{
+  width:100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 8%;
+  max-width: 8%;
+}
+
+.mat-column-state{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 10%;
+  max-width: 10%;
+}
+.mat-column-validityDate{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 15%;
+  max-width: 15%;
+}
+

@@ -1,0 +1,302 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listProjets" translate>pages.projects.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a [queryParams]="{id:project.id}" routerLink="./">
+            {{isNew ? ('pages.projects.new' | translate) : ('pages.projects.edit' | translate)}}
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title" >
+          {{isNew ? ('pages.projects.new' | translate) : ('pages.projects.edit' | translate)}}</h3>
+      </div>
+      <form #projectForm="ngForm" class="form-horizontal" id="projectForm">
+        <div class="card-body">
+          <div class="composant">
+
+            <div class="col-sm-12" style="margin: auto">
+
+              <fieldset class="fieldSet">
+                <legend translate>commons.labels.properties</legend>
+                <div *ngIf="isNew" class="form-group row">
+                  <label class="col-sm-2 control-label" for="inputSystem" translate>commons.labels.specification</label>
+                  <div class="col-sm-12">
+                    <select #system (change)="setVersion(system.value)" class="form-control" id="selectVersion" name="system" required>
+                      <option translate value="null">pages.projects.create.choose_version</option>
+                      <option *ngFor="let v of versionsSystem" [selected]="false" id="inputSystem" value="{{v.id}}">{{v.label}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div *ngIf="!isNew" class="form-group row">
+                  <label class="col-sm-2 control-label" for="inputSystem" translate>commons.labels.version</label>
+                  <div class="col-sm-12">
+                    <p class="form-control" id="versionLabel">{{versionLabel}}</p>
+                  </div>
+                </div>
+                <div *ngIf="selectedVersion || !isNew" class="form-group row">
+                  <label class="col-sm-2 control-label" for="inputSoapUI" translate>pages.projects.create.project_file</label>
+                  <div class="col-sm-12">
+                    <div class="input-group">
+                      <input class="form-control with-danger-addon" id="inputSoapUI" value="{{project.fileName}}">
+                      <input #fileInput (change)="selectFile($event)" accept=".xml" class="form-control with-danger-addon FileUpload" id="inputProjectFile" onclick="this.value=null" type="file">
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="details">
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label" for="inputNameProject" translate>pages.projects.create.project_name</label>
+                    <div class="col-sm-12">
+                      <p class="form-control disabled" id="inputNameProject">{{project.name}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label" for="inputRoleProject" translate>pages.projects.create.role</label>
+
+                    <div class="col-sm-12">
+                      <mat-radio-group class="custom-radio-group">
+                        <mat-radio-button #role (change)="setRole('SERVER')" [(ngModel)]="project.role" [checked]="project?.role === 'SERVER'" id="inputRoleProject" name="role" ngDefaultControl value="SERVER">
+                          <span translate>commons.labels.role_server</span>
+                        </mat-radio-button>
+                        <mat-radio-button #role (change)="setRole('CLIENT')" [(ngModel)]="project.role" [checked]="project?.role === 'CLIENT'" name="role" ngDefaultControl value="CLIENT">
+                          <span translate>commons.labels.role_client</span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label" for="inputDescription" translate>commons.labels.description</label>
+                    <div class="col-sm-12">
+                      <p class="form-control disabled description" id="inputDescription">{{project.description}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label" for="inputCertificat" translate>pages.projects.create.certificate</label>
+                    <div class="col-sm-12">
+                      <select [ngClass]="{'is-invalid': !isCertificateSetOrNotRequired() }" #certificate (change)="setCertificate(certificate.value)" class="form-control" id="inputCertificat" name="certificat">
+                        <option [selected]="project.testCertificate === null" value="null">
+                          <span translate *ngIf="project.role!='SERVER'">pages.projects.create.no_certificate</span>
+                          <span translate *ngIf="project.role==='SERVER'">pages.projects.create.missing_certificate</span>
+                        </option>
+                        <option *ngFor="let v of certificatTst" [selected]="project.testCertificate?.id === v.id" value="{{v.id}}">{{v['fileName']}} </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label" for="inputVisible" translate>pages.projects.create.visibility</label>
+                    <div class="col-sm-12">
+
+                      <mat-radio-group class="custom-radio-group">
+                        <mat-radio-button [(ngModel)]="project.visibility" [checked]="project?.visibility === true" id="inputVisible" name="visibilite" ngDefaultControl value="true">
+                          <span translate>pages.projects.create.visibility_all</span>
+                        </mat-radio-button>
+                        <mat-radio-button [(ngModel)]="project.visibility" [checked]="project?.visibility === false" name="visibilite" ngDefaultControl value="false">
+                          <span translate>pages.projects.create.visibility_admin</span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset *ngIf="details" class="fieldSet">
+                <legend translate>commons.labels.parameters</legend>
+                <span>
+
+                </span>
+                <div class="table-responsive">
+
+                  <table [dataSource]="dataSourceProperties" mat-table>
+
+                    <ng-container *ngFor="let column of autoColumnsProperties" [matColumnDef]="column">
+                      <th *matHeaderCellDef mat-header-cell>{{ column }}</th>
+                      <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="key">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.parameter.key</th>
+                      <td *matCellDef="let element" mat-cell>{{element['key']}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="value">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.parameter.value</th>
+                      <td *matCellDef="let element" mat-cell>
+                        <input class="form-control" name="{{element['key']}}ValueInput" ngModel="{{element['value']}}" type="text">
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="description">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.parameter.description</th>
+                      <td *matCellDef="let element" mat-cell>
+                        <input class="form-control" [(ngModel)]="element['description']" name="{{element['key']}}DescriptionInput" ngModel="{{element['description']}}" type="text">
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="propertyType">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.parameter.property_type</th>
+                      <td *matCellDef="let element" mat-cell>
+                        <select [ngClass]="{'is-invalid':!element['propertyType']}" [(ngModel)]="element['propertyType']" class="form-control" name="{{element['key']}}PropertyTypeSelect">
+                          <option [selected]="!element['propertyType']" disabled translate value="null">
+                            pages.projects.create.missing_parameter_type
+                          </option>
+                          <option *ngFor="let v of propertyTypes" [selected]="element['propertyType'] === v.key" value="{{v.key}}">{{v.value}}</option>
+                        </select>
+                      </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="allColumnsProperties" mat-header-row></tr>
+                    <tr *matRowDef="let emprow; columns: allColumnsProperties" mat-row></tr>
+                  </table>
+                </div>
+              </fieldset>
+
+              <fieldset *ngIf="details" class="fieldSet">
+                <legend translate>pages.projects.create.inherited_resources</legend>
+
+                <div *ngIf="this.dataSourceResources.data.length>0" class="table-responsive">
+
+                  <table [dataSource]="dataSourceResources" mat-table>
+
+                    <ng-container *ngFor="let column of autoColumnsResources" [matColumnDef]="column">
+                      <th *matHeaderCellDef mat-header-cell>{{ column }}</th>
+                      <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fileName">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.resource.file_name</th>
+                      <td *matCellDef="let element" mat-cell> {{element['fileName']}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="dateUpload">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.resource.date_upload</th>
+                      <td *matCellDef="let element" mat-cell>{{element['dateUpload']}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fileType">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.resource.file_type</th>
+                      <td *matCellDef="let element" mat-cell>
+                        <span translate>pages.projects.labels.project.resources.{{element['fileType']}}</span></td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="allColumnsResources" mat-header-row></tr>
+                    <tr *matRowDef="let emprow; columns: allColumnsResources" mat-row></tr>
+
+                  </table>
+
+                </div>
+
+                <div *ngIf="this.dataSourceResources.data.length===0" class="form-group row ng-star-inserted">
+                  <div class="col-sm-10" translate>
+                    pages.projects.create.no_resources
+                  </div>
+                </div>
+
+              </fieldset>
+
+              <fieldset *ngIf="details" class="fieldSet">
+
+                <legend translate>pages.projects.create.related_files</legend>
+                <div class="actionFile">
+                  <div *ngIf="this.dataSourceFiles.data.length===0" class="form-group row ng-star-inserted">
+                    <div class="col-sm-10" translate>
+                      pages.projects.create.no_files
+                    </div>
+                  </div>
+
+                  <div class="fileButtons">
+                    <input #fileInput (change)="onChange($event)" class="addFile" multiple onclick="this.value=null" type="file"/>
+                    <button (click)="deleteFiles()" [disabled]="selectionFiles.selected.length===0" class="btn btn--default btn--ghost btn-xs btn-sm btn-info" id="deleteFile" translate type="button">
+                      commons.actions.delete
+                    </button>
+                    <button (click)="fileInput.click()" class="btn btn--plain btn--primary btn-xs btn-sm btn-info" id="addFile" translate type="submit">
+                      commons.actions.add
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="this.dataSourceFiles.data.length>0" class="table-responsive">
+
+                  <table [dataSource]="dataSourceFiles" mat-table>
+
+                    <ng-container *ngFor="let column of autoColumnsProperties" [matColumnDef]="column">
+                      <th *matHeaderCellDef mat-header-cell>{{ column }}</th>
+                      <td *matCellDef="let emp" mat-cell>{{ emp[column] }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fileName">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.file.file_name</th>
+                      <td *matCellDef="let element" mat-cell> {{element['fileName']}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="dateUpload">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.file.date_upload</th>
+                      <td *matCellDef="let element" mat-cell>{{element['dateUpload'] | date:dateFormat}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fileType">
+                      <th *matHeaderCellDef mat-header-cell translate>commons.labels.file.file_type</th>
+                      <td *matCellDef="let element" mat-cell><span translate>
+                              <mat-select [(value)]="element['fileType']" class="form-control" disableOptionCentering panelClass="custom-mat-select-panel">
+                                <mat-option *ngFor="let type of fileTypes | keyvalue" [value]="type.key">
+                                  {{type.value}}
+                                </mat-option>
+                              </mat-select></span></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="checkbox">
+                      <th *matHeaderCellDef mat-header-cell>
+                        <div class="custom-control text-center custom-checkbox">
+                          <input (click)="setAllFiles($event)" [checked]="isAllFilesSelected()" [indeterminate]="!isAllFilesSelected() && selectionFiles.hasValue()" class="custom-control-input" type="checkbox">
+                        </div>
+                      </th>
+                      <td *matCellDef="let element" mat-cell>
+                        <div class="custom-control text-center custom-checkbox">
+                          <input (change)="setRowFiles(element)" [checked]="selectionFiles.isSelected(element)" class="custom-control-input" type="checkbox">
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="allColumnsFiles" mat-header-row></tr>
+                    <tr *matRowDef="let emprow; columns: allColumnsFiles" mat-row></tr>
+
+                  </table>
+
+                </div>
+
+              </fieldset>
+
+              <div *ngIf="details">
+                <div class="divBtn">
+                  <button (click)="back()" class="btn btn--default btn--ghost" translate type="button">
+                    commons.actions.back
+                  </button>
+                  <button [disabled]="formInvalid()" (click)="sendTest()" class="btn btn--plain btn--primary" translate type="submit">
+                    commons.actions.validate
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

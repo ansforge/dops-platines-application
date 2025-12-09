@@ -1,0 +1,117 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div class="widgets">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <nav aria-label="Fil d'ariane" class="breadcrumb-wrapper" role="navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/pages/accueil" translate>pages.home.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item"><a routerLink="../listApplications" translate>pages.applications.title
+            <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false">
+              <use xlink:href="svg-icons/icon-sprite.svg#angle-right"></use>
+            </svg>
+          </a></li>
+          <li class="breadcrumb-item">
+            <a [queryParams]="{id:app.id}" routerLink="./">{{!isNew ? ('pages.applications.application.edit' | translate) : ('pages.applications.application.new' | translate)}}
+              <svg aria-hidden="true" class="svg-icon svg-angle-right" focusable="false"></svg>
+            </a></li>
+        </ol>
+      </nav>
+
+      <div class="card-header clearfix">
+        <h3 class="card-title">{{!isNew ? ('pages.applications.application.edit' | translate) : ('pages.applications.application.new' | translate)}}</h3>
+      </div>
+      <form #applicationForm="ngForm" class="form-horizontal" id="formApplication">
+        <div class="card-body">
+          <div class="composant">
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" for="applicationName" translate>commons.labels.name</label>
+              <div [ngClass]="{'has-error': (nom.touched || nom.dirty) && !nom.valid , 'has-success': nom.touched && nom.valid}" class="col-sm-12">
+                <input #nom="ngModel" [(ngModel)]="app.name" class="form-control" id="applicationName" maxlength="150" name="nom" required type="text">
+                <span *ngIf="applicationForm.submitted && nom.invalid" class="text-danger" translate>pages.applications.error_message.name</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" for="applicationVersion" translate>pages.applications.version</label>
+              <div [ngClass]="{'has-error': (version.touched || version.dirty) && !version.valid , 'has-success': version.touched && version.valid}" class="col-sm-12">
+                <input #version="ngModel" [(ngModel)]="app.version" class="form-control" id="applicationVersion" maxlength="50" name="version" required type="text">
+                <span *ngIf="applicationForm.submitted && version.invalid" class="text-danger" translate>pages.applications.error_message.version</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" for="roleServer" translate>pages.applications.role</label>
+              <div class="col-sm-12">
+                <div class="radio col-sm-6">
+                  <mat-radio-group [(ngModel)]="app.role" id="roleServer" name="role">
+                    <mat-radio-button [value]="'SERVER'">
+                      <span translate>pages.applications.labels.roles.SERVER</span>
+                    </mat-radio-button>
+                    <mat-radio-button [value]="'CLIENT'">
+                      <span translate>pages.applications.labels.roles.CLIENT</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label *ngIf="app.role !== 'CLIENT'" class="col-sm-2 control-label" for="applicationUrl" translate>pages.applications.url</label>
+              <label *ngIf="app.role === 'CLIENT'" class="col-sm-2 control-label" for="applicationUrl" translate>pages.applications.ip</label>
+              <div [ngClass]="{'has-error': (url.touched || url.dirty) && !url.valid }" class="col-sm-12">
+                <input #url="ngModel" [(ngModel)]="app.url" class="form-control" id="applicationUrl" maxlength="150" name="url" required type="url">
+                <span *ngIf="applicationForm.submitted && url.invalid" class="text-danger" translate>pages.applications.error_message.url</span>
+              </div>
+            </div>
+            <div #tlsRequirement class="form-group row">
+              <label class="col-sm-12 control-label" for="roleServer" translate>pages.applications.tls-requirement</label>
+              <div class="col-sm-12">
+                <div class="radio col-sm-6">
+                  <mat-radio-group (change)="toggleTlsRequirement()" [(ngModel)]="isTlsRequired" [ngModelOptions]="{standalone:true}">
+                    <mat-radio-button [value]="true">
+                      <span translate>commons.labels.yes</span>
+                    </mat-radio-button>
+                    <mat-radio-button [value]="false">
+                      <span translate>commons.labels.no</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div #chainOfTrust *ngIf="isTlsRequired" class="form-group row">
+              <label class="col-sm-2 control-label" translate>pages.applications.chain</label>
+              <div [ngClass]="{'has-error': !chaine.validity.valid }" class="col-sm-12">
+                <select #chaine (change)="setChain(chaine.value)" class="form-control" id="applicationChainOfTrust" name="chaineDeConfiance" title="Vous devez choisir une chaine de confiance">
+                  <option [selected]="app.chainOfTrustDto === null" value="null">Sélectionner une valeur dans la liste déroulante {{newApp}}</option>
+                  <option *ngFor="let c of chaineDeConfiance" [selected]="c.id === app.chainOfTrustDto?.id" value="{{c.id}}">{{c.name}}</option>
+                </select>
+                <span *ngIf="this.isTlsRequired && this.missingChainOfTrust" class="invalid-description col-sm-2 is-invalid">Veuillez sélectionner une chaine de confiance</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 control-label" translate>commons.labels.description</label>
+              <div [ngClass]="{'has-error': (description.touched || description.dirty) && !description.valid }" class="col-sm-12">
+                <textarea #description="ngModel" [(ngModel)]="app.description" class="form-control" id="applicationDescription" maxlength="500" name="description" required></textarea>
+                <span *ngIf="applicationForm.submitted && description.invalid" class="text-danger" translate>pages.applications.error_message.description</span>
+              </div>
+            </div>
+            <div class="divBtn">
+              <button (click)="back()" class="btn btn--ghost btn--default" type="button">
+                <span translate>commons.actions.cancel</span>
+              </button>
+              <button (click)="createApplication()" [disabled]="applicationForm.form.invalid || missingChainOfTrust" class="btn btn--plain btn--primary" type="submit">
+                <span translate>commons.actions.validate</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

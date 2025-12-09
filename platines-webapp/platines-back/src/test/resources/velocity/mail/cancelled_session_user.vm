@@ -1,0 +1,15 @@
+#*
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ *#
+<html>
+ 
+<head></head>
+ 
+<body>
+<p>Bonjour ${firstName},</p>
+<p>L&#39;ex&eacute;cution de votre session de test du ${creationDate} a &eacute;t&eacute; annul&eacute;e par Platines.
+Apr&egrave;s ${provisionning_timeout}minutes en file d'attente, aucune ressource n'a &eacute;t&eacute; lib&eacute;r&eacute;e.
+Veuillez nous excuser pour la g&ecirc;ne occasionn&eacute;e.
+</p>
+</body>
+</html>

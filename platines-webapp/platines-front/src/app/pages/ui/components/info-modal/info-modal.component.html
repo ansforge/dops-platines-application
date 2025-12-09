@@ -1,0 +1,33 @@
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<div>
+  <div class="modal-header card-header">
+    <div [ngSwitch]="modalIcon">
+      <div *ngSwitchCase="'error'" class="o-alert__icon o-alert--error">
+      <svg aria-hidden="true" class="svg-icon svg-circle-cross" focusable="false">
+        <use xlink:href="svg-icons/icon-sprite.svg#circle-cross">
+      </use>
+    </svg>
+    </div>
+    <h4 class="modal-title" translate="">{{modalHeader}}</h4></div>
+    <button (click)="closeModal()" aria-label="Close" class="btn btn--close btn--icon-only" data-dismiss="modal" type="button">
+      <svg aria-hidden="true" class="svg-icon svg-close" focusable="false">
+        <use xlink:href="svg-icons/icon-sprite.svg#close">
+
+        </use>
+      </svg>
+    </button>
+
+  </div>
+  <form>
+    <div class="modal-body">
+      <p class="paragraphe" translate="">{{modalContent}}</p>
+    </div>
+    <div class="modal-footer">
+      <button (click)="closeModal()" class="btn btn--plain btn--primary" translate="commons.actions.ok" type="button" #validate></button>
+    </div>
+  </form>
+</div>

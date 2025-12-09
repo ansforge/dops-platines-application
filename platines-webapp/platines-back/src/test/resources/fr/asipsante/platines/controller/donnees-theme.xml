@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+
+	<acl_object_identity id="10" object_id_class="3"
+		object_id_identity="12" owner_sid="3" entries_inheriting="0" /> <!--  Theme PLATINES  -->
+	<acl_object_identity id="11" object_id_class="3"
+		object_id_identity="13" owner_sid="4" entries_inheriting="0" /> <!--  Theme Kenny -->
+	<acl_object_identity id="13" object_id_class="3"
+		object_id_identity="11" owner_sid="4" entries_inheriting="0" /> <!--  Theme ROR -->
+	<acl_object_identity id="14" object_id_class="9"
+		object_id_identity="10" owner_sid="4" entries_inheriting="0" />
+	<acl_object_identity id="15" object_id_class="9"
+		object_id_identity="2" owner_sid="4" entries_inheriting="0" />
+	<acl_object_identity id="16" object_id_class="9"
+		object_id_identity="3" owner_sid="4" entries_inheriting="0" />
+	<acl_object_identity id="17" object_id_class="9"
+		object_id_identity="4" owner_sid="4" entries_inheriting="0" />
+        <acl_object_identity id="18" object_id_class="7"
+		object_id_identity="21" owner_sid="4" entries_inheriting="0" />
+        <acl_object_identity id="19" object_id_class="7"
+		object_id_identity="22" owner_sid="4" entries_inheriting="0" />
+        <acl_object_identity id="20" object_id_class="7"
+		object_id_identity="23" owner_sid="4" entries_inheriting="0" />
+        <acl_object_identity id="21" object_id_class="7"
+		object_id_identity="24" owner_sid="4" entries_inheriting="0" />
+        
+        <!-- ACL sur le thème PLATINES -->
+	<acl_entry id="10" acl_object_identity="10" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="11" acl_object_identity="10" ace_order="1"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="12" acl_object_identity="10" ace_order="2"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="13" acl_object_identity="10" ace_order="3"
+		sid="1" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="14" acl_object_identity="10" ace_order="4"
+		sid="2" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        <!-- FIN ACL sur le thème PLATINES -->
+        
+        <!-- ACL sur le thème ROR -->
+	<acl_entry id="15" acl_object_identity="13" ace_order="0"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="16" acl_object_identity="13" ace_order="1"
+		sid="1" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<!-- ACL sur le thème ROR -->
+        
+        <!-- ACL sur le système system (id=1) -->
+	<acl_entry id="17" acl_object_identity="14" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="18" acl_object_identity="14" ace_order="1"
+		sid="3" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="19" acl_object_identity="14" ace_order="2"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="20" acl_object_identity="14" ace_order="3"
+		sid="1" mask="2" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="21" acl_object_identity="14" ace_order="4"
+		sid="2" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        
+        <!-- ACL sur le système system1 (id=2) -->
+	<acl_entry id="22" acl_object_identity="15" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="23" acl_object_identity="15" ace_order="0"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        <!-- ACL sur le système system2 (id=3) -->
+        <acl_entry id="24" acl_object_identity="16" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="25" acl_object_identity="16" ace_order="0"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+
+        <!-- ACL sur le système system3 (id=4) -->
+	<acl_entry id="26" acl_object_identity="17" ace_order="0"
+		sid="3" mask="1" granting="1" audit_success="1" audit_failure="1" />
+	<acl_entry id="27" acl_object_identity="17" ace_order="0"
+		sid="1" mask="1" granting="1" audit_success="1" audit_failure="1" />
+        <acl_entry id="28" acl_object_identity="11" ace_order="0"
+		sid="3" mask="8" granting="1" audit_success="1" audit_failure="1" />
+	
+	<association id="2" association_type="2"/>
+	<association id="3" association_type="2"/>
+	<association id="4" association_type="2"/>
+	<association id="10" association_type="2"/>
+        <association id="11" association_type="1"/>
+	<association id="12" association_type="1"/>
+        <association id="13" association_type="1"/>
+        <association id="21" association_type="3"/>
+        <association id="22" association_type="3"/>
+        <association id="23" association_type="3"/>
+        <association id="24" association_type="2"/>
+
+	<famille id="11" nom="ROR" visibilite="0" />
+	<famille id="12" nom="PLATINES" visibilite="1" />
+        <famille id="13" nom="Kenny" visibilite="1" />
+
+	<systeme id="10" nom="systeme" FAMILLE_ID="12"></systeme>
+	<systeme id="2" nom="systeme1" FAMILLE_ID="12"></systeme>
+	<systeme id="3" nom="systeme2" FAMILLE_ID="12"></systeme>
+	<systeme id="4" nom="systeme3" FAMILLE_ID="11"></systeme>
+
+        <projet 
+          id="1" 
+          nom="ProjetClientROR" 
+          description="Projet avec role client pour le ROR"
+          role="CLIENT"
+          visibilite="true"
+        >
+        </projet>
+        <projet 
+          id="2" 
+          nom="ProjetClientPLATINES" 
+          description="Projet avec role client pour Platines"
+          role="CLIENT"
+          visibilite="true"
+        >
+        </projet>
+        <projet 
+          id="3" 
+          nom="ProjetServeurPLATINES" 
+          description="Projet avec role serveur pour Platines"
+          role="SERVER"
+          visibilite="true"
+        >
+        </projet>
+        
+         <version 
+          id="21"
+          libelle="ROR.v1"
+          systeme_id="4"
+          visibilite="true"
+        >
+        </version>
+        <version 
+          id="22"
+          libelle="ROR.v2"
+          systeme_id="4"
+          visibilite="true"
+        >
+        </version>
+        <version
+          id="23"
+          libelle="Platines.v1"
+          systeme_id="10"
+          visibilite="true"
+        >
+        </version>
+        <version
+          id="24"
+          libelle="Platines.v0"
+          systeme_id="10"
+          visibilite="true"
+        >
+        </version>
+        
+	<version_project
+          VERSION_ID="21"
+          PROJECT_ID="1"
+        >
+        </version_project>
+        <version_project
+          VERSION_ID="22"
+          PROJECT_ID="1"
+        >
+        </version_project>
+        <version_project
+          VERSION_ID="23"
+          PROJECT_ID="2"
+        >
+        </version_project>
+        <version_project
+          VERSION_ID="23"
+          PROJECT_ID="3"
+        >
+        </version_project>
+        <version_project
+          VERSION_ID="24"
+          PROJECT_ID="2"
+        >
+        </version_project>
+</dataset>

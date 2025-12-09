@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<dataset>
+	<acl_object_identity id="31" object_id_class="21"
+		object_id_identity="5" owner_sid="3" entries_inheriting="0" />
+
+	<utilisateur id="5" dateCreation="2018-02-27 00:00:00" entreprise="asip"
+		mail="guineapig@esante.gouv.fr" nom="Guinea-pig"
+		password="$2a$10$cVKs5L1vg.nEtJt93u1dielEzOQBDxCenyR9jRMwzvx.XRVw8Lgp2"
+		prenom="Bob" PROFILE_ID="2" />
+</dataset>

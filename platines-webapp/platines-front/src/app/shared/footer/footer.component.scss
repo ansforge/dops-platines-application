@@ -1,0 +1,36 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.version{
+  width: 100%;
+  color: var(--black);
+}
+
+.smaller-footer {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  
+  .smaller-footer > div:first-child {
+    flex-grow: 1;
+    flex-basis: fit-content;
+  }
+  
+  .smaller-footer > div:nth-child(2) {
+    flex-grow: 1;
+    flex-basis: fit-content;
+  }
+  
+  .smaller-footer > div:nth-child(3) {
+    flex-grow: 2;
+    flex-shrink: 2;
+  }
+  
+  .smaller-footer > div:last-child {
+    flex-grow: 1;
+    align-self: flex-end;
+    flex-basis: fit-content;
+    margin-bottom: 3rem;
+  }

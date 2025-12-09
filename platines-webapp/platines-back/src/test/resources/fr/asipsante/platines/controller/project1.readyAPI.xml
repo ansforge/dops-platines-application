@@ -1,0 +1,1609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<con:soapui-project id="33a359da-bd1d-4fcc-8aa2-de669a5b5c17" created="2.1.0" activeEnvironment="Default environment" name="ProjetClientROR" resourceRoot="${projectDir}" updated="2.6.0 2019-01-14T14:47:06Z" compositeProjectFormat="1.3" soapui-version="6.0.0" encryptionMode="Not encrypted" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>NOM DU PROJET DE TEST : EXTRACTION CONFORMITE CONTENU FILTRE PAR CHAMP D’ACTIVITE
+Rôle de la plateforme : Client
+Transaction : TR-RécupérationExtraction-ExtractionOffresSante
+
+Objectif:
+Vérifier que le contenu du fichier d’extraction est conforme aux spécifications fonctionnelles détaillées et que le ROR  puisse faire une extraction filtrée conformément à la politique d’accès. L'extraction demandée concerne les profils d’accès aux données suivants : 
+•	Profil 0 - Profil d’accès aux données publiques
+•	Profil 1 - Accès à toutes les données à accès restreint et très restreint
+•	Profil 2 - Accès aux données à accès restreint, hors données très restreintes
+•	Profil 3 - Accès aux données à accès restreint sur le champ médico-social (hors données très restreintes) et accès limité aux données publiques sur le champ sanitaire
+
+NB : La spécification des attributs du modèle d’exposition par profils est décrite dans le document de mapping « ROR-MappingCSD-v2.4.xlsx ».
+
+Contenu :
+Ce projet de test est composé d’une suite de test. Les tests réalisés correspondent à l’usage d’orientation en SSR et PA-PH ainsi que l’usage de régulation SAMU et l’usage ambulatoire.
+
+Prérequis :
+Pour pouvoir utiliser ce projet de test, il est demandé que le gisement de données du ROR décrivant les offres de santé ne soit pas vide. Avec au moins un exemple ouvert pour chaque champ d’activité et pour les deux publics pris en charge.
+Il est demandé également de passer au préalable la suite de tests « C_Extraction_conformité_fichier».
+
+Paramètres à saisir par l’utilisateur :
+• Enpoint : par défaut, URL de votre application à tester
+
+Fichiers à charger pour le test :
+- validation_metadonnees.sch, 
+- validation_identifiants.sch, 
+- validation_conformite_UE.sch, 
+- filtre_profil0.sch
+- filtre_profil2.sch
+- filtre_profil3.sch</con:description>
+  <con:settings>
+    <con:setting id="WsdlSettings@cache-wsdls">true</con:setting>
+  </con:settings>
+  <con:interface xsi:type="con:RestService" id="64eef494-52d9-468c-ba14-810a449a70ac" wadlVersion="http://wadl.dev.java.net/2009/02" name="REST Service 2" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart=""/>
+    <con:endpoints>
+      <con:endpoint>http://url-du-serveur-cible</con:endpoint>
+    </con:endpoints>
+    <con:resource name="Transaction Extraction" path="/" id="3d619adc-09d4-47da-9364-5183cc766a41">
+      <con:description>Transaction Extraction</con:description>
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="GET" id="dacb109f-0a89-4d36-a2e4-b9e2556f5d4d" method="GET">
+        <con:settings/>
+        <con:parameters/>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType>application/octect-stream</con:mediaType>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType>text/html</con:mediaType>
+          <con:status>503</con:status>
+          <con:params/>
+          <con:element>html</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>500</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="FAULT">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>404</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:representation type="RESPONSE">
+          <con:mediaType xsi:nil="true"/>
+          <con:status>0</con:status>
+          <con:params/>
+          <con:element>data</con:element>
+        </con:representation>
+        <con:request name="Get Request" id="258b620b-de36-46bb-80d5-418740231cf9" mediaType="application/json">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://url-du-serveur-cible</con:endpoint>
+          <con:request/>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters/>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:testSuite id="b5d83668-3ea8-4fe4-8bc3-f58ae483a453" name="EXTRACTION CONFORMITE CONTENU FILTRE PAR PROFIL">
+    <con:description>Exigences fonctionnelles  vérifiées dans la suite de test :
+• RG_EXP_001 : L’OI DOIT au minimum contenir le niveau UE.
+• RG_EXP_002 : Si un élément obligatoire dans la structure du flux d’échange n’est pas renseigné dans le ROR interrogé, alors l’instance de l’entité à laquelle appartient cet élément NE DOIT PAS être transmise. Les instances des entités hiérarchiquement inférieures NE DOIVENT PAS être transmises non plus. 
+Les instances des entités hiérarchiquement supérieures DOIVENT être transmises en respectant la condition ci-dessus.
+• RG_EXP_010 : Une UE DOIT être renseignée avec un et un seul champ d’activité qui est invariable.
+• RG_EXP_011 : Une UE DOIT être renseignée avec un seul mode de prise en charge qui est invariable. 
+Le changement de mode de prise en charge implique la création d’une nouvelle UE.
+• RG_EXP_020 : Afin de transmettre les métadonnées, les ROR DOIVENT tracer les dates et les heures (HH :MM :SS) de création, modification, suppression de chaque donnée de leur structure interne. Ces informations permettent aux SI-Externes de se synchroniser. 
+• RG_EXP_023 : Lors de la création d'un objet les attributs dateCreation et dateMiseJour des métadonnées DOIVENT être initiés avec la même valeur.
+• RG_ALIM_023 : La réponse d’une transaction DOIT contenir : le détail de la réponse si la requête est valide OU (exclusif) un code erreur sans le détail de la réponse si la requête est invalide.
+• RG_ALIM_024 : Un ROR interrogé DOIT répondre dans un délai maximum (timeout) de 5 secondes sauf pour la transaction d’extraction où le délai maximum est posé à 2 heures.</con:description>
+    <con:settings/>
+    <con:savedRecentRuns>1</con:savedRecentRuns>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="5d4fa00e-a717-4d47-96d8-5adf79c94d72" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="1-Extraction filtrée pour le profil 0" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Platines envoie la requête d’extraction suivante : 
+GET /version/extraction/ExtractionOffresSante_Profil0
+
+La réponse attendue contient :
+Un fichier appelé ExtractionOffresSante_Profil0_aaaammjjhhmm.zip 
+
+Les règles de gestion vérifiées sont : 
+RG_EXP_001, RG_EXP_002, RG_EXP_010, RG_EXP_011, RG_EXP_020, RG_EXP_023, RG_ALIM_023, RG_ALIM_024, RG_ALIM_046</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Properties" id="31cd7f23-fa30-4e6c-b49b-5358a24b46ea">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>URL_complete</con:name>
+              <con:value>${#Project#hostname}${#Project#ressource_path}/ExtractionOffresSante_Profil0</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="Requete - profil 0" id="0fb85ea2-58b0-4692-9892-da0c9d77f71d">
+        <con:settings/>
+        <con:config service="REST Service 2" resourcePath="/" methodName="GET" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="Requete - profil 0" id="a8bc9a50-e26b-4c82-99c6-9d9b14a17e25" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">${projectDir}/test.zip</con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@use-get-method-on-302-redirect">false</con:setting>
+            </con:settings>
+            <con:endpoint>${Properties#URL_complete}</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://d7da54de-5e8e-4472-8f29-1703ee1ac063.mock.platines.henix.asipsante.fr/</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="dc7f1665-7c54-4b2a-a118-164cd4377ca7" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" id="1d9d92ce-fdc2-4ccc-b177-93a3158ac256" name="Script Assertion - Validation du Fichier ZIP">
+              <con:configuration>
+                <scriptText>import groovy.io.FileType
+import groovy.time.TimeCategory
+import org.apache.commons.io.FileUtils
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.security.DigestInputStream
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import javax.xml.bind.DatatypeConverter
+import javax.xml.XMLConstants
+import javax.xml.transform.stream.StreamSource
+import javax.xml.validation.SchemaFactory
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import com.eviware.soapui.support.GroovyUtils
+import com.eviware.soapui.SoapUI 						// import pour récuperer les settings et le nosFolder
+
+import org.apache.xmlbeans.XmlObject; 					//
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;		// imports pour les tests Schematron
+import org.w3c.dom.Document;							//
+
+import com.eviware.soapui.SoapUI; 						// import pour ecrire dans les Log
+import org.apache.log4j.Logger;   						// import pour ecrire dans les Log
+		
+import com.helger.schematron.ISchematronResource;			//
+import com.helger.schematron.svrl.SVRLFailedAssert;		//
+import com.helger.schematron.svrl.SVRLHelper;			// imports pour les tests Schematron
+import com.helger.schematron.svrl.SVRLReader;			//
+import com.helger.schematron.xslt.SchematronResourceSCH;	//
+
+def nosFolder = SoapUI.settings.getString("nosFolder","")
+
+def propertyUserDir = System.getProperty("user.dir");
+def testContext = new GroovyUtils(context);
+def long currentTimestamp = new Date().time;
+def projectDir = testContext.projectPath
+def schemaxsd = testContext.expand( '${#Project#schemaxsd}' )
+def schemaxsdLocal = testContext.expand( '${#Project#schemaxsdLocal}' )
+def boolean testEnSucces = true;
+
+def testSchematron = new TestSchematron();
+//Récupération de la réponse du step voulu
+def response = messageExchange.response;					// stockage de la réponse
+
+def requete = new String(messageExchange.rawRequestData)		// stockage et Log de la requete brute
+log.info ("Requete envoyée : " + requete);
+
+// assert response.timeTaken &lt; 5000 : 'Le ROR répond dans un délais supérieur à 5 secondes'
+log.info ("Temps de réponse : " + response.timeTaken +"ms");
+
+//Répertoire de travail
+def File workDir = new File(projectDir + File.separator + "workspace" + currentTimestamp.toString());
+def boolean isWorkDirectoryCreated	= workDir.mkdir();
+
+//Buffer
+def byte[] bytes = new byte[1024];
+//Récupération du fichier zip
+def String pathResponseFile = projectDir + File.separator + "test.zip";
+// Récupération du status ainsi que du code de retour de la réponse à la requête
+def httpStatus = response.responseHeaders["#status#"];
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0];
+assert (httpStatusCode == "200") : 'Le serveur retourne un status ' + httpStatusCode
+
+// Si le webservice rest retourne bien un contenu de type "application/octet-stream" avec un status 200
+// On dézipe le fichier reçu et on effectue le traitement voulu
+if(httpStatusCode.equals("200")) {
+	def String zipName = response.responseHeaders.get("Content-Disposition")[0].split("filename=")[1]
+	def int lastIndex = zipName.lastIndexOf("_")
+	def String dateZip = zipName.substring(lastIndex+1).split(".zip")[0]
+
+	def long zipTimestamp = Date.parse("yyyyMMddHHmm",dateZip, TimeZone.getDefault()).time
+
+	if (!(currentTimestamp > zipTimestamp)) {
+		testEnSucces = false;
+		Log.info ("Erreur : La date du zip est postérieur à la date du jour");
+		log.info "currentTimestamp : " + currentTimestamp
+		log.info "zipTimestamp : " + zipTimestamp
+	}
+
+	// Ouverture du fichier zip
+	def ZipFile zipFile = new ZipFile(pathResponseFile);
+	def  Enumeration enu = zipFile.entries();
+	while (enu.hasMoreElements()) {
+		def ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+		def String name = zipEntry.getName();
+		// Do we need to create a directory ?
+		def File file = new File(workDir.getAbsolutePath() + File.separator + name);
+		// Extract the file
+		def InputStream is = zipFile.getInputStream(zipEntry);
+		def OutputStream fos = new FileOutputStream(file);
+
+		def int length;
+		while ((length = is.read(bytes)) >= 0) {
+			fos.write(bytes, 0, length);
+		}
+		is.close();
+		fos.close();
+	}
+	zipFile.close();
+//	
+// Teste la taille du fichier (elle doit etre inférieure à 103Mo)
+//
+	def int maxFileSize = 103000000;
+	def int tailleFichier = 0;
+	workDir.eachFileRecurse (FileType.FILES) { file ->
+		if(file.name.endsWith(".xml")) {
+			tailleFichier = file.size();
+			assert (maxFileSize > tailleFichier) : 'Erreur : Le fichier ' + file + ' est trop volumineux;' + ' Taille du fichier : ' + tailleFichier + ' Taille maximum acceptée : ' + maxFileSize
+			def String txtfilename = file.path.replace(".xml",".txt");
+			def File checkSumFile = new File(txtfilename);
+			def String fileContents = checkSumFile.text;
+			def md = MessageDigest.getInstance("SHA-256");
+			def bis = new BufferedInputStream(new FileInputStream(file));
+			def int count;
+			while ((count = bis.read(bytes)) > 0) {
+				md.update(bytes, 0, count);
+			}
+//	
+// Teste le CheckSum
+//
+			def hash = md.digest();
+			def hashGroovy = DatatypeConverter.printHexBinary(hash)
+			def hashFichier = fileContents.toUpperCase()
+
+			if (hashGroovy.equals(hashFichier)) {
+				log.info "Résultat du checksum " + hashGroovy.equals(hashFichier);
+			} else {
+				Log.info ("Erreur de CheckSum");
+				log.info (hashGroovy + " = CheckSum calculé");
+				log.info (hashFichier + " = CheckSum du fichier");
+				testEnSucces = false;
+			}
+//	
+// Teste la conformité au schéma XSD et teste les Schématrons
+//
+def input = null
+try{
+	if(new URL(schemaxsd).text != null) {
+		input = new URL(schemaxsd);
+	}
+} catch(Exception e) {
+	input = new File(projectDir + File.separator + schemaxsdLocal);
+}
+			input.withInputStream { xsd ->
+				file.withReader { xml ->
+					def streamSourceXml = null
+					try {
+						streamSourceXml = new StreamSource( new FileInputStream(file) )
+						SchemaFactory.newInstance( XMLConstants.W3C_XML_SCHEMA_NS_URI )
+								.newSchema( new StreamSource( xsd ) )
+								.newValidator()
+								.validate( streamSourceXml )
+						log.info "Schéma valide : " + file.name
+					} catch (Exception e) {
+						testEnSucces = false;
+						log.info('Erreur lors de la validation du fichier: ' + file.name, e)
+					} finally {
+						def listFiles = new ArrayList&lt;String>();
+						//======= ici ajouter autant de fois que de schematrons à executer 
+						def String schematronName = "validation_identifiants.sch";
+						listFiles.add(schematronName);		
+						schematronName = "validation_metadonnees.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_elements_nomenclatures.sch";
+						listFiles.add(schematronName);		
+						schematronName = "filtre_profil0.sch";
+						listFiles.add(schematronName);				
+						//=======
+						for(schFile in listFiles) {
+							System.setProperty("user.dir", SoapUI.getSettings().getString("nosFolder", "Value du folder"));
+							def resultSchematron = testSchematron.getLogs(schFile, file);				
+							System.setProperty("user.dir", propertyUserDir);							
+							//log.info "validation avec le schematron " + schFile;
+							if(!resultSchematron) {
+								testEnSucces = resultSchematron;
+							}	
+						}						
+						streamSourceXml.inputStream.close()
+					}
+				}
+			}
+		}
+	}
+	assert testEnSucces : 'Erreur lors du test, voir le contenu des Log Script et Error pour le détail'
+}
+// Fin du script
+//
+//===========================================================================================================
+//
+// Classe qui teste un Schematron sur un fichier XML et qui ecrit le resultat dans les Log Script et Error
+//
+class TestSchematron {
+	Logger scriptLogger = Logger.getLogger("groovy.log");	// définition du Logger DANS la Classe
+	public boolean getLogs(String schematronName, File xmlFile) {
+		SoapUI.getErrorLog().info(xmlFile.getAbsolutePath() + " vérifié avec le schématron " + schematronName)
+		def File schematronFile = new File (schematronName)
+		ISchematronResource srcSchematron = SchematronResourceSCH.fromFile(schematronFile);
+		if(!srcSchematron.isValidSchematron()) {
+			throw new IllegalArgumentException("Invalide schematron: " + schematronFile.getAbsolutePath());
+		}	
+		SchematronOutputType outputType = null;
+		try {
+			Document doc =srcSchematron.applySchematronValidation(new StreamSource(new FileInputStream(xmlFile)));
+			outputType = SVRLReader.readXML(doc);
+		}  catch (Exception e) {
+			SoapUI.getErrorLog().fatal(e);
+		}
+		return getFailedAssertions(outputType, schematronName);
+	}
+	private boolean getFailedAssertions(SchematronOutputType outputType, String schematronName) {
+		def testEnSucces = true
+		if(outputType != null) {
+			int nbErrors = 0;
+			List&lt;SVRLFailedAssert> failedList = SVRLHelper.getAllFailedAssertions(outputType);
+			nbErrors = failedList.size();	
+			SoapUI.getErrorLog().info(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName);
+			if (nbErrors!=0){
+				scriptLogger.error(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName + ", consulter le ErrorLog pour voir le détail");				
+				for (SVRLFailedAssert svrlFailedAssert : failedList) {
+					SoapUI.getErrorLog().error("L'assertion a échouée pour le test " + svrlFailedAssert.getTest() +
+							" " + svrlFailedAssert.getText() + " a échouée à  la position " + svrlFailedAssert.getLocation());
+				}	
+				testEnSucces = false;
+			} else {
+				scriptLogger.info(nbErrors + " erreur relevée par le schematron " + schematronName)
+			}
+// ErrorLog			SoapUI.getErrorLog().info("Ecritue dans le Log Error");
+// ReadyLog			SoapUI.log ("Ecriture dans le Log Ready");
+// ScriptLog			scriptLogger.info("Ecriture dans le Log Script");
+		}
+		return testEnSucces;					
+	}
+}
+//
+// Fin de la classe qui teste la validité au Schématron
+//</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:parameters/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>e20d2b9a-5212-48a5-bcaa-99097c09e870</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="cc9adb47-ac6e-43c4-aba8-1ad7ed1bbbae" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="2-Extraction filtrée pour le profil 1" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Platines envoie la requête d’extraction suivante : 
+GET /version/extraction/ExtractionOffresSante_Profil1
+
+La réponse attendue contient :
+Un fichier appelé ExtractionOffresSante_Profil1_aaaammjjhhmm.zip 
+
+Les règles de gestion vérifiées sont : 
+RG_EXP_001, RG_EXP_002, RG_EXP_010, RG_EXP_011, RG_EXP_020, RG_EXP_023, RG_ALIM_023, RG_ALIM_024, RG_ALIM_047</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Properties" id="2cee72a9-322f-40b0-81e1-5ac845cc6215">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>URL_complete</con:name>
+              <con:value>${#Project#hostname}${#Project#ressource_path}/ExtractionOffresSante_Profil1</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="Requete - profil 1" id="96169076-bda0-49b2-8126-b0cc75678dca">
+        <con:settings/>
+        <con:config service="REST Service 2" resourcePath="/" methodName="GET" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="Requete - profil 1" id="a8bc9a50-e26b-4c82-99c6-9d9b14a17e25" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">${projectDir}/test.zip</con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@use-get-method-on-302-redirect">false</con:setting>
+            </con:settings>
+            <con:endpoint>${Properties#URL_complete}</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://d7da54de-5e8e-4472-8f29-1703ee1ac063.mock.platines.henix.asipsante.fr/</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="dc7f1665-7c54-4b2a-a118-164cd4377ca7" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" id="1d9d92ce-fdc2-4ccc-b177-93a3158ac256" name="Script Assertion - Validation du Fichier ZIP">
+              <con:configuration>
+                <scriptText>import groovy.io.FileType
+import groovy.time.TimeCategory
+import org.apache.commons.io.FileUtils
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.security.DigestInputStream
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import javax.xml.bind.DatatypeConverter
+import javax.xml.XMLConstants
+import javax.xml.transform.stream.StreamSource
+import javax.xml.validation.SchemaFactory
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import com.eviware.soapui.support.GroovyUtils
+import com.eviware.soapui.SoapUI 						// import pour récuperer les settings et le nosFolder
+
+import org.apache.xmlbeans.XmlObject; 					//
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;		// imports pour les tests Schematron
+import org.w3c.dom.Document;							//
+
+import com.eviware.soapui.SoapUI; 						// import pour ecrire dans les Log
+import org.apache.log4j.Logger;   						// import pour ecrire dans les Log
+		
+import com.helger.schematron.ISchematronResource;			//
+import com.helger.schematron.svrl.SVRLFailedAssert;		//
+import com.helger.schematron.svrl.SVRLHelper;			// imports pour les tests Schematron
+import com.helger.schematron.svrl.SVRLReader;			//
+import com.helger.schematron.xslt.SchematronResourceSCH;	//
+
+def nosFolder = SoapUI.settings.getString("nosFolder","")
+
+def propertyUserDir = System.getProperty("user.dir");
+def testContext = new GroovyUtils(context);
+def long currentTimestamp = new Date().time;
+def projectDir = testContext.projectPath
+def schemaxsd = testContext.expand( '${#Project#schemaxsd}' )
+def schemaxsdLocal = testContext.expand( '${#Project#schemaxsdLocal}' )
+def boolean testEnSucces = true;
+
+def testSchematron = new TestSchematron();
+//Récupération de la réponse du step voulu
+def response = messageExchange.response;					// stockage de la réponse
+
+def requete = new String(messageExchange.rawRequestData)		// stockage et Log de la requete brute
+log.info ("Requete envoyée : " + requete);
+
+// assert response.timeTaken &lt; 5000 : 'Le ROR répond dans un délais supérieur à 5 secondes'
+log.info ("Temps de réponse : " + response.timeTaken +"ms");
+
+//Répertoire de travail
+def File workDir = new File(projectDir + File.separator + "workspace" + currentTimestamp.toString());
+def boolean isWorkDirectoryCreated	= workDir.mkdir();
+
+//Buffer
+def byte[] bytes = new byte[1024];
+//Récupération du fichier zip
+def String pathResponseFile = projectDir + File.separator + "test.zip";
+// Récupération du status ainsi que du code de retour de la réponse à la requête
+def httpStatus = response.responseHeaders["#status#"];
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0];
+assert (httpStatusCode == "200") : 'Le serveur retourne un status ' + httpStatusCode
+
+// Si le webservice rest retourne bien un contenu de type "application/octet-stream" avec un status 200
+// On dézipe le fichier reçu et on effectue le traitement voulu
+if(httpStatusCode.equals("200")) {
+	def String zipName = response.responseHeaders.get("Content-Disposition")[0].split("filename=")[1]
+	def int lastIndex = zipName.lastIndexOf("_")
+	def String dateZip = zipName.substring(lastIndex+1).split(".zip")[0]
+
+	def long zipTimestamp = Date.parse("yyyyMMddHHmm",dateZip, TimeZone.getDefault()).time
+
+	if (!(currentTimestamp > zipTimestamp)) {
+		testEnSucces = false;
+		Log.info ("Erreur : La date du zip est postérieur à la date du jour");
+		log.info "currentTimestamp : " + currentTimestamp
+		log.info "zipTimestamp : " + zipTimestamp
+	}
+
+	// Ouverture du fichier zip
+	def ZipFile zipFile = new ZipFile(pathResponseFile);
+	def  Enumeration enu = zipFile.entries();
+	while (enu.hasMoreElements()) {
+		def ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+		def String name = zipEntry.getName();
+		// Do we need to create a directory ?
+		def File file = new File(workDir.getAbsolutePath() + File.separator + name);
+		// Extract the file
+		def InputStream is = zipFile.getInputStream(zipEntry);
+		def OutputStream fos = new FileOutputStream(file);
+
+		def int length;
+		while ((length = is.read(bytes)) >= 0) {
+			fos.write(bytes, 0, length);
+		}
+		is.close();
+		fos.close();
+	}
+	zipFile.close();
+//	
+// Teste la taille du fichier (elle doit etre inférieure à 103Mo)
+//
+	def int maxFileSize = 103000000;
+	def int tailleFichier = 0;
+	workDir.eachFileRecurse (FileType.FILES) { file ->
+		if(file.name.endsWith(".xml")) {
+			tailleFichier = file.size();
+			assert (maxFileSize > tailleFichier) : 'Erreur : Le fichier ' + file + ' est trop volumineux;' + ' Taille du fichier : ' + tailleFichier + ' Taille maximum acceptée : ' + maxFileSize
+			def String txtfilename = file.path.replace(".xml",".txt");
+			def File checkSumFile = new File(txtfilename);
+			def String fileContents = checkSumFile.text;
+			def md = MessageDigest.getInstance("SHA-256");
+			def bis = new BufferedInputStream(new FileInputStream(file));
+			def int count;
+			while ((count = bis.read(bytes)) > 0) {
+				md.update(bytes, 0, count);
+			}
+//	
+// Teste le CheckSum
+//
+			def hash = md.digest();
+			def hashGroovy = DatatypeConverter.printHexBinary(hash)
+			def hashFichier = fileContents.toUpperCase()
+
+			if (hashGroovy.equals(hashFichier)) {
+				log.info "Résultat du checksum " + hashGroovy.equals(hashFichier);
+			} else {
+				Log.info ("Erreur de CheckSum");
+				log.info (hashGroovy + " = CheckSum calculé");
+				log.info (hashFichier + " = CheckSum du fichier");
+				testEnSucces = false;
+			}
+//	
+// Teste la conformité au schéma XSD et teste les Schématrons
+//
+def input = null
+try{
+	if(new URL(schemaxsd).text != null) {
+		input = new URL(schemaxsd);
+	}
+} catch(Exception e) {
+	input = new File(projectDir + File.separator + schemaxsdLocal);
+}
+			input.withInputStream { xsd ->
+				file.withReader { xml ->
+					def streamSourceXml = null
+					try {
+						streamSourceXml = new StreamSource( new FileInputStream(file) )
+						SchemaFactory.newInstance( XMLConstants.W3C_XML_SCHEMA_NS_URI )
+								.newSchema( new StreamSource( xsd ) )
+								.newValidator()
+								.validate( streamSourceXml )
+						log.info "Schéma valide : " + file.name
+					} catch (Exception e) {
+						testEnSucces = false;
+						log.info('Erreur lors de la validation du fichier: ' + file.name, e)
+					} finally {
+						def listFiles = new ArrayList&lt;String>();
+						//======= ici ajouter autant de fois que de schematrons à executer 
+						def String schematronName = "validation_identifiants.sch";					
+						listFiles.add(schematronName);
+						schematronName = "validation_metadonnees.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_elements_nomenclatures.sch";
+						listFiles.add(schematronName);				
+						//=======
+						for(schFile in listFiles) {
+							System.setProperty("user.dir", SoapUI.getSettings().getString("nosFolder", "Value du folder"));
+							def resultSchematron = testSchematron.getLogs(schFile, file);				
+							System.setProperty("user.dir", propertyUserDir);							
+							//log.info "validation avec le schematron " + schFile;
+							if(!resultSchematron) {
+								testEnSucces = resultSchematron;
+							}	
+						}						
+						streamSourceXml.inputStream.close()
+					}
+				}
+			}
+		}
+	}
+	assert testEnSucces : 'Erreur lors du test, voir le contenu des Log Script et Error pour le détail'
+}
+// Fin du script
+//
+//===========================================================================================================
+//
+// Classe qui teste un Schematron sur un fichier XML et qui ecrit le resultat dans les Log Script et Error
+//
+class TestSchematron {
+	Logger scriptLogger = Logger.getLogger("groovy.log");	// définition du Logger DANS la Classe
+	public boolean getLogs(String schematronName, File xmlFile) {
+		SoapUI.getErrorLog().info(xmlFile.getAbsolutePath() + " vérifié avec le schématron " + schematronName)
+		def File schematronFile = new File (schematronName)
+		ISchematronResource srcSchematron = SchematronResourceSCH.fromFile(schematronFile);
+		if(!srcSchematron.isValidSchematron()) {
+			throw new IllegalArgumentException("Invalide schematron: " + schematronFile.getAbsolutePath());
+		}	
+		SchematronOutputType outputType = null;
+		try {
+			Document doc =srcSchematron.applySchematronValidation(new StreamSource(new FileInputStream(xmlFile)));
+			outputType = SVRLReader.readXML(doc);
+		}  catch (Exception e) {
+			SoapUI.getErrorLog().fatal(e);
+		}
+		return getFailedAssertions(outputType, schematronName);
+	}
+	private boolean getFailedAssertions(SchematronOutputType outputType, String schematronName) {
+		def testEnSucces = true
+		if(outputType != null) {
+			int nbErrors = 0;
+			List&lt;SVRLFailedAssert> failedList = SVRLHelper.getAllFailedAssertions(outputType);
+			nbErrors = failedList.size();	
+			SoapUI.getErrorLog().info(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName);
+			if (nbErrors!=0){
+				scriptLogger.error(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName + ", consulter le ErrorLog pour voir le détail");				
+				for (SVRLFailedAssert svrlFailedAssert : failedList) {
+					SoapUI.getErrorLog().error("L'assertion a échouée pour le test " + svrlFailedAssert.getTest() +
+							" " + svrlFailedAssert.getText() + " a échouée à  la position " + svrlFailedAssert.getLocation());
+				}	
+				testEnSucces = false;
+			} else {
+				scriptLogger.info(nbErrors + " erreur relevée par le schematron " + schematronName)
+			}
+// ErrorLog			SoapUI.getErrorLog().info("Ecritue dans le Log Error");
+// ReadyLog			SoapUI.log ("Ecriture dans le Log Ready");
+// ScriptLog			scriptLogger.info("Ecriture dans le Log Script");
+		}
+		return testEnSucces;					
+	}
+}
+//
+// Fin de la classe qui teste la validité au Schématron
+//</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:parameters/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>e20d2b9a-5212-48a5-bcaa-99097c09e870</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="1aa1b13e-32a0-47f6-bbde-26d1706933a2" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="3-Extraction filtrée pour le profil 2" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Platines envoie la requête d’extraction suivante : 
+GET /version/extraction/ExtractionOffresSante_Profil2
+
+La réponse attendue contient :
+Un fichier appelé ExtractionOffresSante_Profil2_aaaammjjhhmm.zip 
+
+Les règles de gestion vérifiées sont : 
+RG_EXP_001, RG_EXP_002, RG_EXP_010, RG_EXP_011, RG_EXP_020, RG_EXP_023, RG_ALIM_023, RG_ALIM_024, RG_ALIM_048</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Properties" id="3a191565-ea71-4bf8-9335-99779fa57da2">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>URL_complete</con:name>
+              <con:value>${#Project#hostname}${#Project#ressource_path}/ExtractionOffresSante_Profil2</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="Requete - profil 2" id="de9539c4-645a-4fca-8881-ab3a773996cc">
+        <con:settings/>
+        <con:config service="REST Service 2" resourcePath="/" methodName="GET" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="Requete - profil 2" id="a8bc9a50-e26b-4c82-99c6-9d9b14a17e25" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">${projectDir}/test.zip</con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@use-get-method-on-302-redirect">false</con:setting>
+            </con:settings>
+            <con:endpoint>${Properties#URL_complete}</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://d7da54de-5e8e-4472-8f29-1703ee1ac063.mock.platines.henix.asipsante.fr/</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="dc7f1665-7c54-4b2a-a118-164cd4377ca7" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" id="1d9d92ce-fdc2-4ccc-b177-93a3158ac256" name="Script Assertion - Validation du Fichier ZIP">
+              <con:configuration>
+                <scriptText>import groovy.io.FileType
+import groovy.time.TimeCategory
+import org.apache.commons.io.FileUtils
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.security.DigestInputStream
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import javax.xml.bind.DatatypeConverter
+import javax.xml.XMLConstants
+import javax.xml.transform.stream.StreamSource
+import javax.xml.validation.SchemaFactory
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import com.eviware.soapui.support.GroovyUtils
+import com.eviware.soapui.SoapUI 						// import pour récuperer les settings et le nosFolder
+
+import org.apache.xmlbeans.XmlObject; 					//
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;		// imports pour les tests Schematron
+import org.w3c.dom.Document;							//
+
+import com.eviware.soapui.SoapUI; 						// import pour ecrire dans les Log
+import org.apache.log4j.Logger;   						// import pour ecrire dans les Log
+		
+import com.helger.schematron.ISchematronResource;			//
+import com.helger.schematron.svrl.SVRLFailedAssert;		//
+import com.helger.schematron.svrl.SVRLHelper;			// imports pour les tests Schematron
+import com.helger.schematron.svrl.SVRLReader;			//
+import com.helger.schematron.xslt.SchematronResourceSCH;	//
+
+def nosFolder = SoapUI.settings.getString("nosFolder","")
+
+def propertyUserDir = System.getProperty("user.dir");
+def testContext = new GroovyUtils(context);
+def long currentTimestamp = new Date().time;
+def projectDir = testContext.projectPath
+def schemaxsd = testContext.expand( '${#Project#schemaxsd}' )
+def schemaxsdLocal = testContext.expand( '${#Project#schemaxsdLocal}' )
+def boolean testEnSucces = true;
+
+def testSchematron = new TestSchematron();
+//Récupération de la réponse du step voulu
+def response = messageExchange.response;					// stockage de la réponse
+
+def requete = new String(messageExchange.rawRequestData)		// stockage et Log de la requete brute
+log.info ("Requete envoyée : " + requete);
+
+// assert response.timeTaken &lt; 5000 : 'Le ROR répond dans un délais supérieur à 5 secondes'
+log.info ("Temps de réponse : " + response.timeTaken +"ms");
+
+//Répertoire de travail
+def File workDir = new File(projectDir + File.separator + "workspace" + currentTimestamp.toString());
+def boolean isWorkDirectoryCreated	= workDir.mkdir();
+
+//Buffer
+def byte[] bytes = new byte[1024];
+//Récupération du fichier zip
+def String pathResponseFile = projectDir + File.separator + "test.zip";
+// Récupération du status ainsi que du code de retour de la réponse à la requête
+def httpStatus = response.responseHeaders["#status#"];
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0];
+assert (httpStatusCode == "200") : 'Le serveur retourne un status ' + httpStatusCode
+
+// Si le webservice rest retourne bien un contenu de type "application/octet-stream" avec un status 200
+// On dézipe le fichier reçu et on effectue le traitement voulu
+if(httpStatusCode.equals("200")) {
+	def String zipName = response.responseHeaders.get("Content-Disposition")[0].split("filename=")[1]
+	def int lastIndex = zipName.lastIndexOf("_")
+	def String dateZip = zipName.substring(lastIndex+1).split(".zip")[0]
+
+	def long zipTimestamp = Date.parse("yyyyMMddHHmm",dateZip, TimeZone.getDefault()).time
+
+	if (!(currentTimestamp > zipTimestamp)) {
+		testEnSucces = false;
+		Log.info ("Erreur : La date du zip est postérieur à la date du jour");
+		log.info "currentTimestamp : " + currentTimestamp
+		log.info "zipTimestamp : " + zipTimestamp
+	}
+
+	// Ouverture du fichier zip
+	def ZipFile zipFile = new ZipFile(pathResponseFile);
+	def  Enumeration enu = zipFile.entries();
+	while (enu.hasMoreElements()) {
+		def ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+		def String name = zipEntry.getName();
+		// Do we need to create a directory ?
+		def File file = new File(workDir.getAbsolutePath() + File.separator + name);
+		// Extract the file
+		def InputStream is = zipFile.getInputStream(zipEntry);
+		def OutputStream fos = new FileOutputStream(file);
+
+		def int length;
+		while ((length = is.read(bytes)) >= 0) {
+			fos.write(bytes, 0, length);
+		}
+		is.close();
+		fos.close();
+	}
+	zipFile.close();
+//	
+// Teste la taille du fichier (elle doit etre inférieure à 103Mo)
+//
+	def int maxFileSize = 103000000;
+	def int tailleFichier = 0;
+	workDir.eachFileRecurse (FileType.FILES) { file ->
+		if(file.name.endsWith(".xml")) {
+			tailleFichier = file.size();
+			assert (maxFileSize > tailleFichier) : 'Erreur : Le fichier ' + file + ' est trop volumineux;' + ' Taille du fichier : ' + tailleFichier + ' Taille maximum acceptée : ' + maxFileSize
+			def String txtfilename = file.path.replace(".xml",".txt");
+			def File checkSumFile = new File(txtfilename);
+			def String fileContents = checkSumFile.text;
+			def md = MessageDigest.getInstance("SHA-256");
+			def bis = new BufferedInputStream(new FileInputStream(file));
+			def int count;
+			while ((count = bis.read(bytes)) > 0) {
+				md.update(bytes, 0, count);
+			}
+//	
+// Teste le CheckSum
+//
+			def hash = md.digest();
+			def hashGroovy = DatatypeConverter.printHexBinary(hash)
+			def hashFichier = fileContents.toUpperCase()
+
+			if (hashGroovy.equals(hashFichier)) {
+				log.info "Résultat du checksum " + hashGroovy.equals(hashFichier);
+			} else {
+				Log.info ("Erreur de CheckSum");
+				log.info (hashGroovy + " = CheckSum calculé");
+				log.info (hashFichier + " = CheckSum du fichier");
+				testEnSucces = false;
+			}
+//	
+// Teste la conformité au schéma XSD et teste les Schématrons
+//
+def input = null
+try{
+	if(new URL(schemaxsd).text != null) {
+		input = new URL(schemaxsd);
+	}
+} catch(Exception e) {
+	input = new File(projectDir + File.separator + schemaxsdLocal);
+}
+			input.withInputStream { xsd ->
+				file.withReader { xml ->
+					def streamSourceXml = null
+					try {
+						streamSourceXml = new StreamSource( new FileInputStream(file) )
+						SchemaFactory.newInstance( XMLConstants.W3C_XML_SCHEMA_NS_URI )
+								.newSchema( new StreamSource( xsd ) )
+								.newValidator()
+								.validate( streamSourceXml )
+						log.info "Schéma valide : " + file.name
+					} catch (Exception e) {
+						testEnSucces = false;
+						log.info('Erreur lors de la validation du fichier: ' + file.name, e)
+					} finally {
+						def listFiles = new ArrayList&lt;String>();
+						//======= ici ajouter autant de fois que de schematrons à executer 
+						def String schematronName = "validation_identifiants.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_metadonnees.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_elements_nomenclatures.sch";
+						listFiles.add(schematronName);	
+						schematronName = "filtre_profil2.sch";
+						listFiles.add(schematronName);						
+						//=======
+						for(schFile in listFiles) {
+							System.setProperty("user.dir", SoapUI.getSettings().getString("nosFolder", "Value du folder"));
+							def resultSchematron = testSchematron.getLogs(schFile, file);				
+							System.setProperty("user.dir", propertyUserDir);							
+							//log.info "validation avec le schematron " + schFile;
+							if(!resultSchematron) {
+								testEnSucces = resultSchematron;
+							}	
+						}						
+						streamSourceXml.inputStream.close()
+					}
+				}
+			}
+		}
+	}
+	assert testEnSucces : 'Erreur lors du test, voir le contenu des Log Script et Error pour le détail'
+}
+// Fin du script
+//
+//===========================================================================================================
+//
+// Classe qui teste un Schematron sur un fichier XML et qui ecrit le resultat dans les Log Script et Error
+//
+class TestSchematron {
+	Logger scriptLogger = Logger.getLogger("groovy.log");	// définition du Logger DANS la Classe
+	public boolean getLogs(String schematronName, File xmlFile) {
+		SoapUI.getErrorLog().info(xmlFile.getAbsolutePath() + " vérifié avec le schématron " + schematronName)
+		def File schematronFile = new File (schematronName)
+		ISchematronResource srcSchematron = SchematronResourceSCH.fromFile(schematronFile);
+		if(!srcSchematron.isValidSchematron()) {
+			throw new IllegalArgumentException("Invalide schematron: " + schematronFile.getAbsolutePath());
+		}	
+		SchematronOutputType outputType = null;
+		try {
+			Document doc =srcSchematron.applySchematronValidation(new StreamSource(new FileInputStream(xmlFile)));
+			outputType = SVRLReader.readXML(doc);
+		}  catch (Exception e) {
+			SoapUI.getErrorLog().fatal(e);
+		}
+		return getFailedAssertions(outputType, schematronName);
+	}
+	private boolean getFailedAssertions(SchematronOutputType outputType, String schematronName) {
+		def testEnSucces = true
+		if(outputType != null) {
+			int nbErrors = 0;
+			List&lt;SVRLFailedAssert> failedList = SVRLHelper.getAllFailedAssertions(outputType);
+			nbErrors = failedList.size();	
+			SoapUI.getErrorLog().info(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName);
+			if (nbErrors!=0){
+				scriptLogger.error(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName + ", consulter le ErrorLog pour voir le détail");				
+				for (SVRLFailedAssert svrlFailedAssert : failedList) {
+					SoapUI.getErrorLog().error("L'assertion a échouée pour le test " + svrlFailedAssert.getTest() +
+							" " + svrlFailedAssert.getText() + " a échouée à  la position " + svrlFailedAssert.getLocation());
+				}	
+				testEnSucces = false;
+			} else {
+				scriptLogger.info(nbErrors + " erreur relevée par le schematron " + schematronName)
+			}
+// ErrorLog			SoapUI.getErrorLog().info("Ecritue dans le Log Error");
+// ReadyLog			SoapUI.log ("Ecriture dans le Log Ready");
+// ScriptLog			scriptLogger.info("Ecriture dans le Log Script");
+		}
+		return testEnSucces;					
+	}
+}
+//
+// Fin de la classe qui teste la validité au Schématron
+//</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:parameters/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>e20d2b9a-5212-48a5-bcaa-99097c09e870</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:testCase id="e6aba065-6925-4aaa-ae8b-70a926257ac8" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="4-Extraction filtrée pour le profil 3" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:description>Platines envoie la requête d’extraction suivante : 
+GET /version/extraction/ExtractionOffresSante_Profil3
+
+La réponse attendue contient :
+Un fichier appelé ExtractionOffresSante_Profil3_aaaammjjhhmm.zip 
+
+Les règles de gestion vérifiées sont : 
+RG_EXP_001, RG_EXP_002, RG_EXP_010, RG_EXP_011, RG_EXP_020, RG_EXP_023, RG_ALIM_023, RG_ALIM_024, RG_ALIM_049</con:description>
+      <con:settings/>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Properties" id="67285441-7c13-4d31-87da-12d055f69a83">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>URL_complete</con:name>
+              <con:value>${#Project#hostname}${#Project#ressource_path}/ExtractionOffresSante_Profil3</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="Requete - profil 3" id="2350db20-d016-434d-9c10-86f23703f109">
+        <con:settings/>
+        <con:config service="REST Service 2" resourcePath="/" methodName="GET" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="Requete - profil 3" id="a8bc9a50-e26b-4c82-99c6-9d9b14a17e25" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@dump-file">${projectDir}/test.zip</con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@use-get-method-on-302-redirect">false</con:setting>
+            </con:settings>
+            <con:endpoint>${Properties#URL_complete}</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://d7da54de-5e8e-4472-8f29-1703ee1ac063.mock.platines.henix.asipsante.fr/</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="dc7f1665-7c54-4b2a-a118-164cd4377ca7" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" id="1d9d92ce-fdc2-4ccc-b177-93a3158ac256" name="Script Assertion - Validation du Fichier ZIP">
+              <con:configuration>
+                <scriptText>import groovy.io.FileType
+import groovy.time.TimeCategory
+import org.apache.commons.io.FileUtils
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.security.DigestInputStream
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import javax.xml.bind.DatatypeConverter
+import javax.xml.XMLConstants
+import javax.xml.transform.stream.StreamSource
+import javax.xml.validation.SchemaFactory
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import com.eviware.soapui.support.GroovyUtils
+import com.eviware.soapui.SoapUI 						// import pour récuperer les settings et le nosFolder
+
+import org.apache.xmlbeans.XmlObject; 					//
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;		// imports pour les tests Schematron
+import org.w3c.dom.Document;							//
+
+import com.eviware.soapui.SoapUI; 						// import pour ecrire dans les Log
+import org.apache.log4j.Logger;   						// import pour ecrire dans les Log
+		
+import com.helger.schematron.ISchematronResource;			//
+import com.helger.schematron.svrl.SVRLFailedAssert;		//
+import com.helger.schematron.svrl.SVRLHelper;			// imports pour les tests Schematron
+import com.helger.schematron.svrl.SVRLReader;			//
+import com.helger.schematron.xslt.SchematronResourceSCH;	//
+
+def nosFolder = SoapUI.settings.getString("nosFolder","")
+
+def propertyUserDir = System.getProperty("user.dir");
+def testContext = new GroovyUtils(context);
+def long currentTimestamp = new Date().time;
+def projectDir = testContext.projectPath
+def schemaxsd = testContext.expand( '${#Project#schemaxsd}' )
+def schemaxsdLocal = testContext.expand( '${#Project#schemaxsdLocal}' )
+def boolean testEnSucces = true;
+
+def testSchematron = new TestSchematron();
+//Récupération de la réponse du step voulu
+def response = messageExchange.response;					// stockage de la réponse
+
+def requete = new String(messageExchange.rawRequestData)		// stockage et Log de la requete brute
+log.info ("Requete envoyée : " + requete);
+
+// assert response.timeTaken &lt; 5000 : 'Le ROR répond dans un délais supérieur à 5 secondes'
+log.info ("Temps de réponse : " + response.timeTaken +"ms");
+
+//Répertoire de travail
+def File workDir = new File(projectDir + File.separator + "workspace" + currentTimestamp.toString());
+def boolean isWorkDirectoryCreated	= workDir.mkdir();
+
+//Buffer
+def byte[] bytes = new byte[1024];
+//Récupération du fichier zip
+def String pathResponseFile = projectDir + File.separator + "test.zip";
+// Récupération du status ainsi que du code de retour de la réponse à la requête
+def httpStatus = response.responseHeaders["#status#"];
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0];
+assert (httpStatusCode == "200") : 'Le serveur retourne un status ' + httpStatusCode
+
+// Si le webservice rest retourne bien un contenu de type "application/octet-stream" avec un status 200
+// On dézipe le fichier reçu et on effectue le traitement voulu
+if(httpStatusCode.equals("200")) {
+	def String zipName = response.responseHeaders.get("Content-Disposition")[0].split("filename=")[1]
+	def int lastIndex = zipName.lastIndexOf("_")
+	def String dateZip = zipName.substring(lastIndex+1).split(".zip")[0]
+
+	def long zipTimestamp = Date.parse("yyyyMMddHHmm",dateZip, TimeZone.getDefault()).time
+
+	if (!(currentTimestamp > zipTimestamp)) {
+		testEnSucces = false;
+		Log.info ("Erreur : La date du zip est postérieur à la date du jour");
+		log.info "currentTimestamp : " + currentTimestamp
+		log.info "zipTimestamp : " + zipTimestamp
+	}
+
+	// Ouverture du fichier zip
+	def ZipFile zipFile = new ZipFile(pathResponseFile);
+	def  Enumeration enu = zipFile.entries();
+	while (enu.hasMoreElements()) {
+		def ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+		def String name = zipEntry.getName();
+		// Do we need to create a directory ?
+		def File file = new File(workDir.getAbsolutePath() + File.separator + name);
+		// Extract the file
+		def InputStream is = zipFile.getInputStream(zipEntry);
+		def OutputStream fos = new FileOutputStream(file);
+
+		def int length;
+		while ((length = is.read(bytes)) >= 0) {
+			fos.write(bytes, 0, length);
+		}
+		is.close();
+		fos.close();
+	}
+	zipFile.close();
+//	
+// Teste la taille du fichier (elle doit etre inférieure à 103Mo)
+//
+	def int maxFileSize = 103000000;
+	def int tailleFichier = 0;
+	workDir.eachFileRecurse (FileType.FILES) { file ->
+		if(file.name.endsWith(".xml")) {
+			tailleFichier = file.size();
+			assert (maxFileSize > tailleFichier) : 'Erreur : Le fichier ' + file + ' est trop volumineux;' + ' Taille du fichier : ' + tailleFichier + ' Taille maximum acceptée : ' + maxFileSize
+			def String txtfilename = file.path.replace(".xml",".txt");
+			def File checkSumFile = new File(txtfilename);
+			def String fileContents = checkSumFile.text;
+			def md = MessageDigest.getInstance("SHA-256");
+			def bis = new BufferedInputStream(new FileInputStream(file));
+			def int count;
+			while ((count = bis.read(bytes)) > 0) {
+				md.update(bytes, 0, count);
+			}
+//	
+// Teste le CheckSum
+//
+			def hash = md.digest();
+			def hashGroovy = DatatypeConverter.printHexBinary(hash)
+			def hashFichier = fileContents.toUpperCase()
+
+			if (hashGroovy.equals(hashFichier)) {
+				log.info "Résultat du checksum " + hashGroovy.equals(hashFichier);
+			} else {
+				Log.info ("Erreur de CheckSum");
+				log.info (hashGroovy + " = CheckSum calculé");
+				log.info (hashFichier + " = CheckSum du fichier");
+				testEnSucces = false;
+			}
+//	
+// Teste la conformité au schéma XSD et teste les Schématrons
+//
+def input = null
+try{
+	if(new URL(schemaxsd).text != null) {
+		input = new URL(schemaxsd);
+	}
+} catch(Exception e) {
+	input = new File(projectDir + File.separator + schemaxsdLocal);
+}
+			input.withInputStream { xsd ->
+				file.withReader { xml ->
+					def streamSourceXml = null
+					try {
+						streamSourceXml = new StreamSource( new FileInputStream(file) )
+						SchemaFactory.newInstance( XMLConstants.W3C_XML_SCHEMA_NS_URI )
+								.newSchema( new StreamSource( xsd ) )
+								.newValidator()
+								.validate( streamSourceXml )
+						log.info "Schéma valide : " + file.name
+					} catch (Exception e) {
+						testEnSucces = false;
+						log.info('Erreur lors de la validation du fichier: ' + file.name, e)
+					} finally {
+						def listFiles = new ArrayList&lt;String>();
+						//======= ici ajouter autant de fois que de schematrons à executer 
+						def String schematronName = "validation_identifiants.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_metadonnees.sch";
+						listFiles.add(schematronName);
+						schematronName = "validation_elements_nomenclatures.sch";
+						listFiles.add(schematronName);				
+						schematronName = "filtre_profil3.sch";
+						listFiles.add(schematronName);			
+						//=======
+						for(schFile in listFiles) {
+							System.setProperty("user.dir", SoapUI.getSettings().getString("nosFolder", "Value du folder"));
+							def resultSchematron = testSchematron.getLogs(schFile, file);				
+							System.setProperty("user.dir", propertyUserDir);							
+							//log.info "validation avec le schematron " + schFile;
+							if(!resultSchematron) {
+								testEnSucces = resultSchematron;
+							}	
+						}						
+						streamSourceXml.inputStream.close()
+					}
+				}
+			}
+		}
+	}
+	assert testEnSucces : 'Erreur lors du test, voir le contenu des Log Script et Error pour le détail'
+}
+// Fin du script
+//
+//===========================================================================================================
+//
+// Classe qui teste un Schematron sur un fichier XML et qui ecrit le resultat dans les Log Script et Error
+//
+class TestSchematron {
+	Logger scriptLogger = Logger.getLogger("groovy.log");	// définition du Logger DANS la Classe
+	public boolean getLogs(String schematronName, File xmlFile) {
+		SoapUI.getErrorLog().info(xmlFile.getAbsolutePath() + " vérifié avec le schématron " + schematronName)
+		def File schematronFile = new File (schematronName)
+		ISchematronResource srcSchematron = SchematronResourceSCH.fromFile(schematronFile);
+		if(!srcSchematron.isValidSchematron()) {
+			throw new IllegalArgumentException("Invalide schematron: " + schematronFile.getAbsolutePath());
+		}	
+		SchematronOutputType outputType = null;
+		try {
+			Document doc =srcSchematron.applySchematronValidation(new StreamSource(new FileInputStream(xmlFile)));
+			outputType = SVRLReader.readXML(doc);
+		}  catch (Exception e) {
+			SoapUI.getErrorLog().fatal(e);
+		}
+		return getFailedAssertions(outputType, schematronName);
+	}
+	private boolean getFailedAssertions(SchematronOutputType outputType, String schematronName) {
+		def testEnSucces = true
+		if(outputType != null) {
+			int nbErrors = 0;
+			List&lt;SVRLFailedAssert> failedList = SVRLHelper.getAllFailedAssertions(outputType);
+			nbErrors = failedList.size();	
+			SoapUI.getErrorLog().info(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName);
+			if (nbErrors!=0){
+				scriptLogger.error(nbErrors + " erreur(s) relevée(s) par le schematron " + schematronName + ", consulter le ErrorLog pour voir le détail");				
+				for (SVRLFailedAssert svrlFailedAssert : failedList) {
+					SoapUI.getErrorLog().error("L'assertion a échouée pour le test " + svrlFailedAssert.getTest() +
+							" " + svrlFailedAssert.getText() + " a échouée à  la position " + svrlFailedAssert.getLocation());
+				}	
+				testEnSucces = false;
+			} else {
+				scriptLogger.info(nbErrors + " erreur relevée par le schematron " + schematronName)
+			}
+// ErrorLog			SoapUI.getErrorLog().info("Ecritue dans le Log Error");
+// ReadyLog			SoapUI.log ("Ecriture dans le Log Ready");
+// ScriptLog			scriptLogger.info("Ecriture dans le Log Script");
+		}
+		return testEnSucces;					
+	}
+}
+//
+// Fin de la classe qui teste la validité au Schématron
+//</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:parameters/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>e20d2b9a-5212-48a5-bcaa-99097c09e870</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>hostname</con:name>
+      <con:value>http://url-du-serveur-cible</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ressource_path</con:name>
+      <con:value>/V1/extraction</con:value>
+    </con:property>
+    <con:property>
+      <con:name>schemaxsd</con:name>
+      <con:value>https://esante.gouv.fr/sites/default/files/media_entity/documents/IHE_ProfilCSD-ExtensionROR_fr-v2.3.xsd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>schemaxsdLocal</con:name>
+      <con:value>IHE_ProfilCSD-ExtensionROR_fr-v2.3.xsd</con:value>
+    </con:property>
+  </con:properties>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>

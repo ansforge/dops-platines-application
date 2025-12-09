@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/v1/nodes?namespace=default"
+	},
+	"response": {
+		"status": 200,
+		"body": "[{\"ID\":\"1de30ad6-2802-f941-04ee-73767ee27b72\",\"Datacenter\":\"henix_qualif1\",\"Name\":\"vmc6c20e41.qual.henix.asip.hst.fluxus.net\",\"NodeClass\":\"\",\"Version\":\"0.7.0\",\"Drain\":false,\"Status\":\"ready\",\"StatusDescription\":\"\",\"CreateIndex\":7,\"ModifyIndex\":392022},{\"ID\":\"6b8f6b62-a286-88c7-ad51-ecec6e8ad8f8\",\"Datacenter\":\"henix_qualif1\",\"Name\":\"vm1753b837.qual.henix.asip.hst.fluxus.net\",\"NodeClass\":\"\",\"Version\":\"0.7.0\",\"Drain\":false,\"Status\":\"ready\",\"StatusDescription\":\"\",\"CreateIndex\":376089,\"ModifyIndex\":390657},{\"ID\":\"85ef02c9-0f01-d3bf-8615-feb13cc25fb7\",\"Datacenter\":\"henix_qualif1\",\"Name\":\"vmc6c20e44.qual.henix.asip.hst.fluxus.net\",\"NodeClass\":\"\",\"Version\":\"0.7.0\",\"Drain\":false,\"Status\":\"ready\",\"StatusDescription\":\"\",\"CreateIndex\":15350,\"ModifyIndex\":389754},{\"ID\":\"f26ad84c-027f-93a9-0178-18267ec79136\",\"Datacenter\":\"henix_qualif1\",\"Name\":\"vmc6c20e42.qual.henix.asip.hst.fluxus.net\",\"NodeClass\":\"\",\"Version\":\"0.7.0\",\"Drain\":false,\"Status\":\"ready\",\"StatusDescription\":\"\",\"CreateIndex\":13,\"ModifyIndex\":373862}]",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}

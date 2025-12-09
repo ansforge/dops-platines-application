@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<con:soapui-project id="7fe0b7bb-09a2-4c35-a8f1-4408ca66dc41" activeEnvironment="Default environment" name="Nomenclatures des équipements spécifiques" resourceRoot="${projectDir}" soapui-version="6.0.0" updated="3.9.1 2021-07-21T11:56:24Z" encryptionMode="Not encrypted" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>Recherche MCO – N° de l’exigence associée : REC.2.2.2 –
+Rôle de la plateforme : simulateur de client –
+Objectif du test : vérifier que la nomenclature « équipement spécifique » est bien prise en compte par le ROR.
+Fichiers à charger : "SchEquiptSpec_TRE.sch" (assertion Schematron) et "JDV_J18-EquipementSpecifique-ROR.tabs".
+ -- Conditions d'exécution du test -- 
+Temps de réponse maximal autorisé au niveau de la requête : 5 s. Pause entre chaque tour de boucle : 1s.
+Le JDV contient environ 130 valeurs ; dans des conditions normales, la durée d'exécution moyenne est estimée à 7 mn.</con:description>
+  <con:settings>
+    <con:setting id="WsdlSettings@cache-wsdls">false</con:setting>
+  </con:settings>
+  <con:interface xsi:type="con:WsdlInterface" id="f71b03fb-4c27-49d8-95a4-7d1b8187747c" wsaVersion="NONE" name="CareServicesRequest_Binding" type="wsdl" bindingName="{urn:asip:ror:2015}CareServicesRequest_Binding" soapVersion="1_2" anonymous="optional" definition="ROR-v2.6.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>https://ror-prod.asipsante.fr/ROR/0.1/CSD_ROR_Binding</con:endpoint>
+    </con:endpoints>
+    <con:operation id="ef6393ba-6dab-4912-8f7c-fe97f394c42a" isOneWay="false" action="urn:asip:ror:2015:stored-function:ror-search" name="careServicesRequest_Request" bindingOperationName="careServicesRequest_Request" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+    </con:operation>
+    <con:operation id="31a9dc9e-9cf3-4274-9212-c77f4aa5e0ae" isOneWay="false" action="urn:asip:ror:2015:stored-function:ror-update" name="TR-Notif-ListeEtablissementsMajApresDate_Demande" bindingOperationName="TR-Notif-ListeEtablissementsMajApresDate_Demande" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call id="639f28a8-9679-44ca-952e-85df96f1cf03" name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://ror-prod.asipsante.fr/ROR/0.1/CSD_ROR_Binding</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015" xmlns:urn1="urn:ihe:iti:csd:2013">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <urn:TR-Notif-ListeEtablissementsMajApresDate_Demande>\r
+         <urn1:params>\r
+            <urn1:dateRef>?</urn1:dateRef>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:typeActivity code="?" codingScheme="?">?</urn1:typeActivity>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:supportedPatient code="?" codingScheme="?">?</urn1:supportedPatient>\r
+         </urn1:params>\r
+      </urn:TR-Notif-ListeEtablissementsMajApresDate_Demande>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:asip:ror:2015/CareServicesRequest_PortType/TR-Notif-ListeEtablissementsMajApresDate_DemandeRequest"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:testSuite id="03f4ebd9-eeeb-41a3-a446-0fa73b5d8ecf" name="RechercheMCO_REC-2-2-2">
+    <con:description>À partir de la table de nomenclature "JDV_J18-EquipementSpecifique-ROR", la plateforme envoie autant de requêtes de recherche qu'il y a d'équipements spécifiques dans
+le JDV. La plateforme vérifie que les équipements retournés dans la réponse sont pertinents et que leurs codes et OID existent dans la TRE.</con:description>
+    <con:settings/>
+    <con:savedRecentRuns>1</con:savedRecentRuns>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="799fca84-a7a3-4da6-909f-bcf127a8ff40" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Test de chaque valeur du JDV" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" maxResults="0">
+      <con:description>Ce test parcourt toutes les valeurs du jeu de valeurs des équipements
+spécifiques de la dernière version des nomenclatures. Il vérifie la pertinence et la
+conformité des réponses, ainsi que la validité des codes et OID retournés.</con:description>
+      <con:settings>
+        <con:setting id="IncludeOverview">false</con:setting>
+        <con:setting id="IncludeResults">true</con:setting>
+        <con:setting id="FlowLayout">false</con:setting>
+        <con:setting id="ErrorDetails">true</con:setting>
+        <con:setting id="IncludeCoverage">true</con:setting>
+      </con:settings>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="properties" name="Préparation de la requête" id="603e50ab-c81c-4954-abc9-e5ac2b3ea57c">
+        <con:description>Remplissage de tous les champs requis dans la requête XML.</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>table_nomenclature</con:name>
+              <con:value>JDV_J18-EquipementSpecifique-ROR.tabs</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_classeAge</con:name>
+              <con:value>1.2.250.1.213.3.3.9</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_classeAge</con:name>
+              <con:value>6</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_activite</con:name>
+              <con:value>1.2.250.1.213.3.3.12</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_activite</con:name>
+              <con:value>13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_typeDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.3.2</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_typeDivTerrit</con:name>
+              <con:value>1</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_niveauDivTerrit</con:name>
+              <con:value>1.2.250.1.213.2.25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_destination</con:name>
+              <con:value>${#Project#region}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_modePEC</con:name>
+              <con:value>1.2.250.1.213.3.3.13</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_modePEC</con:name>
+              <con:value>29</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_acteSpec</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_acteSpec</con:name>
+              <con:value>34</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_specialite</con:name>
+              <con:value>1.2.250.1.71.1.2.38</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_specialite</con:name>
+              <con:value>48</con:value>
+            </con:property>
+            <con:property>
+              <con:name>code_equipement</con:name>
+              <con:value>130</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_equipement</con:name>
+              <con:value>1.2.250.1.213.3.3.10</con:value>
+            </con:property>
+            <con:property>
+              <con:name>perimetre</con:name>
+              <con:value>25</con:value>
+            </con:property>
+            <con:property>
+              <con:name>age_valeur</con:name>
+              <con:value>30</con:value>
+            </con:property>
+            <con:property>
+              <con:name>OID_unite</con:name>
+              <con:value>1.2.250.1.213.3.3.15</con:value>
+            </con:property>
+            <con:property>
+              <con:name>unite_age</con:name>
+              <con:value>a</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Boucle d'extraction des valeurs du JDV" id="5001fa3a-46c4-45b1-aeb1-85b40917c347">
+        <con:settings/>
+        <con:config>
+          <script>// FichierExterne = propriete "fichier_p"
+      class Data {
+      String oid
+      String code
+      String libelle
+      }
+      
+      def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+      def fichier = new File(context.expand('${table_nomenclature}'))
+      def projectPath = context.expand('${projectDir}')
+      log.info(projectPath+fichier.separator+fichier.name)
+      FileInputStream fstream = new  FileInputStream(projectPath+fichier.separator+fichier.name);
+      BufferedReader br = new BufferedReader( new InputStreamReader(fstream));
+      def donnes = [];
+      def strLine;
+      def index = 0;
+      while((strLine = br.readLine()) != null) {
+      if(index >= 3) {
+      def values = strLine.split(";")
+      def data = new Data();
+      data.oid = values[0]
+      data.code = values[1];
+      data.libelle = values[2];
+      donnes.push(data);		
+      }
+      index++
+      }
+      testRunner.testCase.getTestStepByName("Envoi de la requête").disabled = false;
+      for(Data data : donnes) {
+      
+      log.info( " __________________ Code testé :  " + data.code + " - libellé : " + data.libelle+ "  __________________" );
+      testRunner.testCase.getTestStepByName("Préparation de la requête").setPropertyValue("OID_equipement",data.oid)
+      def code = Integer.parseInt(data.code);
+      testRunner.testCase.getTestStepByName("Préparation de la requête").setPropertyValue("code_equipement",code.toString())
+      try {
+      testRunner.runTestStepByName("Envoi de la requête");
+      }catch (Exception e) {
+      log.error(e.printStackTrace());
+      }	
+      def step = testRunner.testCase.getTestStepByName("Envoi de la requête");      
+      def resHolder = groovyUtils.getXmlHolder("Envoi de la requête#Response")
+      def request = new String(step.testRequest.messageExchange.rawRequestData);
+      def response = new String(step.testRequest.messageExchange.rawResponseData);
+       def nbResults = resHolder.getNodeValues( " //*:OInumber/text() " );
+      log.info(" Nombre de résultats dans la réponse : $nbResults ");    
+      log.info(" ---- Requête ----  " + System.getProperty("line.separator")+ request );
+      log.info(" ---- Réponse ----  " + System.getProperty("line.separator")+ response );
+      sleep 1000;
+      }      
+      fstream.close();
+      testRunner.testCase.getTestStepByName("Envoi de la requête").disabled = true;</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="79839db1-b64f-4847-95f0-26ab37383442" name="Envoi de la requête">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CareServicesRequest_Binding</con:interface>
+          <con:operation>careServicesRequest_Request</con:operation>
+          <con:request name="Envoi de la requête" id="322ef0b2-a450-4325-8bae-7a2484293ec5" timeout="5000">
+            <con:description>Envoi de la requête et réception d'une réponse au format
+         XML.</con:description>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://ror-prod.asipsante.fr/ROR/0.1/CSD_ROR_Binding</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:asip:ror:2015">
+<soap:Header/>
+<soap:Body>
+<urn:careServicesRequest>
+<function>
+<requestParams>
+   <organization>?</organization>
+   <facility>
+      <patientsType>
+         <!--Zero or more repetitions:
+         <ageGroup code="${Préparation de la requête#code_classeAge}" codingScheme="${Préparation de la requête#OID_classeAge}">?</ageGroup>
+          -->
+      </patientsType>
+      <!--Zero or more repetitions:
+      <typeOfCare code="${Préparation de la requête#code_modePEC}" codingScheme="${Préparation de la requête#OID_modePEC}">?</typeOfCare>
+-->	         </facility>
+   <service>
+      <!--Zero or more repetitions:
+      <codedType code="${Préparation de la requête#code_activite}" codingScheme="${Préparation de la requête#OID_activite}">?</codedType>
+      -->
+      <!--Optional:
+      <act code="${Préparation de la requête#code_acteSpec}" codingScheme="${Préparation de la requête#OID_acteSpec}">?</act>
+      -->
+      <!--Optional:
+      <specialty code="${Préparation de la requête#code_specialite}" codingScheme="${Préparation de la requête#OID_specialite}">?</specialty>
+      -->
+</service>
+   <device>
+      <!--Optional:-->
+      <type code="${Préparation de la requête#code_equipement}" codingScheme="${Préparation de la requête#OID_equipement)}">?</type>
+   </device>
+   <otherParams>
+      <!--1 or more repetitions:-->
+      <destination>
+         <type code="${Préparation de la requête#code_typeDivTerrit}" codingScheme="${Préparation de la requête#OID_typeDivTerrit}">?</type>
+         <code code="${Préparation de la requête#code_destination}" displayName="?" language="?" codingScheme="?" codingSchemeName="${Préparation de la requête#OID_niveauDivTerrit}" codingSchemeVersion="?" codingSchemeURI="?" managingAuthorityId="?" managingAuthorityName="?"/>
+         <!--Optional:
+         <distance value="${Préparation de la requête#perimetre}"/>
+         -->
+      </destination>
+      <patient>
+         <!--Optional:-->
+         <age>
+            <value>${Préparation de la requête#age_valeur}</value>
+            <!--Optional:-->
+            <timeUnity code="${Préparation de la requête#unite_age}" codingScheme="${Préparation de la requête#OID_unite}">?</timeUnity>
+         </age>
+      </patient>
+   </otherParams>
+</requestParams>
+</function>
+</urn:careServicesRequest>
+</soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="Assertion Schematron" id="e003c05c-947a-4b6f-90ab-c50da1ba3ef5" name=" Objet du contrôle : Sch: codes &amp; OID dans nomenclature">
+              <con:configuration>
+                <schematronProperty>SchEquiptSpec_TRE.sch</schematronProperty>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Il doit y avoir autant de fois l'équipement spécifique recherché que d'OI" id="c9c30233-ddfe-41cc-94e4-d4b17553b86e">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]) >= (//*:OInumber))) then "Résultat valide" else concat("Nombre d'unités contenant l'équipement recherché ( code : " , "${Préparation de la requête#code_equipement}", " ) : ", count(//*:deviceDirectory/*:device/*:type[@code="${Préparation de la requête#code_equipement}"]), " - Nombre d'OI : ", count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Nombre d'unités contenant l'équipement recherché ( code : 46 ) : 1 - Nombre d'OI : 94</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Le nombre de réponses doit être retourné" id="6a7c6656-b487-4781-9ee5-fa4ed31bc4e6">
+              <con:configuration>
+                <path>if(exists(//*:careServicesResponse/result/resultNumber/OInumber)) then "Réponse valide" else "Réponse invalide, pas d'OI number dans la réponse"</path>
+                <content>Réponse valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Réponse invalide : il y a 0 ou plus de 200 réponses" id="697bfe5c-ac2a-4cc4-b087-fd5b097b07fb">
+              <con:configuration>
+                <path>if(boolean(//*:careServicesResponse/result/resultNumber/OInumber/text() > 0 and //*:careServicesResponse/result/resultNumber/OInumber/text() &lt; 200)) then "Réponse valide" else concat("Nombre de réponse invalide : ", //*:OInumber)</path>
+                <content>Réponse valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Chaque EG doit être liée à une EJ" id="b62ac113-ae33-4c43-b61a-fe98eac23000">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(//*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/preceding-sibling::*:organization/@entityID or //*:organizationDirectory/*:organization/*:parent/@entityID = //*:organizationDirectory/*:organization/*:parent/parent::*:organization/following-sibling::*:organization/@entityID)) then "Résultat valide" else concat(" Nombre d'EG :", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'EJ :",count(//*:organizationDirectory/*:organization[not(*:parent)])) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Chaque OI doit être liée à une EG" id="9ab23b15-c048-40df-b663-d36900d1de93">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:organization/*:parent) >= count(//*:facility))) then "Résultat valide" else concat(" Nombre d'EG : ", count(//*:organizationDirectory/*:organization[*:parent])," - Nombre d'OI :", //*:OInumber) else "Pas de réponse à valider"</path>
+                <content>Résultat valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name=" Objet du contrôle : Il doit y avoir autant de fois la classe d'âge recherchée que d'OI" id="58397433-5d16-4f9a-af91-5969b06e84d1">
+              <con:configuration>
+                <path>if(exists(//*:organization)) then if(boolean(count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}']) >= count(//*:facility))) then  ("Réponse valide") else concat(" Nombre d'OI avec la bonne classe d'âge (code recherché - ", "${Préparation de la requête#code_classeAge}", ") : ", count(//*:facilityDirectory/*:facility/*:patientsType/*:ageGroup[@code='${Préparation de la requête#code_classeAge}'])," - Nombre total d'OI : ",count(//*:facility)) else "Pas de réponse à valider"</path>
+                <content>Réponse valide</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Inherit From Parent</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="urn:asip:ror:2015/careServicesRequest_PortType/careServicesRequest_RequestRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters>
+        <con:property>
+          <con:name>Valeur testée</con:name>
+          <con:value/>
+        </con:property>
+      </con:reportParameters>
+      <con:breakPoints>
+        <con:testStepId>603e50ab-c81c-4954-abc9-e5ac2b3ea57c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>79839db1-b64f-4847-95f0-26ab37383442</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>5001fa3a-46c4-45b1-aeb1-85b40917c347</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters>
+      <con:property>
+        <con:name>A</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>B</con:name>
+        <con:value/>
+      </con:property>
+    </con:reportParameters>
+  </con:testSuite>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>endpoint</con:name>
+      <con:value>https://recette-ror.orupaca.fr/search/RorWs/wsdl?wsdl</con:value>
+    </con:property>
+    <con:property>
+      <con:name>region</con:name>
+      <con:value>93</con:value>
+    </con:property>
+  </con:properties>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>

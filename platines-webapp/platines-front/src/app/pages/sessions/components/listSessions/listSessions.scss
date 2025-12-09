@@ -1,0 +1,94 @@
+/**
+ * (c) Copyright 2017-2024, ANS. All rights reserved.
+ */
+.center {
+    margin: auto;
+}
+
+.mat-column-actions{
+  width: 100%;
+  min-width: 7%;
+  max-width: 7%;
+}
+
+.mat-column-checkbox{
+  width: 100%;
+  min-width: 5%;
+  max-width: 5%;
+}
+
+.mat-column-user{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 11%;
+  max-width: 11%;
+}
+
+.mat-column-creationDate{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 15%;
+  max-width: 15%;
+}
+.mat-column-description{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 21%;
+  max-width: 21%;
+}
+.mat-column-applicationName{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 14%;
+  max-width: 14%;
+}
+.mat-column-rolePlateforme{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 13%;
+  max-width: 13%;
+}
+.mat-column-sessionStatus{
+  width: 100%;
+  word-wrap: break-word;
+  white-space: unset;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 14%;
+  max-width: 14%;
+}
+.flex-row{
+  display: flex;
+  align-items: center;
+}
+
+.col-search>svg{
+  margin-right: 1rem;
+}
+
+.action-row{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    (c) Copyright 2017-2024, ANS. All rights reserved.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet id="addAclSid" author="apierre">
+	<insert tableName="acl_sid">
+			<column name="sid" value="ROLE_admin"></column>
+			<column name="principal" valueBoolean="false"></column>
+	</insert>
+	<insert tableName="acl_sid">
+			<column name="sid" value="ROLE_user"></column>
+			<column name="principal" valueBoolean="false"></column>
+	</insert>
+	<insert tableName="acl_sid">
+			<column name="sid" value="admin.platines@asipsante.fr"></column>
+			<column name="principal" valueBoolean="true"></column>
+	</insert>
+<!-- 	<insert tableName="acl_sid"> -->
+<!-- 			<column name="sid" value="user@user"></column> -->
+<!-- 			<column name="principal" valueBoolean="true"></column> -->
+<!-- 	</insert> -->
+</changeSet>
+
+<changeSet id="addAclSid-1" author="cnader">
+	<insert tableName="acl_sid">
+			<column name="sid" value="ROLE_manager"></column>
+			<column name="principal" valueBoolean="false"></column>
+	</insert>
+</changeSet>
+
+</databaseChangeLog>
