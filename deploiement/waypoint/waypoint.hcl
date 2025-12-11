@@ -5,8 +5,7 @@ labels = { "domaine" = "platines" }
 
 runner {
   enabled = true
-  #profile = "platines-${workspace.name}"
-  profile = "edit-dev"
+  profile = "platines-${workspace.name}"
   data_source "git" {
     url = "https://github.com/ansforge/dops-platines-application"
     ref = "main"
