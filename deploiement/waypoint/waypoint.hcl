@@ -20,11 +20,11 @@ runner {
 # MariaDB
 app "database" {
   build {
-    use "pack" {
-      disable_entrypoint = true
+    use "docker-pull" {
+      image = var.database_image
+      tag   = var.database_tag
     }
   }
-  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-db/database.nomad.tpl", {
@@ -43,11 +43,11 @@ app "database" {
 
 app "backup-db" {
   build {
-    use "pack" {
-      disable_entrypoint = true
+    use "docker-pull" {
+      image = var.database_image
+      tag   = var.database_tag
     }
   }
-  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-db/backup-database.nomad.tpl", {
@@ -68,11 +68,11 @@ app "backup-db" {
 # Webapp application.
 app "webapp" {
   build {
-    use "pack" {
-      disable_entrypoint = true
+    use "docker-pull" {
+      image = var.webapp_image
+      tag   = var.webapp_tag
     }
   }
-  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-back/platines.nomad.tpl", {
@@ -96,11 +96,12 @@ app "webapp" {
 # HAProxy
 app "reverse-proxy" {
   build {
-    use "pack" {
-      disable_entrypoint = true
+    use "docker-pull" {
+      image = var.rp_image
+      tag   = var.rp_tag
     }
   }
-  
+  # Deploy to Nomad
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-rp/reverse-proxy.nomad.tpl", {
