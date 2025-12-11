@@ -1,27 +1,26 @@
-project = "${workspace.name}" # exemple : platines-dev
+project = "${workspace.name}/platines"
 
 # Labels can be specified for organizational purposes.
 labels = { "domaine" = "platines" }
 
-# https://developer.hashicorp.com/waypoint/docs/waypoint-hcl/runner
 runner {
   enabled = true
-  profile = "common-odr"
+  #profile = "platines-${workspace.name}"
+  profile = "edit-dev"
   data_source "git" {
-    url = "https://github.com/ansforge/deploiement-platines"
-    ref = "main"  # TODO: Ajuster selon votre branche (main/master/develop)
+    url = "https://github.com/ansforge/dops-platines-application"
+    ref = "main"
+    path = "deploiement/waypoint"
   }
   poll {
-    # à mettre à true pour déployer automatiquement en cas de changement dans la branche
-    enabled  = true
-    interval = "60s"
+    enabled = false
   }
 }
 
 # MariaDB
 app "database" {
   build {
-    use "docker-ref" {
+    use "docker-pull" {
       image = var.database_image
       tag   = var.database_tag
     }
@@ -44,7 +43,7 @@ app "database" {
 
 app "backup-db" {
   build {
-    use "docker-ref" {
+    use "docker-pull" {
       image = var.database_image
       tag   = var.database_tag
     }
@@ -69,7 +68,7 @@ app "backup-db" {
 # Webapp application.
 app "webapp" {
   build {
-    use "docker-ref" {
+    use "docker-pull" {
       image = var.webapp_image
       tag   = var.webapp_tag
     }
@@ -97,7 +96,7 @@ app "webapp" {
 # HAProxy
 app "reverse-proxy" {
   build {
-    use "docker-ref" {
+    use "docker-pull" {
       image = var.rp_image
       tag   = var.rp_tag
     }
@@ -122,7 +121,7 @@ app "reverse-proxy" {
 ############## variables ##############
 variable "artifacts_repository_url" {
   type    = string
-  default = "https://repo.proxy.prod.forge.esante.gouv.fr/artifactory/repo-releases"
+  default = "https://repo.esante.gouv.fr/artifactory/repo-releases"
   env     = ["ARTIFACTS_REPOSITORY_URL"]
 }
 
@@ -134,7 +133,7 @@ variable "artifacts_version" {
 variable "datacenter" {
   type    = string
   default = "henix_docker_platform_dev"
-  env     = ["NOMAD_DC"]
+  env     = ["NOMAD_DATACENTER"]
 }
 
 # Convention :
@@ -142,7 +141,8 @@ variable "datacenter" {
 
 variable "nomad_namespace" {
   type    = string
-  default = "${workspace.name}"
+  default = "platines-${workspace.name}" 
+  env     = ["NOMAD_NAMESPACE"]
 }
 
 variable "vault_acl_policy_name" {
@@ -203,7 +203,6 @@ variable "job_tmpl_repository" {
   type    = string
   default = ""
 }
-
 # log-shipper
 variable "log_shipper_image" {
   type    = string
