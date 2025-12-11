@@ -1,0 +1,243 @@
+job "<%= @platines_job_name %>" {
+	datacenters = ["<%= @environment %>"]
+	type = "service"
+	update {
+		stagger = "30s"
+		max_parallel = 1
+	}
+	vault {
+		policies = ["<%= @platines_job_name %>"]
+		change_mode = "restart"
+	}
+	group "apps-servers" {
+		count = "1"
+		ephemeral_disk {
+			size = 200
+		}
+		task "tomcat" {
+			driver = "docker"
+			artifact {
+				source = "<%=@url_artifactory%>/<%=@back_artifact%>"
+				mode = "file"
+				destination = "local/platines-api.war"
+			}
+			artifact {
+				source = "<%=@url_artifactory%>/<%=@front_artifact%>"
+				mode = "file"
+				destination = "local/platines.war"
+			}
+			artifact {
+				source = "<%=@url_artifactory%>/<%=@mockws_artifact%>"
+				destination = "local"
+			}
+			config {
+				image = "jboss-webserver-5/webserver53-openjdk8-tomcat9-openshift-rhel7:latest"
+				volumes = ["local:/deployments"]
+				port_map {
+					http = 8080
+				}
+			}
+			env {
+				TOMCAT_ADDR="${NOMAD_ADDR_http}"
+			}
+			template {
+				data = <<EOH
+					GENERIC_PASSWORD_SSL="{{with secret "<%= @platines_job_name %>/tomcat"}}{{.Data.data.password}}{{end}}"
+					EXTERNAL_PROTOCOL="https"
+					WEBAPPS_FOLDER="/deployments"
+					FRONT_SERVER_TASK_GROUP="fabio"
+					WORKSPACE_DIR="mocks"
+					API_DOMAIN="<%= @platines_public_hostname %>"
+					MOCK_SERVICE_DOMAIN="<%= @platines_mock_service_domain %>"
+					PROXY_HOST="<%= @proxy_host %>"
+					PROXY_PORT="<%= @proxy_port %>"
+					SMTP_HOST="<%= @smtp_host %>"
+					SMTP_PORT="<%= @smtp_port %>"
+					SMTP_PROXY_HOST="<%= @smtp_proxy_host %>"
+					SMTP_PROXY_PORT="<%= @smtp_proxy_port %>"
+					JAVA_INITIAL_MEM_RATIO="<%= @platines_java_initial_mem_ratio %>"
+					JAVA_MAX_MEM_RATIO="<%= @platines_java_max_mem_ratio %>"
+					GC_MAX_METASPACE_SIZE="<%= @platines_gc_max_metaspace_size %>"
+					DB_SERVICE_PREFIX_MAPPING="MYSQL"
+					{{range service "http.nomad"}}
+					NOMAD_API_PORT="{{.Port}}"{{end}}
+					{{range service ( print (env "NOMAD_JOB_NAME") "-mariadb-server") }}
+					MYSQL_SERVICE_HOST="{{.Address}}"
+					MYSQL_SERVICE_PORT="{{.Port}}"{{end}}
+					MYSQL_JNDI="jdbc/rorJNDI"
+					MYSQL_USERNAME="<%= @platines_mysql_user %>"
+					MYSQL_PASSWORD="{{with secret "<%= @platines_job_name %>/mariadb"}}{{.Data.data.password}}{{end}}"
+					MYSQL_DATABASE="<%= @platines_mysql_database %>"
+					JOB_TMPL_REPOSITORY="<%= @url_artifactory %>/<%= @job_repository_tmpl %>"
+					CATALINA_OPTS_APPEND="-Duser.timezone=Europe/Paris"
+					ENABLE_ACCESS_LOG=false
+				EOH
+				destination = "secrets/file.env"
+				change_mode = "restart"
+				splay       = "30s"
+				env         = true
+			}
+			resources {
+				cpu = 500
+				memory = <%= @platines_appserver_mem_size %>
+				network {
+					port "http" {}
+					mbits = 10
+				}
+			}
+			service {
+				name = "${NOMAD_JOB_NAME}-tomcat-server"
+				port = "http"
+				check {
+					type = "http"
+					port = "http"
+					path = "/platines"
+					name = "check_tomcat"
+					interval = "40s"
+					timeout = "10s"
+				}
+			}
+		}
+		task "log-shipper" {
+			driver = "docker"
+			restart {
+				interval = "30m"
+				attempts = 5
+				delay    = "15s"
+				mode     = "delay"
+			}
+			meta {
+				INSTANCE = "${NOMAD_ALLOC_NAME}"
+			}
+			template {
+				data = <<EOH
+LOGSTASH_HOST = "<%= @logstash_host %>"
+ENVIRONMENT = "<%= @environment %>"
+EOH
+				destination = "local/file.env"
+				env = true
+			}
+			config {
+				image = "ans/nomad-filebeat:latest"
+			}
+		}
+	}
+
+	group "front-servers" {
+		count = "1"
+
+		task "haproxy" {
+			driver = "docker"
+			config {
+				image = "haproxy:lts"
+				volumes = ["local:/usr/local/etc/haproxy"]
+				port_map {
+					ha_https = 8443
+					ha_http = 8080
+				}
+			}
+			env {
+				"PUBLIC_HOSTNAME" = "<%= @platines_public_hostname %>"
+			}
+			template {
+data = <<EOH
+{{with secret "<%= @platines_job_name %>/haproxy"}}{{ .Data.data.certificate }}
+{{ .Data.data.private_key }}{{end}}
+EOH
+				destination = "secrets/platines.pem"
+			}
+			template {
+data = <<EOH
+global
+	maxconn                     4096
+	log                         stdout format raw  local0  info
+	pidfile                     /var/lib/haproxy/haproxy.pid
+	tune.ssl.default-dh-param   2048
+	ssl-default-bind-options no-tls-tickets force-tlsv12 ssl-min-ver TLSv1.0
+	ssl-default-bind-ciphers RSA:!EXP:!NULL:+HIGH:+MEDIUM:-LOW
+
+defaults
+	mode                      http
+	log                       global
+	option                    httplog
+		option                logasap
+		option                dontlognull
+		option                http-server-close
+	no option                 socket-stats
+		retries                 3
+		timeout http-request    10s
+		timeout queue           1m
+		timeout connect         10s
+		timeout client          1m
+		timeout server          1m
+		timeout http-keep-alive 10s
+		maxconn                 3000
+
+#---------------------------------------------------------------------
+frontend	main
+	log                       global
+	option                    httplog
+	option forwardfor         # except 127.0.0.0/8
+	bind *:8080
+#	bind *:8443               ssl crt /secrets/platines.pem ciphers RSA:!EXP:!NULL:+HIGH:-MEDIUM:-LOW
+    bind *:8443               ssl  ssl-min-ver TLSv1.2 crt /secrets/platines.pem ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305
+
+# -- Ajout du context-root si omis
+#	http-request set-path %[path]/ unless { path_end / }
+#	http-request set-path /platines/web/ if { path / }
+
+# -- Active HSTS pour un an & pour les sous-domaines aussi
+	http-response add-header Strict-Transport-Security max-age=31536000;includeSubDomains
+	http-response add-header Referrer-Policy no-referrer-when-downgrade
+
+# -- Contrôle de l'url
+	acl is_authorized path_reg /(platines(-api)?\/(|assets|secure|insecure|session)).*
+
+# -- Ne router que si le hostname est correct
+	acl hostname_platines    req.hdr(host) -i "$PUBLIC_HOSTNAME"
+
+# -- Redirection vers https   
+	redirect scheme https if !{ ssl_fc }
+
+	use_backend platines if hostname_platines is_authorized
+
+	default_backend         cosmos
+#---------------------------------------------------------------------
+backend platines
+	log                     global
+	{{range service ( print (env "NOMAD_JOB_NAME") "-tomcat-server") }}
+	server  {{ .Node }}     {{.Address}}:{{.Port}}{{end}}
+#---------------------------------------------------------------------
+	backend cosmos
+		log	                  global
+		http-request          deny if TRUE
+#---------------------------------------------------------------------
+EOH
+				destination = "local/haproxy.cfg"
+				change_mode = "restart"
+			}
+			resources {
+				cpu = 300
+				memory = <%= @platines_rpserver_mem_size %>
+				network {
+					port "ha_https" {}
+					port "ha_http"  {}
+					mbits = 10
+				}
+			}
+			service {
+				name = "${NOMAD_JOB_NAME}-haproxy"
+				tags = ["urlprefix-<%= @platines_public_hostname %>/ allow=<% @platines_allowed_ips.each_with_index do |value, i| -%>ip:<%= value %><%= ',' if i < (@platines_allowed_ips.size - 1) %><% end -%>"]
+
+				port = "ha_https"
+				check {
+					type = "tcp"
+					port = "ha_https"
+					name = "check_haproxy"
+					interval = "40s"
+					timeout = "1s"
+				}
+			}
+		}
+	}
+}

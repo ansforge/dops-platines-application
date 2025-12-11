@@ -1,0 +1,13 @@
+
+# /
+/.classpath
+/.project
+/.settings
+/nb-configuration.xml
+/target
+
+# /src/main/resources/
+/src/main/resources/csv
+
+# /src/test/resources/zip/
+/src/test/resources/zip/

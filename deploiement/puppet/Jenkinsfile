@@ -1,0 +1,3 @@
+@Library('AnsPipeline') _
+
+AnsPipelinePuppet(svnCredentialsId: "TRA", mailList: "TRA", artifactoryPath:"ans/platines")

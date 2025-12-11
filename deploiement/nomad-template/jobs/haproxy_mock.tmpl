@@ -1,0 +1,53 @@
+global
+    maxconn                 4096
+    log                     stdout format raw  local0  info
+    pidfile                 /var/lib/haproxy/haproxy.pid
+    tune.ssl.default-dh-param   2048
+    ssl-default-bind-options no-tls-tickets force-tlsv12 ssl-min-ver TLSv1.0
+    ssl-default-bind-ciphers RSA:!EXP:!NULL:+HIGH:+MEDIUM:-LOW
+
+defaults
+    mode                    http
+	log                     global
+	option                  httplog
+    option                  logasap
+    option                  dontlognull
+    option http-server-close
+	no option 				socket-stats
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    maxconn                 3000
+
+#--------------------------------------------------------------------
+frontend mockservices
+  mode    tcp 
+  option  tcplog
+  log-format "mock_uuid=%b [%Tl] -- Tentative de connexion. Adresse IP du client : %ci"
+  bind *:8444
+  tcp-request inspect-delay 5s
+  tcp-request content accept if { req_ssl_hello_type 1 }
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}{{$idsession:= .Name}}
+  {{ if keyExists $idsession }} acl address_allowed_for_{{$idsession}} src {{key $idsession}}{{end}}
+  acl mockservice_authorized_for_{{$idsession}} req_ssl_sni -m beg {{$idsession}} {{end}}{{end}}
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}{{$idsession:= .Name}}
+  use_backend mock-{{$idsession}}  if mockservice_authorized_for_{{$idsession}} {{ if keyExists $idsession }} address_allowed_for_{{$idsession}}{{end}}{{end}}{{end}}
+  default_backend        cosmos
+
+#---------------------------------------------------------------------
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}
+backend mock-{{.Name}}
+  log   global
+  mode	tcp
+  {{ range service .Name }}
+  server  serveur_{{.Name}}     {{.Address}}:{{.Port}}
+#---------------------------------------------------------------------
+{{end}}{{end}}{{end}}
+ backend cosmos
+   log                     global
+   http-request            deny if TRUE
+#---------------------------------------------------------------------

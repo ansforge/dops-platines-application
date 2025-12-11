@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+set -v
+
+# Création de la politique d'accès pour <%= @platines_job_name %>
+export VAULT_ADDR=http://127.0.0.1:8200
+cget() { curl -sf "http://127.0.0.1:8500/v1/kv/service/vault/$1?raw"; }
+
+if [ $(cget root-token) ]; then
+  export ROOT_TOKEN=$(cget root-token)
+else
+  exit 1
+fi
+
+vault login $ROOT_TOKEN
+
+echo '
+# Accès aux configurations de signature
+path "<%= @platines_job_name %>/*" {
+  capabilities = ["list", "read"]
+}' | vault policy write <%= @platines_job_name %> -

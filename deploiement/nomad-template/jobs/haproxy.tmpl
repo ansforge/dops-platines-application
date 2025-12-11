@@ -1,0 +1,67 @@
+global
+    maxconn                 4096
+    log                     stdout format raw  local0  info
+    pidfile                 /var/lib/haproxy/haproxy.pid
+    tune.ssl.default-dh-param   2048
+    ssl-default-bind-options no-tls-tickets force-tlsv12 ssl-min-ver TLSv1.0
+    ssl-default-bind-ciphers RSA:!EXP:!NULL:+HIGH:+MEDIUM:-LOW
+
+defaults
+    mode                    http
+	log                     global
+	option                  httplog
+    option                  logasap
+    option                  dontlognull
+    option http-server-close
+	no option 				socket-stats
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    maxconn                 3000
+
+#---------------------------------------------------------------------
+frontend  main
+   log                      global
+   option					httplog
+   option forwardfor       # except 127.0.0.0/8
+   bind *:8080
+   bind *:8443      ssl crt /secrets/platines.pem ciphers RSA:!EXP:!NULL:+HIGH:-MEDIUM:-LOW
+   
+# -- Ajout du context-root si omis
+#  http-request set-path %[path]/ unless { path_end / }
+#  http-request set-path /platines/web/ if { path / }
+   
+
+   
+# -- Active HSTS pour un an & pour les sous-domaines aussi
+   http-response add-header Strict-Transport-Security max-age=31536000;includeSubDomains
+   http-response add-header Referrer-Policy no-referrer-when-downgrade
+   
+
+# -- Ajout de "platines" dans l'url
+   acl is_authorized path_reg /(platines(-api)?\/(|assets|secure|insecure|session)).*
+   
+# -- Ne router que si le hostname est correct
+   acl hostname_platines    req.hdr(host) -i "$PUBLIC_HOSTNAME"   
+
+# -- Redirection vers https   
+   redirect scheme https if !{ ssl_fc }
+   
+   use_backend platines if hostname_platines is_authorized  
+   
+   default_backend          cosmos
+#---------------------------------------------------------------------
+backend platines
+  log                     global
+  {{range service ( print (env "NOMAD_JOB_NAME") "-tomcat-server") }}
+  server  {{ .Node }}     {{.Address}}:{{.Port}}{{end}}
+#---------------------------------------------------------------------
+
+ backend cosmos
+   log                     global
+   http-request            deny if TRUE
+#---------------------------------------------------------------------

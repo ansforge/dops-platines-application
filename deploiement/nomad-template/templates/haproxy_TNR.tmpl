@@ -1,0 +1,95 @@
+global
+    maxconn                 4096
+    log                     127.0.0.1 local1 debug
+    pidfile                 /var/lib/haproxy/haproxy.pid
+    stats socket            /var/lib/haproxy/stats
+    tune.ssl.default-dh-param   2048
+    ssl-default-bind-options no-sslv3 no-tls-tickets force-tlsv12
+    ssl-default-bind-ciphers RSA:!EXP:!NULL:+HIGH:+MEDIUM:-LOW
+
+defaults
+    mode                    http
+	log                     global
+	option                  httplog
+    option                  logasap
+    option                  dontlognull
+    option http-server-close
+#   option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+#   timeout check           10s
+    maxconn                 3000
+
+#---------------------------------------------------------------------
+frontend  main
+   log                      global
+   option					httplog
+   option forwardfor       # except 127.0.0.0/8
+   bind *:8080
+   bind *:9443      ssl crt /etc/haproxy/platines.pem ciphers RSA:!EXP:!NULL:+HIGH:-MEDIUM:-LOW
+
+{{ if ls "network_allowed" }}
+   acl network_allowed src {{range ls "network_allowed"}}{{ .Value | trimSpace }} {{end}}
+   tcp-request connection reject if !network_allowed
+{{end}}   
+   
+# -- Ajout du context-root si omis
+#  http-request set-path %[path]/ unless { path_end / }
+#  http-request set-path /platines/web/ if { path / }
+   
+
+   
+# -- Active HSTS pour un an & pour les sous-domaines aussi
+   rspadd Strict-Transport-Security:\ max-age=31536000;\ includeSubDomains
+   rspadd Referrer-Policy:\ no-referrer-when-downgrade
+   
+
+# -- Ajout de "platines" dans l'url
+   acl is_authorized path_reg /(platines(-api)?\/(|assets|secure|insecure|session)).*
+   
+# -- Ne router que si le hostname est correct
+   acl hostname_platines    req.hdr(host) -i "$PUBLIC_HOSTNAME"   
+
+# -- Redirection vers https   
+   redirect scheme https if !{ ssl_fc }
+   
+   use_backend platines if hostname_platines is_authorized  
+   
+   default_backend          cosmos
+
+#--------------------------------------------------------------------
+frontend mockservices
+  mode    tcp 
+  option  tcplog
+  bind *:8444
+  tcp-request inspect-delay 5s
+  tcp-request content accept if { req_ssl_hello_type 1 }
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}{{$idsession:= .Name}}
+  {{ if keyExists $idsession }} acl address_allowed_for_{{$idsession}} src {{key $idsession}}{{end}}
+  acl mockservice_authorized_for_{{$idsession}} req_ssl_sni -m beg {{$idsession}} {{end}}{{end}}
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}{{$idsession:= .Name}}
+  use_backend mock-{{$idsession}}  if mockservice_authorized_for_{{$idsession}} {{ if keyExists $idsession }} address_allowed_for_{{$idsession}}{{end}}{{end}}{{end}}
+  default_backend        cosmos
+#---------------------------------------------------------------------
+backend platines
+  log                     global
+  {{range service ( print (env "NOMAD_JOB_NAME") "-tomcat-server") }}
+  server  {{ .Node }}     {{.Address}}:{{.Port}}{{end}}
+#---------------------------------------------------------------------
+{{ range services }}{{if in .Tags "asipsante.platines.mockservice"}}
+backend mock-{{.Name}}
+  log   global
+  mode	tcp
+  {{ range service .Name }}
+  server  serveur_{{.Name}}     {{.Address}}:{{.Port}}
+#---------------------------------------------------------------------
+{{end}}{{end}}{{end}}
+ backend cosmos
+   log                     global
+   http-request            deny if TRUE
+#---------------------------------------------------------------------

@@ -1,0 +1,29 @@
+{
+	"name": "ans-platines",
+	"version": "6.2.5",
+	"author": "asip",
+	"license": "Asip sante copyright",
+	"operatingsystem_support": [{
+			"operatingsystem": "RedHat",
+			"operatingsystemrelease": [ 
+			"7.5",
+			"7.6",
+			"7.7",
+			"7.8"
+			]
+		}
+	],
+	"project_page": "",
+	"requirements": [],
+	"summary": "Installation de la plate-forme platines",
+	"tags": [],
+	"source": "",
+	"dependencies": [{
+			"version_requirement": ">= 0.0.1",
+			"name": "puppetlabs/pe_gem"
+		},{
+			"name": "puppet/archive",
+			"version_requirement": ">= 4.4.0"
+		}
+	]
+}

@@ -1,0 +1,73 @@
+job "db-<%= @platines_job_name %>" {
+	datacenters = ["<%= @environment %>"]
+	type = "service"
+	update {
+		stagger = "30s"
+		max_parallel = 1
+	}
+	vault {
+		policies = ["<%= @platines_job_name %>"]
+		change_mode = "restart"
+	}
+
+	group "db-servers" {
+		count = "1"
+		# install only on "data" nodes
+		constraint {
+			attribute = "${node.class}"
+			value     = "data"
+		}
+		restart {
+			attempts = 3
+			delay = "60s"
+			interval = "1h"
+			mode = "fail"
+		}
+		task "mariadb" {
+			driver = "docker"
+			config {
+				image = "rhscl/mariadb-103-rhel7:<%= @mariadb_image_rhel %>"
+				port_map {
+					db = 3306
+				}
+				volumes = [
+					"name=<%= @platines_job_name %>,io_priority=high,size=<%= @mariadb_size %>,repl=3:/var/lib/mysql/data"
+				]
+				volume_driver = "pxd"
+			}
+			template {
+data = <<EOH
+MYSQL_USER="<%= @platines_mysql_user %>"
+MYSQL_DATABASE="<%= @platines_mysql_database %>"
+MYSQL_PASSWORD="{{with secret "<%= @platines_job_name %>/mariadb"}}{{.Data.data.password}}{{end}}"
+EOH
+				destination = "secrets/file.env"
+				env = true
+			}
+			resources {
+				cpu = 500
+				memory = <%= @platines_dbserver_mem_size %>
+				network {
+					port "db" {}
+					mbits = 20
+				}
+			}
+			service {
+				name = "<%= @platines_job_name %>-mariadb-server"
+				port = "db"
+				check {
+					type = "tcp"
+					port = "db"
+					name = "check_mysql"
+					interval = "120s"
+					timeout = "10s"
+				}
+				check_restart {
+					limit = 3
+					grace = "120s"
+					ignore_warnings = true
+				}
+			}
+		}
+	}
+}

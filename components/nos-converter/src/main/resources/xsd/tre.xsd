@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="RetrieveValueSetResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ValueSet" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence> 
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ValueSet">
+            <xs:complexType>
+                    <xs:sequence>
+                            <xs:element ref="ConceptList" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                    <xs:attribute name="dateFin" type="xs:string" use="required"/>
+                    <xs:attribute name="dateMaj" type="xs:string" use="required"/>
+                    <xs:attribute name="dateValid" type="xs:string" use="required"/>
+                    <xs:attribute name="description" type="xs:string" use="required"/>
+                    <xs:attribute name="displayName" type="xs:string" use="required"/>
+                    <xs:attribute name="id" type="xs:string" use="required"/>
+                    <xs:attribute name="typeFichier" type="xs:string" use="required"/>
+                    <xs:attribute name="urlFichier" type="xs:string" use="required"/>
+            </xs:complexType>
+    </xs:element>
+    <xs:element name="ConceptList">
+            <xs:complexType>
+                    <xs:sequence>
+                            <xs:element ref="Concept" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+            </xs:complexType>
+    </xs:element>
+    <xs:element name="Concept">
+            <xs:complexType>
+                    <xs:attribute name="code" type="xs:string" use="required"/>
+                    <xs:attribute name="dateFin" type="xs:string" use="required"/>
+                    <xs:attribute name="dateMaj" type="xs:string" use="required"/>
+                    <xs:attribute name="dateValid" type="xs:string" use="required"/>
+                    <xs:attribute name="displayName" type="xs:string" use="required"/>
+                    <xs:attribute name="shortDesignation" type="xs:string" use="required"/>
+                    <xs:attribute name="longDesignation" type="xs:string" use="required"/>
+                    <xs:attribute name="codeSystem" type="xs:string" use="required"/>
+            </xs:complexType>
+    </xs:element>
+</xs:schema>

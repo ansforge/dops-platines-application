@@ -1,0 +1,155 @@
+{
+        "Stop": null,
+        "Region": null,
+        "ID": "mock",
+        "ParentID": null,
+        "Name": "mock",
+        "Type": "service",
+        "Priority": null,
+        "AllAtOnce": null,
+        "Datacenters": null,
+        "Constraints": null,
+        "TaskGroups": [
+            {
+                "Name": "server-mock",
+                "Count": 1,
+                "Constraints": null,
+                "Tasks": [
+                    {
+                        "Name": "tomcat-mock",
+                        "Driver": "docker",
+                        "User": "",
+                        "Config": {
+                            "image": "jboss-webserver-3/webserver31-tomcat8-openshift:latest",
+                            "port_map": [
+                                {
+                                    "httpsmock": 8443
+                                },
+                                {
+                                    "httpmock": 8080
+                                }
+                            ],
+                            "volumes": [
+                                "local:/opt/webserver/webapps","tmp:/opt/webserver/extensions"
+                            ]
+                        },
+                        "Constraints": null,
+                        "Env": {
+							"ENABLE_ACCESS_LOG": "TRUE",
+                            "KEYSTORE_FILE": "",
+                            "KEYSTORE_FILE_DIR": "/secrets",
+                            "KEYSTORE_PASSWORD": "",
+                            "TRUSTSTORE_FILE": "truststore.jks",
+                            "TRUSTSTORE_FILE_DIR": "/local",
+                            "TRUSTSTORE_PASSWORD": "changeit",
+                            "CATALINA_OPTS_APPEND": "-Djavax.net.debug=ssl,handshake -Duser.timezone=Europe/Paris -Dhttp.proxyHost=10.0.65.118 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=10.0.65.118 -Dhttps.proxyPort=3128 -Dfile.encoding=UTF-8"
+                        },
+                        "Services": [
+                            {
+                                "Id": "",
+                                "Name": "mock-service",
+                                "Tags": null,
+                                "PortLabel": "httpsmock",
+                                "AddressMode": "",
+                                "Checks": [
+                                    {
+                                        "Id": "",
+                                        "Name": "check_mockror",
+                                        "Type": "tcp",
+                                        "Command": "",
+                                        "Args": null,
+                                        "Path": "",
+                                        "Protocol": "",
+                                        "PortLabel": "httpmock",
+                                        "Interval": 40000000000,
+                                        "Timeout": 10000000000,
+                                        "InitialStatus": "",
+                                        "TLSSkipVerify": false,
+                                        "Header": null,
+                                        "Method": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "Resources": {
+                            "CPU": 500,
+                            "MemoryMB": 1024,
+                            "DiskMB": null,
+                            "IOPS": null,
+                            "Networks": [
+                                {
+                                    "Device": "",
+                                    "CIDR": "",
+                                    "IP": "",
+                                    "MBits": 10,
+                                    "ReservedPorts": null,
+                                    "DynamicPorts": [
+                                        {
+                                            "Label": "httpsmock",
+                                            "Value": 0
+                                        },
+                                        {
+                                            "Label": "httpmock",
+                                            "Value": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "Meta": null,
+                        "KillTimeout": null,
+                        "LogConfig": null,
+                        "Artifacts": [
+                            {
+                                "GetterSource": "http://repo.proxy-dev-forge.asip.hst.fluxus.net/artifactory/repo-ac/truststore/prod-test/IGC-Sante-Classe4/truststore.jks",
+                                "GetterOptions": null,
+                                "GetterMode": null,
+                                "RelativeDest": "local"
+                            },
+							{
+                                "GetterSource": "http://repo.proxy-dev-forge.asip.hst.fluxus.net/artifactory/repo-releases/fr/asipsante/platines/tomcat-mock/1.0.2/extensions.tgz",
+                                "GetterOptions": null,
+                                "GetterMode": null,
+                                "RelativeDest": "tmp"
+                            }
+                        ],
+                        "Vault": null,
+                        "Templates": null,
+                        "DispatchPayload": null,
+                        "Leader": false,
+                        "ShutdownDelay": 0
+                    }
+                ],
+                "RestartPolicy": null,
+                "EphemeralDisk": {
+                    "Sticky": null,
+                    "Migrate": null,
+                    "SizeMB": 200
+                },
+                "Update": null,
+                "Meta": null
+            }
+        ],
+        "Update": {
+            "Stagger": 30000000000,
+            "MaxParallel": 1,
+            "HealthCheck": null,
+            "MinHealthyTime": null,
+            "HealthyDeadline": null,
+            "AutoRevert": null,
+            "Canary": null
+        },
+        "Periodic": null,
+        "ParameterizedJob": null,
+        "Payload": null,
+        "Meta": null,
+        "VaultToken": null,
+        "Status": null,
+        "StatusDescription": null,
+        "Stable": null,
+        "Version": null,
+        "SubmitTime": null,
+        "CreateIndex": null,
+        "ModifyIndex": null,
+        "JobModifyIndex": null
+}
