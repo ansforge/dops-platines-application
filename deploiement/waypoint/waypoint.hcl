@@ -18,11 +18,10 @@ runner {
 
 # MariaDB
 app "database" {
-  build {
-    use "docker-pull" {
+    build {
+    use "docker-ref" {
       image = var.database_image
       tag   = var.database_tag
-      disable_entrypoint = true
     }
   }
 
