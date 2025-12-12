@@ -6,9 +6,10 @@ labels = { "domaine" = "platines" }
 runner {
   enabled = true
   profile = "platines-${workspace.name}"
+
   data_source "git" {
-    url = "https://github.com/ansforge/dops-platines-application"
-    ref = "main"
+    url  = "https://github.com/ansforge/dops-platines-application"
+    ref  = "main"
     path = "deploiement/waypoint"
   }
   poll {
@@ -18,7 +19,7 @@ runner {
 
 # MariaDB
 app "database" {
-    build {
+  build {
     use "docker-ref" {
       image = var.database_image
       tag   = var.database_tag
@@ -42,7 +43,7 @@ app "database" {
 }
 
 app "backup-db" {
-   build {
+  build {
     use "docker-ref" {
       image = var.database_image
       tag   = var.database_tag
@@ -143,7 +144,7 @@ variable "datacenter" {
 
 variable "nomad_namespace" {
   type    = string
-  default = "platines-${workspace.name}" 
+  default = "platines-${workspace.name}"
   env     = ["NOMAD_NAMESPACE"]
 }
 
@@ -205,6 +206,7 @@ variable "job_tmpl_repository" {
   type    = string
   default = ""
 }
+
 # log-shipper
 variable "log_shipper_image" {
   type    = string
