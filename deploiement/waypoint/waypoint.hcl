@@ -42,11 +42,10 @@ app "database" {
 }
 
 app "backup-db" {
-  build {
-    use "docker-pull" {
+   build {
+    use "docker-ref" {
       image = var.database_image
       tag   = var.database_tag
-      disable_entrypoint = true
     }
   }
 
@@ -70,10 +69,9 @@ app "backup-db" {
 # Webapp application.
 app "webapp" {
   build {
-    use "docker-pull" {
+    use "docker-ref" {
       image = var.webapp_image
       tag   = var.webapp_tag
-      disable_entrypoint = true
     }
   }
 
@@ -100,10 +98,9 @@ app "webapp" {
 # HAProxy
 app "reverse-proxy" {
   build {
-    use "docker-pull" {
+    use "docker-ref" {
       image = var.rp_image
       tag   = var.rp_tag
-      disable_entrypoint = true
     }
   }
 
