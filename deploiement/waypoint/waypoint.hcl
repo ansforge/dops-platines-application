@@ -18,6 +18,10 @@ runner {
 
 # MariaDB
 app "database" {
+  build {
+    use "noop" {}
+  }
+  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-db/database.nomad.tpl", {
@@ -35,6 +39,10 @@ app "database" {
 }
 
 app "backup-db" {
+  build {
+    use "noop" {}
+  }
+  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-db/backup-database.nomad.tpl", {
@@ -54,6 +62,10 @@ app "backup-db" {
 
 # Webapp application.
 app "webapp" {
+  build {
+    use "noop" {}
+  }
+  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-back/platines.nomad.tpl", {
@@ -76,6 +88,10 @@ app "webapp" {
 
 # HAProxy
 app "reverse-proxy" {
+  build {
+    use "noop" {}
+  }
+  
   deploy {
     use "nomad-jobspec" {
       jobspec = templatefile("${path.app}/platines-rp/reverse-proxy.nomad.tpl", {
