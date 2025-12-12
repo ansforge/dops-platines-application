@@ -130,7 +130,7 @@ variable "artifacts_version" {
 
 variable "datacenter" {
   type    = string
-  default = "henix_docker_platform_dev"
+  default = "scaleway_test_dc"
   env     = ["NOMAD_DATACENTER"]
 }
 
