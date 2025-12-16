@@ -210,7 +210,7 @@ variable "job_tmpl_repository" {
 # log-shipper
 variable "log_shipper_image" {
   type    = string
-  default = "ans/nomad-filebeat"
+  default = "614q518g.gra7.container-registry.ovh.net/ans/nomad-filebeat"
 }
 
 variable "log_shipper_tag" {
