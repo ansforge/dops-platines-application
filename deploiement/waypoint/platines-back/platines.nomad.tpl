@@ -155,33 +155,33 @@ EOH
       }
     }
 
-    task "log-shipper" {
-      driver = "docker"
-      config {
-        image = "${log_shipper_image}:${log_shipper_tag}"
-      }
-      resources {
-        cpu    = 100
-        memory = 150
-      }
-      restart {
-        interval = "3m"
-        attempts = 5
-        delay    = "15s"
-        mode     = "delay"
-      }
-      meta {
-        INSTANCE = "$${NOMAD_ALLOC_NAME}"
-      }
-      template {
-        destination = "local/file.env"
-        change_mode = "restart"
-        env         = true
-        data        = <<EOH
-REDIS_HOSTS={{ range service "PileELK-redis" }}{{ .Address }}:{{ .Port }}{{ end }}
-PILE_ELK_APPLICATION=${nomad_namespace}
-EOH        
-      }
-    } #end log-shipper
+    # task "log-shipper" {
+    #   driver = "docker"
+    #   config {
+    #     image = "${log_shipper_image}:${log_shipper_tag}"
+    #   }
+    #   resources {
+    #     cpu    = 100
+    #     memory = 150
+    #   }
+    #   restart {
+    #     interval = "3m"
+    #     attempts = 5
+    #     delay    = "15s"
+    #     mode     = "delay"
+    #   }
+    #   meta {
+    #     INSTANCE = "$${NOMAD_ALLOC_NAME}"
+    #   }
+    #   template {
+    #     destination = "local/file.env"
+    #     change_mode = "restart"
+    #     env         = true
+    #     data        = <<EOH
+# REDIS_HOSTS={{ range service "PileELK-redis" }}{{ .Address }}:{{ .Port }}{{ end }}
+# PILE_ELK_APPLICATION=${nomad_namespace}
+# EOH        
+    #   }
+    # } #end log-shipper - TEMPORARILY DISABLED
   }
 }
