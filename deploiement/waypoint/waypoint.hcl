@@ -69,12 +69,32 @@ app "backup-db" {
 
 # Webapp application.
 app "webapp" {
+  # DOCKER BUILD: Build l'image au lieu de docker-ref
   build {
-    use "docker-ref" {
-      image = var.webapp_image
-      tag   = var.webapp_tag
+    use "docker" {
+      dockerfile = "${path.app}/../platines-webapp/Dockerfile"
+      buildargs = {
+        ARTIFACTS_VERSION        = var.artifacts_version
+        ARTIFACTS_REPOSITORY_URL = var.artifacts_repository_url
+      }
+    }
+    registry {
+      use "docker" {
+        image    = "${var.registry_host}/${var.registry_username}/platines-webapp"
+        tag      = var.artifacts_version
+        username = var.registry_username
+        password = var.registry_password
+      }
     }
   }
+  
+  # DOCKER-REF: Ancienne méthode (pull image publique)
+  # build {
+  #   use "docker-ref" {
+  #     image = var.webapp_image
+  #     tag   = var.webapp_tag
+  #   }
+  # }
 
   deploy {
     use "nomad-jobspec" {
@@ -87,8 +107,12 @@ app "webapp" {
         artifacts_version             = var.artifacts_version
         job_tmpl_repository           = var.job_tmpl_repository
         environment_java_tool_options = var.environment_java_tool_options
-        image                         = var.webapp_image
-        tag                           = var.webapp_tag
+        # DOCKER BUILD: Utilise l'image buildée dans Harbor
+        image                         = "${var.registry_host}/${var.registry_username}/platines-webapp"
+        tag                           = var.artifacts_version
+        # DOCKER-REF: Ancienne méthode
+        # image                       = var.webapp_image
+        # tag                         = var.webapp_tag
         log_shipper_image             = var.log_shipper_image
         log_shipper_tag               = var.log_shipper_tag
       })
@@ -216,4 +240,25 @@ variable "log_shipper_image" {
 variable "log_shipper_tag" {
   type    = string
   default = "8.2.3-2.0"
+}
+
+# Registry Docker pour push des images buildées
+variable "registry_host" {
+  type    = string
+  default = "614q518g.gra7.container-registry.ovh.net"
+  env     = ["REGISTRY_HOST"]
+}
+
+variable "registry_username" {
+  type      = string
+  default   = ""
+  env       = ["REGISTRY_USERNAME"]
+  sensitive = true
+}
+
+variable "registry_password" {
+  type      = string
+  default   = ""
+  env       = ["REGISTRY_PASSWORD"]
+  sensitive = true
 }
