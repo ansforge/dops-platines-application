@@ -179,7 +179,7 @@ variable "vault_acl_policy_name" {
 
 variable "vault_secrets_engine_name" {
   type    = string
-  default = "platines-${workspace.name}/data"
+  default = "platines-${workspace.name}"
 }
 
 # MariaDB
