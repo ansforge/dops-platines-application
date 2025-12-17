@@ -124,7 +124,7 @@ app "reverse-proxy" {
 ############## variables ##############
 variable "artifacts_repository_url" {
   type    = string
-  default = "https://repo.esante.gouv.fr/artifactory/repo-releases"
+  default = "https://repo.esante.gouv.fr/repository/asip-releases"
   env     = ["ARTIFACTS_REPOSITORY_URL"]
 }
 
