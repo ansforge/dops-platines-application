@@ -73,7 +73,7 @@ app "webapp" {
   build {
     use "docker" {
       dockerfile = "${path.app}/../platines-webapp/Dockerfile"
-      buildargs = {
+      build_args = {
         ARTIFACTS_VERSION        = var.artifacts_version
         ARTIFACTS_REPOSITORY_URL = var.artifacts_repository_url
       }
