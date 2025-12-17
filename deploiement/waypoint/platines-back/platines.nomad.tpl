@@ -27,22 +27,24 @@ job "${nomad_namespace}-webapp" {
 
       config {
         image = "${image}:${tag}"
-        entrypoint = [
-          "java",
-          "-jar",
-          "/usr/app/platines-back.war"
-        ]
+        # DOCKER BUILD: entrypoint défini dans le Dockerfile
+        # entrypoint = [
+        #   "java",
+        #   "-jar",
+        #   "/usr/app/platines-back.war"
+        # ]
         ports = ["http"]
 
-        mount {
-          type     = "bind"
-          target   = "/usr/app/platines-back.war"
-          source   = "local/platines-back-${artifacts_version}.war"
-          readonly = false
-          bind_options {
-            propagation = "rshared"
-          }
-        }
+        # DOCKER BUILD: WAR inclus dans l'image, plus besoin de mount
+        # mount {
+        #   type     = "bind"
+        #   target   = "/usr/app/platines-back.war"
+        #   source   = "local/platines-back-${artifacts_version}.war"
+        #   readonly = false
+        #   bind_options {
+        #     propagation = "rshared"
+        #   }
+        # }
 
         mount {
           type     = "bind"
@@ -55,9 +57,10 @@ job "${nomad_namespace}-webapp" {
         }
       }
 
-      artifact {
-        source = "${artifacts_repository_url}/fr/ans/platines/platines-back/${artifacts_version}/platines-back-${artifacts_version}.war"
-      }
+      # DOCKER BUILD: artifact téléchargé pendant le build de l'image
+      # artifact {
+      #   source = "${artifacts_repository_url}/fr/ans/platines/platines-back/${artifacts_version}/platines-back-${artifacts_version}.war"
+      # }
 
       env {
         TOMCAT_ADDR         = "$${NOMAD_ADDR_http}"
