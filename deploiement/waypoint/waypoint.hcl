@@ -10,7 +10,7 @@ runner {
   data_source "git" {
     url  = "https://github.com/ansforge/dops-platines-application"
     ref  = "main"
-    path = "deploiement/waypoint"
+    path = "."
   }
   poll {
     enabled = false
@@ -28,7 +28,7 @@ app "database" {
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/platines-db/database.nomad.tpl", {
+      jobspec = templatefile("${path.project}/deploiement/waypoint/platines-db/database.nomad.tpl", {
         datacenter                = var.datacenter
         vault_secrets_engine_name = var.vault_secrets_engine_name
         vault_acl_policy_name     = var.vault_acl_policy_name
@@ -52,7 +52,7 @@ app "backup-db" {
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/platines-db/backup-database.nomad.tpl", {
+      jobspec = templatefile("${path.project}/deploiement/waypoint/platines-db/backup-database.nomad.tpl", {
         datacenter                = var.datacenter
         vault_secrets_engine_name = var.vault_secrets_engine_name
         vault_acl_policy_name     = var.vault_acl_policy_name
@@ -72,7 +72,7 @@ app "webapp" {
   # DOCKER BUILD: Build l'image au lieu de docker-ref
   build {
     use "docker" {
-      dockerfile = "${path.app}/../platines-webapp/Dockerfile"
+      dockerfile = "${path.project}/platines-webapp/Dockerfile"
       build_args = {
         ARTIFACTS_VERSION        = var.artifacts_version
         ARTIFACTS_REPOSITORY_URL = var.artifacts_repository_url
@@ -98,7 +98,7 @@ app "webapp" {
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/platines-back/platines.nomad.tpl", {
+      jobspec = templatefile("${path.project}/deploiement/waypoint/platines-back/platines.nomad.tpl", {
         datacenter                    = var.datacenter
         vault_secrets_engine_name     = var.vault_secrets_engine_name
         vault_acl_policy_name         = var.vault_acl_policy_name
@@ -131,7 +131,7 @@ app "reverse-proxy" {
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/platines-rp/reverse-proxy.nomad.tpl", {
+      jobspec = templatefile("${path.project}/deploiement/waypoint/platines-rp/reverse-proxy.nomad.tpl", {
         datacenter                = var.datacenter
         vault_secrets_engine_name = var.vault_secrets_engine_name
         vault_acl_policy_name     = var.vault_acl_policy_name
