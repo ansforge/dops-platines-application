@@ -80,12 +80,10 @@ app "webapp" {
     }
     registry {
       use "docker" {
-        image    = "614q518g.gra7.container-registry.ovh.net/ans/platines-webapp"
+        image    = "${var.registry_username}/platines-webapp"
         tag      = var.artifacts_version
         username = var.registry_username
         password = var.registry_password
-        local    = false
-        insecure = true
       }
     }
   }
@@ -109,8 +107,8 @@ app "webapp" {
         artifacts_version             = var.artifacts_version
         job_tmpl_repository           = var.job_tmpl_repository
         environment_java_tool_options = var.environment_java_tool_options
-        # DOCKER BUILD: Utilise l'image buildée dans Harbor
-        image                         = "614q518g.gra7.container-registry.ovh.net/ans/platines-webapp"
+        # DOCKER BUILD: Utilise l'image buildée dans Docker Hub
+        image                         = "${var.registry_username}/platines-webapp"
         tag                           = var.artifacts_version
         # DOCKER-REF: Ancienne méthode
         # image                       = var.webapp_image
