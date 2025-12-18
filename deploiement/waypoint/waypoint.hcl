@@ -68,8 +68,58 @@ app "backup-db" {
 }
 
 # Webapp application.
-app "webapp" {
+#app "webapp" {
   # DOCKER BUILD: Build l'image au lieu de docker-ref
+  #build {
+    #use "docker" {
+     # dockerfile = "${path.app}/Dockerfile"
+      #build_args = {
+       # ARTIFACTS_VERSION        = var.artifacts_version
+        #ARTIFACTS_REPOSITORY_URL = var.artifacts_repository_url
+      #}
+    #}
+    #registry {
+     # use "docker" {
+      #  image    = "${var.registry_username}/platines-webapp"
+       # tag      = var.artifacts_version
+        #username = var.registry_username
+        #password = var.registry_password
+      #}
+    #}
+  #}
+  
+  # DOCKER-REF: Ancienne méthode (pull image publique)
+  # build {
+  #   use "docker-ref" {
+  #     image = var.webapp_image
+  #     tag   = var.webapp_tag
+  #   }
+  # }
+
+ # deploy {
+  #  use "nomad-jobspec" {
+   #   jobspec = templatefile("${path.app}/platines-back/platines.nomad.tpl", {
+    #    datacenter                    = var.datacenter
+     #   vault_secrets_engine_name     = var.vault_secrets_engine_name
+      #  vault_acl_policy_name         = var.vault_acl_policy_name
+       # nomad_namespace               = var.nomad_namespace
+        #artifacts_repository_url      = var.artifacts_repository_url
+        #artifacts_version             = var.artifacts_version
+        #job_tmpl_repository           = var.job_tmpl_repository
+        #environment_java_tool_options = var.environment_java_tool_options
+        ## DOCKER BUILD: Utilise l'image buildée dans Docker Hub
+        #image                         = "${var.registry_username}/platines-webapp"
+        #tag                           = var.artifacts_version
+        # DOCKER-REF: Ancienne méthode
+        # image                       = var.webapp_image
+        # tag                         = var.webapp_tag
+        #log_shipper_image             = var.log_shipper_image
+        #log_shipper_tag               = var.log_shipper_tag
+      #})
+    #}
+  #}
+#}
+app "webapp" {
   build {
     use "docker" {
       dockerfile = "${path.app}/Dockerfile"
@@ -78,6 +128,7 @@ app "webapp" {
         ARTIFACTS_REPOSITORY_URL = var.artifacts_repository_url
       }
     }
+
     registry {
       use "docker" {
         image    = "${var.registry_username}/platines-webapp"
@@ -87,14 +138,6 @@ app "webapp" {
       }
     }
   }
-  
-  # DOCKER-REF: Ancienne méthode (pull image publique)
-  # build {
-  #   use "docker-ref" {
-  #     image = var.webapp_image
-  #     tag   = var.webapp_tag
-  #   }
-  # }
 
   deploy {
     use "nomad-jobspec" {
@@ -107,12 +150,8 @@ app "webapp" {
         artifacts_version             = var.artifacts_version
         job_tmpl_repository           = var.job_tmpl_repository
         environment_java_tool_options = var.environment_java_tool_options
-        # DOCKER BUILD: Utilise l'image buildée dans Docker Hub
         image                         = "${var.registry_username}/platines-webapp"
         tag                           = var.artifacts_version
-        # DOCKER-REF: Ancienne méthode
-        # image                       = var.webapp_image
-        # tag                         = var.webapp_tag
         log_shipper_image             = var.log_shipper_image
         log_shipper_tag               = var.log_shipper_tag
       })
