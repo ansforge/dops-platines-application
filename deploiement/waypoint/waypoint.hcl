@@ -80,7 +80,7 @@ app "webapp" {
     }
     registry {
       use "docker" {
-        image    = "${var.registry_username}/platines-webapp"
+        image    = "${var.registry_host}/${var.registry_username}/platines-webapp"
         tag      = var.artifacts_version
         username = var.registry_username
         password = var.registry_password
@@ -107,8 +107,8 @@ app "webapp" {
         artifacts_version             = var.artifacts_version
         job_tmpl_repository           = var.job_tmpl_repository
         environment_java_tool_options = var.environment_java_tool_options
-        # DOCKER BUILD: Utilise l'image buildée dans Docker Hub
-        image                         = "${var.registry_username}/platines-webapp"
+        # DOCKER BUILD: Utilise l'image buildée dans le registry OVH
+        image                         = "${var.registry_host}/${var.registry_username}/platines-webapp"
         tag                           = var.artifacts_version
         # DOCKER-REF: Ancienne méthode
         # image                       = var.webapp_image
@@ -174,7 +174,7 @@ variable "nomad_namespace" {
 
 variable "vault_acl_policy_name" {
   type    = string
-  default = "${workspace.name}"
+  default = "platines-${workspace.name}"
 }
 
 variable "vault_secrets_engine_name" {
