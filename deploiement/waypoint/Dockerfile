@@ -4,14 +4,12 @@ FROM eclipse-temurin:17-jre-jammy
 ARG ARTIFACTS_VERSION=2.3.2
 ARG ARTIFACTS_REPOSITORY_URL=https://repo.esante.gouv.fr/repository/asip-releases
 
-# Télécharger le WAR depuis le repository Maven
-RUN apt-get update && apt-get install -y wget && \
+# Créer les répertoires nécessaires et télécharger le WAR depuis le repository Maven
+RUN mkdir -p /usr/app/workspace && \
+    apt-get update && apt-get install -y wget && \
     wget -O /usr/app/platines-back.war \
     "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Créer le répertoire workspace
-RUN mkdir -p /usr/app/workspace
 
 USER daemon
 EXPOSE 8080
