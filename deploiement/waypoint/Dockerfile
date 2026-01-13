@@ -1,7 +1,14 @@
 FROM eclipse-temurin:17-jre-jammy
 
-# Copier le WAR depuis le dépôt local
-COPY platines-back-2.3.2.war /usr/app/platines-back.war
+# Arguments de build pour la version et l'URL du repository
+ARG ARTIFACTS_VERSION=2.3.2
+ARG ARTIFACTS_REPOSITORY_URL=https://repo.esante.gouv.fr/repository/asip-releases
+
+# Télécharger le WAR depuis le repository Maven
+RUN apt-get update && apt-get install -y wget && \
+    wget -O /usr/app/platines-back.war \
+    "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Créer le répertoire workspace
 RUN mkdir -p /usr/app/workspace
