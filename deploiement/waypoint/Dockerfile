@@ -7,7 +7,7 @@ ARG ARTIFACTS_REPOSITORY_URL=https://repo.esante.gouv.fr/repository/asip-release
 # Créer les répertoires nécessaires et télécharger le WAR depuis le repository Maven
 RUN mkdir -p /usr/app/workspace && \
     apt-get update && apt-get install -y wget && \
-    wget -O /usr/app/platines-back.war \
+    wget --no-check-certificate -O /usr/app/platines-back.war \
     "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
