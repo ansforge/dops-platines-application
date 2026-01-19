@@ -88,7 +88,7 @@ frontend        main
         option                    httplog
         option                    forwardfor         # except 127.0.0.0/8
         bind *:8080
-        bind *:8443               ssl crt /secrets/platines.pem ciphers RSA:!EXP:!NULL:+HIGH:-MEDIUM:-LOW
+        bind *:8443
 
 # -- Active HSTS pour un an & pour les sous-domaines aussi
         http-response add-header Strict-Transport-Security max-age=31536000;includeSubDomains
@@ -97,8 +97,8 @@ frontend        main
 # -- Contrôle de l'url
 #        acl is_authorized path_reg /\/(|assets|secure|insecure|session).*
 
-# -- Redirection vers https
-        redirect scheme https if !{ ssl_fc }
+# -- Redirection vers https désactivée (SSL terminé par le LB Scaleway)
+#        redirect scheme https if !{ ssl_fc }
 
 #        use_backend platines if is_authorized
 
