@@ -153,7 +153,7 @@ EOH
           path     = "/"
           name     = "check_tomcat"
           interval = "40s"
-          timeout  = "10s"
+          timeout  = "30s"
         }
       }
     }
