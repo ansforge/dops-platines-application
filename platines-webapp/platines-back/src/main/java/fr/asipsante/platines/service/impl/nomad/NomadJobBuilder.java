@@ -272,10 +272,6 @@ public class NomadJobBuilder {
           }
           truststoreArtifact.setGetterMode("file");
           truststoreArtifact.setRelativeDest("secrets/" + TRUSTSTORE_FILE_NAME);
-          // Configure getter options to ignore SSL verification
-          final Map<String, String> truststoreGetterOptions = new HashMap<>();
-          truststoreGetterOptions.put("insecure", "true");
-          truststoreArtifact.setGetterOptions(truststoreGetterOptions);
           task.get().addArtifactsItem(truststoreArtifact);
           env.put("TRUSTSTORE_FILE", TRUSTSTORE_FILE_NAME);
           // Activer l'authentification mutuelle
