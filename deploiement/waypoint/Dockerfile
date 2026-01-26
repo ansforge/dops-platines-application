@@ -9,9 +9,10 @@ RUN mkdir -p /usr/app/workspace /usr/app/truststore && \
     apt-get update && apt-get install -y wget && \
     wget --no-check-certificate -O /usr/app/platines-back.war \
     "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
-    wget --no-check-certificate -O /usr/app/truststore/truststore.jks \
-    "https://repo.esante.gouv.fr/asip-ac/truststore/prod-test/IGC-Sante-Classe4/truststore.jks" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copier le truststore IGC-Santé depuis le workspace local
+COPY truststore.jks /usr/app/truststore/truststore.jks
 
 USER daemon
 EXPOSE 8080
