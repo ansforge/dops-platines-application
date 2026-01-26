@@ -7,7 +7,7 @@ COPY ../../components ./components
 
 # Compiler le projet
 WORKDIR /build/platines-webapp
-RUN mvn clean package -DskipTests -pl platines-back -am
+RUN mvn clean package -DskipTests -Dlicense.skip=true -pl platines-back -am
 
 FROM eclipse-temurin:17-jre-jammy
 
