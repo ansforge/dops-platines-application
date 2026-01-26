@@ -1,16 +1,18 @@
-FROM eclipse-temurin:17-jdk-jammy AS builder
+FROM maven:3.9-eclipse-temurin-17 AS builder
 
-# Copier le code source
-COPY ../../platines-webapp /build
+# Copier le code source du workspace root
 WORKDIR /build
+COPY ../../platines-webapp ./platines-webapp
+COPY ../../components ./components
 
 # Compiler le projet
-RUN ./mvnw clean package -DskipTests
+WORKDIR /build/platines-webapp
+RUN mvn clean package -DskipTests -pl platines-back -am
 
 FROM eclipse-temurin:17-jre-jammy
 
 # Copier le WAR compilé depuis le builder
-COPY --from=builder /build/platines-back/target/platines-back-*.war /usr/app/platines-back.war
+COPY --from=builder /build/platines-webapp/platines-back/target/platines-back-*.war /usr/app/platines-back.war
 
 RUN mkdir -p /usr/app/workspace
 
