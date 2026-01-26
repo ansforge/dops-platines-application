@@ -1,15 +1,18 @@
+FROM eclipse-temurin:17-jdk-jammy AS builder
+
+# Copier le code source
+COPY ../../platines-webapp /build
+WORKDIR /build
+
+# Compiler le projet
+RUN ./mvnw clean package -DskipTests
+
 FROM eclipse-temurin:17-jre-jammy
 
-# Arguments de build pour la version et l'URL du repository
-ARG ARTIFACTS_VERSION=2.3.2
-ARG ARTIFACTS_REPOSITORY_URL=https://repo.esante.gouv.fr/repository/asip-releases
+# Copier le WAR compilé depuis le builder
+COPY --from=builder /build/platines-back/target/platines-back-*.war /usr/app/platines-back.war
 
-# Créer les répertoires nécessaires et télécharger le WAR depuis le repository Maven
-RUN mkdir -p /usr/app/workspace && \
-    apt-get update && apt-get install -y wget && \
-    wget --no-check-certificate -O /usr/app/platines-back.war \
-    "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /usr/app/workspace
 
 USER daemon
 EXPOSE 8080
