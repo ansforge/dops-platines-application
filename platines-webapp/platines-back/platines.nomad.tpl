@@ -73,6 +73,9 @@ spring.main.allow-bean-definition-overriding=true
 logging.level.org.springframework.web=DEBUG
 logging.level.root=INFO
 server.servlet.context-path=/
+# Truststore configuration
+{{with secret "platines/tomcat"}}
+default.truststore.external.url={{.Data.data.default_truststore_external_url}}{{end}}
 # MariaDB
 {{range service ( print (env "NOMAD_NAMESPACE") "-db") }}
 spring.datasource.url=jdbc:mariadb://{{.Address}}:{{.Port}}/platines{{end}}
