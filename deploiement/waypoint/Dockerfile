@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jre-jammy
 
 # Arguments de build pour la version et l'URL du repository
-ARG ARTIFACTS_VERSION=2.3.2
+ARG ARTIFACTS_VERSION=2.3.8
 ARG ARTIFACTS_REPOSITORY_URL=https://repo.esante.gouv.fr/repository/asip-releases
 
 # Copier le certificat CA IGC-Santé
