@@ -193,7 +193,7 @@ variable "artifacts_repository_url" {
 
 variable "artifacts_version" {
   type    = string
-  default = "2.3.2"
+  default = "2.3.8"
 }
 
 variable "datacenter" {
