@@ -111,7 +111,7 @@ EOH
     task "send-dump" {
       driver = "docker"
       config {
-        image   = "ans/scp-client"
+        image   = "614q518g.gra7.container-registry.ovh.net/ans/scp-client"
         command = "bash"
         args    = ["/secrets/send.sh"]
       }
