@@ -128,7 +128,7 @@ EOH
       }
       service {
         name = "${nomad_namespace}-haproxy"
-        tags = ["urlprefix-$${PUBLIC_HOSTNAME}/ allow=ip:$${ALLOWED_IPS}"]
+        tags = ["urlprefix-$${PUBLIC_HOSTNAME}/ allow=$${ALLOWED_IPS}"]
         port = "https"
         check {
           type     = "tcp"
