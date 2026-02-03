@@ -10,6 +10,7 @@ COPY ACI-EL-ORG.crt /usr/local/share/ca-certificates/
 # Mettre à jour les certificats CA du système
 RUN update-ca-certificates
 
+# Force rebuild - 2026-02-03
 # Créer les répertoires nécessaires et télécharger le WAR depuis le repository Maven
 RUN mkdir -p /usr/app/workspace && \
     apt-get update && apt-get install -y wget ca-certificates && \
