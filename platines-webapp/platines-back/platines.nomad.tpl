@@ -34,6 +34,7 @@ job "${nomad_namespace}-webapp" {
         #   "/usr/app/platines-back.war"
         # ]
         ports = ["http"]
+        extra_hosts = ["repo.proxy-dev-forge.asip.hst.fluxus.net:172.16.0.6"]
         
         # DOCKER BUILD: WAR inclus dans l'image, plus besoin de mount
         # mount {
