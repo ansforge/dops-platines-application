@@ -27,11 +27,13 @@ job "${nomad_namespace}-webapp" {
       driver = "docker"
       config {
         image = "${image}:${tag}"
-        entrypoint = [
-          "/local/entrypoint.sh"
-        ]
+        # DOCKER BUILD: entrypoint défini dans le Dockerfile
+        # entrypoint = [
+        #   "java",
+        #   "-jar",
+        #   "/usr/app/platines-back.war"
+        # ]
         ports = ["http"]
-        user = "root"
         
         # DOCKER BUILD: WAR inclus dans l'image, plus besoin de mount
         # mount {
@@ -62,16 +64,6 @@ job "${nomad_namespace}-webapp" {
       
       env {
         TOMCAT_ADDR = "$${NOMAD_ADDR_http}"
-      }
-      template {
-        data = <<EOH
-#!/bin/bash
-echo "172.16.0.4 repo.proxy-dev-forge.asip.hst.fluxus.net" >> /etc/hosts
-exec java -jar /usr/app/platines-back.war
-EOH
-        destination = "local/entrypoint.sh"
-        change_mode = "restart"
-        perms = "755"
       }
       template {
         destination = "secrets/application.properties"
