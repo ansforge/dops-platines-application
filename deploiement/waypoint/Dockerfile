@@ -17,7 +17,12 @@ RUN mkdir -p /usr/app/workspace && \
     "${ARTIFACTS_REPOSITORY_URL}/fr/ans/platines/platines-back/${ARTIFACTS_VERSION}/platines-back-${ARTIFACTS_VERSION}.war" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER daemon
+# Créer le script d'entrypoint qui ajoute l'entrée hosts puis lance l'application
+RUN echo '#!/bin/bash' > /usr/app/entrypoint.sh && \
+    echo 'echo "172.16.0.4 repo.proxy-dev-forge.asip.hst.fluxus.net" >> /etc/hosts' >> /usr/app/entrypoint.sh && \
+    echo 'exec su daemon -s /bin/bash -c "java -jar /usr/app/platines-back.war"' >> /usr/app/entrypoint.sh && \
+    chmod +x /usr/app/entrypoint.sh
+
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/usr/app/platines-back.war"]
+ENTRYPOINT ["/usr/app/entrypoint.sh"]
