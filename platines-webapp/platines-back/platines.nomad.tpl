@@ -18,10 +18,14 @@ job "${nomad_namespace}-webapp" {
   group "platines-webapp" {
     count = "1"
     network {
-      port "http" {
-        to = 8080
-      }
+     port "http" {
+       to = 8080
+     }
+    dns {
+      # Mettre l'IP du reverse proxy ou un DNS interne qui connaît le FQDN
+      servers = ["172.16.0.6"]
     }
+  }
     task "platines-webapp" {
       driver = "docker"
       config {
