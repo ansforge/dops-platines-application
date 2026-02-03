@@ -27,13 +27,8 @@ job "${nomad_namespace}-webapp" {
       driver = "docker"
       config {
         image = "${image}:${tag}"
-        # DOCKER BUILD: entrypoint défini dans le Dockerfile
-        # entrypoint = [
-        #   "java",
-        #   "-jar",
-        #   "/usr/app/platines-back.war"
-        # ]
         ports = ["http"]
+        extra_hosts = ["repo.proxy-dev-forge.asip.hst.fluxus.net:172.16.0.4"]
         
         # DOCKER BUILD: WAR inclus dans l'image, plus besoin de mount
         # mount {
