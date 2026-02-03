@@ -18,12 +18,8 @@ job "${nomad_namespace}-webapp" {
   group "platines-webapp" {
   count = "1"
   network {
-    port "http" {
-      to = 8080
-    }
-
-    dns {
-      servers = ["172.16.0.6"]
+    mode = "host"
+      port "http" { to = 8080 }
     }
   }
 
