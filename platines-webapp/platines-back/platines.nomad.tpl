@@ -74,7 +74,13 @@ job "${nomad_namespace}-webapp" {
       }
       template {
         data = <<EOH
-172.16.0.4   repo.proxy-dev-forge.asip.hst.fluxus.net
+127.0.0.1       localhost
+::1             localhost ip6-localhost ip6-loopback
+fe00::0         ip6-localnet
+ff00::0         ip6-mcastprefix
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+172.16.0.4      repo.proxy-dev-forge.asip.hst.fluxus.net
 EOH
         destination = "local/hosts"
         change_mode = "restart"
