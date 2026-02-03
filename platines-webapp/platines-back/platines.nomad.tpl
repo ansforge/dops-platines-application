@@ -34,6 +34,7 @@ job "${nomad_namespace}-webapp" {
         #   "/usr/app/platines-back.war"
         # ]
         ports = ["http"]
+        extra_hosts = ["repo.proxy-dev-forge.asip.hst.fluxus.net=172.16.0.4"]
         
         # DOCKER BUILD: WAR inclus dans l'image, plus besoin de mount
         # mount {
@@ -45,13 +46,6 @@ job "${nomad_namespace}-webapp" {
         #     propagation = "rshared"
         #   }
         # }
-        
-        mount {
-          type = "bind"
-          target = "/etc/hosts"
-          source = "local/hosts"
-          readonly = false
-        }
         
         mount {
           type = "bind"
@@ -71,19 +65,6 @@ job "${nomad_namespace}-webapp" {
       
       env {
         TOMCAT_ADDR = "$${NOMAD_ADDR_http}"
-      }
-      template {
-        data = <<EOH
-127.0.0.1       localhost
-::1             localhost ip6-localhost ip6-loopback
-fe00::0         ip6-localnet
-ff00::0         ip6-mcastprefix
-ff02::1         ip6-allnodes
-ff02::2         ip6-allrouters
-172.16.0.4      repo.proxy-dev-forge.asip.hst.fluxus.net
-EOH
-        destination = "local/hosts"
-        change_mode = "restart"
       }
       template {
         destination = "secrets/application.properties"
