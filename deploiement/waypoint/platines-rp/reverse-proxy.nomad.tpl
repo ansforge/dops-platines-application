@@ -93,7 +93,7 @@ frontend        main
         option                    httplog
         option                    forwardfor         # except 127.0.0.0/8
         bind *:8080
-        bind *:8443 ssl crt /secrets/platines.pem
+        bind *:8443
 
 # -- Active HSTS pour un an & pour les sous-domaines aussi
         http-response add-header Strict-Transport-Security max-age=31536000;includeSubDomains
