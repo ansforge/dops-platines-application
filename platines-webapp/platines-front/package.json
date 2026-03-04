@@ -39,7 +39,7 @@
     "@types/file-saver": "^2.0.5",
     "@types/lodash": "4.14.191",
     "chart.js": "4.2.1",
-    "ckeditor5": "^37.0.1",
+    "ckeditor5": "^47.6.0",
     "core-js": "3.28.0",
     "echarts": "^5.4.1",
     "file-saver": "^2.0.5",
