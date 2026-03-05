@@ -56,7 +56,7 @@
     "ngx-popperjs": "^15.0.4",
     "normalize-path": "^3.0.0",
     "normalize.css": "8.0.1",
-    "npm": "^9.5.0",
+    "npm": "^11.11.0",
     "roboto-fontface": "0.10.0",
     "rxjs": "^7.8.0",
     "sass": "^1.62.0",
@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.0",
-    "@angular/cli": "^15.2.0",
+    "@angular/cli": "^21.2.0",
     "@angular/compiler-cli": "^15.1.5",
     "@angular/language-service": "^15.1.5",
     "@compodoc/compodoc": "1.1.19",
